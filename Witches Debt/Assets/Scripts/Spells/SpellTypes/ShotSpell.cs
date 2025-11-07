@@ -1,12 +1,19 @@
 using System;
 using UnityEngine;
 
-public class ShotSpell : MonoBehaviour
+public class ShotSpell : Spell
 {
-    [SerializeField] private float speed = 15f;
+    [SerializeField] private float testSpeed = 15f;
 
-    private void Update()
+    protected override void Awake()
     {
-        transform.position += speed * Time.deltaTime * transform.up;
+        base.Awake();
+        data.speed = testSpeed;
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        transform.position += data.speed * Time.deltaTime * transform.up;
     }
 }

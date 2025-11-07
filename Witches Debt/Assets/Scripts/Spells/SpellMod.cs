@@ -1,3 +1,4 @@
-public class SpellMod
+public abstract class SpellMod
 {
+    public abstract void Apply(Spell spell);
 }

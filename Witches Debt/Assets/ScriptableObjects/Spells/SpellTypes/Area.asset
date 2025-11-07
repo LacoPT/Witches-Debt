@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ab28876091bb331a9fb69a8521a0806, type: 3}
   m_Name: Area
   m_EditorClassIdentifier: Assembly-CSharp::SpellType
-  SpellPrefab: {fileID: 0}
+  SpellPrefab: {fileID: 3189167301264106626, guid: 866e101ee580022bdb59f7d5c687bc52, type: 3}
