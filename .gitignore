@@ -107,3 +107,4 @@ InitTestScene*.unity*
 # NuGet packages
 Assets/Packages
 nuget-packages/
+Witches Debt/.vsconfig
