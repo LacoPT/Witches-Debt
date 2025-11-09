@@ -1,3 +1,5 @@
+using System;
+
 public class EnemyModel
 {
     private EnemyConfig config;
@@ -15,6 +17,8 @@ public class EnemyModel
     public float CurrentAttackSpeed => currentAttackSpeed;
     public float ContactDamage => contactDamage;
     public float AttackDamage => attackDamage;
+
+    public event Action EnemyDeath;
     public EnemyModel(EnemyConfig config)
     {
         this.config = config;
@@ -28,5 +32,17 @@ public class EnemyModel
         currentAttackSpeed = baseAttackSpeed;
     }
 
-    
+    public void TakeDamage(float decrement)
+    {
+        currentHealth -= decrement;
+        CheckHealth();
+    }
+
+    private void CheckHealth()
+    {
+        if(currentHealth <= 0)
+        {
+            EnemyDeath?.Invoke();
+        }
+    }
 }
