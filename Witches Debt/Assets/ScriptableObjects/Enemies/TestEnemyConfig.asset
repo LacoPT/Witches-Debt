@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ab28876091bb331a9fb69a8521a0806, type: 3}
-  m_Name: Shot
-  m_EditorClassIdentifier: Assembly-CSharp::SpellType
-  SpellPrefab: {fileID: 653394125386043038, guid: 7c6933ee26daa38a385ce9ce6d55fe1b, type: 3}
+  m_Script: {fileID: 11500000, guid: b5526d866cdc01e43afc7d9af9ff4484, type: 3}
+  m_Name: TestEnemyConfig
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyConfig
+  maxHP: 100
+  baseMovingSpeed: 1
+  contactDamage: 10
+  baseAttackSpeed: 0
+  attackDamage: 0
