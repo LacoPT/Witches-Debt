@@ -21,6 +21,13 @@ public class EnemyController : MonoBehaviour
     private void FixedUpdate()
     {
         var posDiff = target.position - transform.position;
+        Flip(posDiff);
+        rb.MovePosition(transform.position + model.CurrentMovingSpeed * Time.fixedDeltaTime * posDiff.normalized);
+    }
+
+    //TODO: move to EnemyView
+    private void Flip(Vector3 posDiff )
+    {
         if (posDiff.x > 0 != transform.localScale.x > 0)
         {
             transform.localScale = new(transform.localScale.x * (-1),
@@ -28,7 +35,6 @@ public class EnemyController : MonoBehaviour
                                                      transform.localScale.z);
             Debug.Log("Flip");
         }
-        rb.MovePosition(transform.position + model.CurrentMovingSpeed * Time.fixedDeltaTime * posDiff.normalized);
     }
 
     private void OnCollisionStay2D(Collision2D other)
