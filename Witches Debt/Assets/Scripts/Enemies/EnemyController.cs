@@ -20,7 +20,15 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.MovePosition(transform.position + model.CurrentMovingSpeed * Time.fixedDeltaTime * (target.position - transform.position).normalized);
+        var posDiff = target.position - transform.position;
+        if (posDiff.x > 0 != transform.localScale.x > 0)
+        {
+            transform.localScale = new(transform.localScale.x * (-1),
+                                                     transform.localScale.y,
+                                                     transform.localScale.z);
+            Debug.Log("Flip");
+        }
+        rb.MovePosition(transform.position + model.CurrentMovingSpeed * Time.fixedDeltaTime * posDiff.normalized);
     }
 
     private void OnCollisionStay2D(Collision2D other)
