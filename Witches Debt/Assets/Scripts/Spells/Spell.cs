@@ -4,6 +4,7 @@ using UnityEngine.Events;
 
 public abstract class Spell : MonoBehaviour
 {
+    //TODO: PUBLIC UNPROTECTED FIELDS, FIX !!!
     public SpellData data;
     public SpellConfiguration config;
     public bool isClone = false;
