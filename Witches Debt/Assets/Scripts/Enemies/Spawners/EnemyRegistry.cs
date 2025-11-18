@@ -7,7 +7,7 @@ using Vector3 = UnityEngine.Vector3;
 /// </summary>
 public class EnemyRegistry
 {
-    private readonly List<EnemyController> enemies;
+    private readonly List<EnemyController> enemies = new();
     public IReadOnlyList<EnemyController> Enemies => enemies;
     public IEnumerable<Vector3> EnemyPositions => Enemies.Select(enemy => enemy.transform.position);
 
