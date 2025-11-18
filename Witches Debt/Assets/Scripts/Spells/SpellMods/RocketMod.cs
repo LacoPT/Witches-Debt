@@ -7,7 +7,7 @@ public class RocketMod : SpellMod
     public override void Apply(Spell spell)
     {
         spell.data.speed *= 0.1f;
-        spell.OnUpdate.AddListener(() =>
+        spell.AfterUpdate.AddListener(() =>
         {
             spell.data.speed += SPEED_UP_FACTOR * Time.deltaTime;
         });

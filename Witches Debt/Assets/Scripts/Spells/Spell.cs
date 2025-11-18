@@ -4,14 +4,15 @@ using UnityEngine.Events;
 
 public abstract class Spell : MonoBehaviour
 {
+    //TODO: PUBLIC UNPROTECTED FIELDS, FIX !!!
     public SpellData data;
     public SpellConfiguration config;
     public bool isClone = false;
 
-    public UnityEvent OnSpawn;
-    public UnityEvent<EnemyHittable> OnHit;
-    public UnityEvent OnUpdate;
-    public UnityEvent OnDestroy;
+    public UnityEvent Spawn;
+    public UnityEvent<EnemyHittable> Hit;
+    public UnityEvent AfterUpdate;
+    public UnityEvent PreDestroy;
 
     protected virtual void Awake()
     {
@@ -20,11 +21,11 @@ public abstract class Spell : MonoBehaviour
 
     protected virtual void Start()
     {
-        OnSpawn.Invoke();
+        Spawn.Invoke();
     }
 
     protected virtual void Update()
     {
-        OnUpdate.Invoke();
+        AfterUpdate.Invoke();
     }
 }
