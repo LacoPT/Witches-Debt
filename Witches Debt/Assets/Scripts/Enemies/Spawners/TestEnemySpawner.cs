@@ -44,7 +44,6 @@ public class TestEnemySpawner : MonoBehaviour
 
     public void Spawn()
     {
-        //var enemy = container.InstantiatePrefabForComponent<EnemyController>(EnemyPrefab);
         var enemy = Instantiate(EnemyPrefab).GetComponent<EnemyController>();
         var angle = Random.Range(-Mathf.PI, Mathf.PI);
         var offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * spawnRadius;

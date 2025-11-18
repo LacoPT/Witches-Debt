@@ -16,9 +16,8 @@ public class PlayerController : MonoBehaviour
 
 
     [Inject]
-    public void Construct(EnemyRegistry enemyRegistry, PlayerTargetProvider targetProvider)
+    public void Construct(PlayerTargetProvider targetProvider)
     {
-        this.enemyRegistry = enemyRegistry;
         this.targetProvider = targetProvider;
         targetProvider.SetTarget(transform);
     }
