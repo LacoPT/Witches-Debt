@@ -12,14 +12,14 @@ public class SpellCaster : MonoBehaviour
     [SerializeField] private SpellType TestSpellType;
     
     private SpellConfiguration config;
-    private Func<Vector2> targetChooseFunction;
+    private Func<Vector2> shootDirectionFunc;
     private bool onCooldown = false;
     private EnemyRegistry registry;
 
     //This is a test method right now, todo: read some shit about zenject
     private void Awake()
     {
-       targetChooseFunction = ClosestTarget; 
+       shootDirectionFunc = ClosestTarget; 
         config = new SpellConfiguration
         {
             type = TestSpellType
@@ -41,7 +41,7 @@ public class SpellCaster : MonoBehaviour
         {
             var spell = Instantiate(TestSpellPrefab,
                 transform.position,
-                Quaternion.LookRotation(Vector3.forward, targetChooseFunction()));
+                Quaternion.LookRotation(Vector3.forward, shootDirectionFunc()));
             config.ApplyMods(spell);
             onCooldown = true;
             StartCoroutine(WaitForCooldown());

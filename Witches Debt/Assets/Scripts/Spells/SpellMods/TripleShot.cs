@@ -10,7 +10,7 @@ public class TripleShot : SpellMod
     {
         //TODO: Come up with a smarter way to do this
         if (spell.isClone) return;
-        spell.OnSpawn.AddListener(() =>
+        spell.Spawn.AddListener(() =>
         {
             var offsetAngle1 = DISPERSION_RADIANS;
             var offsetAngle2 = -DISPERSION_RADIANS;
