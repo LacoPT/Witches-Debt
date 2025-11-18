@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -9,21 +10,29 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField] Rigidbody2D rb;
     
-    private Vector2 MoveInput;
+    private Vector2 moveInput;
+    private EnemyRegistry enemyRegistry;
+    private PlayerTargetProvider targetProvider;
 
+
+    [Inject]
+    public void Construct(PlayerTargetProvider targetProvider)
+    {
+        this.targetProvider = targetProvider;
+        targetProvider.SetTarget(transform);
+    }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        MoveInput = context.ReadValue<Vector2>();
+        moveInput = context.ReadValue<Vector2>();
     }
     
     private void Update()
     {
-        
     }
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + Time.fixedDeltaTime * MoveSpeed * MoveInput.normalized);
+        rb.MovePosition(rb.position + Time.fixedDeltaTime * MoveSpeed * moveInput.normalized);
     }
 }

@@ -5,6 +5,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private EnemyModelMB modelMB;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform target;
+    public PlayerTargetProvider targetProvider { get; set; }
     private EnemyModel model;
 
     private void Start()
@@ -20,7 +21,8 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var posDiff = target.position - transform.position;
+        //var posDiff = target.position - transform.position;
+        var posDiff = targetProvider.Position - transform.position;
         Flip(posDiff);
         rb.MovePosition(transform.position + model.CurrentMovingSpeed * Time.fixedDeltaTime * posDiff.normalized);
     }
