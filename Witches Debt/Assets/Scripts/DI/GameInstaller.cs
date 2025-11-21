@@ -6,5 +6,6 @@ public class GameInstaller : MonoInstaller
     {
         Container.Bind<EnemyRegistry>().AsSingle();
         Container.Bind<PlayerTargetProvider>().AsSingle();
+        Container.Bind<ModLibrary>().AsSingle();
     }
 }
