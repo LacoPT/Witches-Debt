@@ -3,6 +3,8 @@ using UnityEngine;
 public class RocketMod : SpellMod
 {
     private const float SPEED_UP_FACTOR = 15f;
+    
+    public override ModRarity Rarity => ModRarity.Common;
 
     public override void Apply(Spell spell)
     {

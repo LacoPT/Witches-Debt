@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
         targetProvider.SetTarget(transform);
         for (int i = 0; i < 3; i++)
         {
-            Debug.Log(modLibrary.GetRandomMod());
+            Debug.Log(modLibrary.GetCompletelyRandomMod());
         }
     }
 

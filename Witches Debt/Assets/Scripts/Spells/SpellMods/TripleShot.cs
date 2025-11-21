@@ -5,6 +5,8 @@ public class TripleShot : SpellMod
     private const float BASE_SIZE = 0.5f;
     private const float SPACING = 1f;
     private const float DISPERSION_RADIANS = Mathf.PI / 6;
+    
+    public override ModRarity Rarity => ModRarity.Common;
         
     public override void Apply(Spell spell)
     {
