@@ -47,7 +47,7 @@ public class TestEnemySpawner : MonoBehaviour
         var enemy = Instantiate(EnemyPrefab).GetComponent<EnemyController>();
         var angle = Random.Range(-Mathf.PI, Mathf.PI);
         var offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * spawnRadius;
-        enemy.targetProvider = targetProvider;
+        enemy.SetTarget(targetProvider);
         enemy.transform.position = targetProvider.Position + offset;
         registry.Register(enemy);
         enemy.GetComponent<EnemyModelMB>().EnemyModel.EnemyDeath += () => registry.Unregister(enemy);

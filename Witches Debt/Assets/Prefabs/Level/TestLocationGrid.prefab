@@ -91973,7 +91973,7 @@ GameObject:
   - component: {fileID: 6833057125705483182}
   - component: {fileID: 6406669727564706873}
   m_Layer: 0
-  m_Name: TestLoacationGrid
+  m_Name: TestLocationGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
