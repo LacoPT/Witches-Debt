@@ -15,7 +15,7 @@ MonoBehaviour:
   image: {fileID: 8320658711239090079, guid: 6460cda31c9dee54e9f60c9e75ad5fb7, type: 3}
   rarity: 0
   type: 0
-  name:
+  itemName:
     m_TableReference:
       m_TableCollectionName: GUID:5476e614ac11c5d47bdedd5e370f027f
     m_TableEntryReference:
@@ -26,9 +26,9 @@ MonoBehaviour:
     m_LocalVariables: []
   description:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:a5754b17e33435f4ab789d7d1db9ab61
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 9212186624
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
