@@ -19,6 +19,14 @@ MonoBehaviour:
     m_Key: TripleShotDesc
     m_Metadata:
       m_Items: []
+  - m_Id: 243495857475584
+    m_Key: RocketModDesc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 243632902164480
+    m_Key: SpeedUpModDesc
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -19,6 +19,14 @@ MonoBehaviour:
     m_Key: TripleShotName
     m_Metadata:
       m_Items: []
+  - m_Id: 243886275874816
+    m_Key: RocketModName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 243965288173568
+    m_Key: SpeedUpModName
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
