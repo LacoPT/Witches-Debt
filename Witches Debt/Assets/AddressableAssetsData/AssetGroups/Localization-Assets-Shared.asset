@@ -15,6 +15,21 @@ MonoBehaviour:
   m_GroupName: Localization-Assets-Shared
   m_GUID: be530f6e98908b6459093c415ae1bb4b
   m_SerializeEntries:
+  - m_GUID: 181b5d843fcff324fb2049f652f13aa9
+    m_Address: Assets/Locales/AssetTable Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5476e614ac11c5d47bdedd5e370f027f
+    m_Address: Assets/Locales/ModNames Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a5754b17e33435f4ab789d7d1db9ab61
+    m_Address: Assets/Locales/ModDescription Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ba51162d516dda545bca2c51889c03fa
     m_Address: Assets/Locales/Shop Labels Shared Data.asset
     m_ReadOnly: 1
