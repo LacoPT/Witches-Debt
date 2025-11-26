@@ -12,6 +12,7 @@ public class TestEnemySpawner : MonoBehaviour
     //I need an EnemyController.SetTarget method
     [SerializeField] private EnemyController EnemyPrefab;
 
+
     private EnemyRegistry registry;
     private PlayerTargetProvider targetProvider;
     private DiContainer container;
@@ -22,7 +23,6 @@ public class TestEnemySpawner : MonoBehaviour
     [Inject]
     public void Construct(EnemyRegistry registry, PlayerTargetProvider targetProvider, DiContainer container)
     {
-        Debug.Log("Injection");
         this.registry = registry;
         this.targetProvider = targetProvider;
         this.container = container;
@@ -42,14 +42,15 @@ public class TestEnemySpawner : MonoBehaviour
         onCooldown = false;
     }
 
-    //public void Spawn()
-    //{
-    //    var enemy = Instantiate(EnemyPrefab).GetComponent<EnemyController>();
-    //    var angle = Random.Range(-Mathf.PI, Mathf.PI);
-    //    var offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * spawnRadius;
-    //    enemy.SetTarget(targetProvider);
-    //    enemy.transform.position = targetProvider.Position + offset;
-    //    registry.Register(enemy);
-    //    enemy.GetComponent<EnemyModelMB>().EnemyModel.EnemyDeath += () => registry.Unregister(enemy);
-    //}
+    public void Spawn()
+    {
+        
+        var enemy = Instantiate(EnemyPrefab).GetComponent<EnemyController>();
+        var angle = Random.Range(-Mathf.PI, Mathf.PI);
+        var offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * spawnRadius;
+        enemy.targetProvider = targetProvider;
+        enemy.transform.position = targetProvider.Position + offset;
+        registry.Register(enemy);
+        enemy.GetComponent<EnemyModelMB>().EnemyModel.EnemyDeath += () => registry.Unregister(enemy);
+    }
 }

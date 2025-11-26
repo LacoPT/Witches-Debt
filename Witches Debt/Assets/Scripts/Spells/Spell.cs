@@ -16,7 +16,6 @@ public abstract class Spell : MonoBehaviour
 
     protected virtual void Awake()
     {
-        //OnSpawn.Invoke();
     }
 
     protected virtual void Start()

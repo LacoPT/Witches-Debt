@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using ModestTree;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -67,6 +68,7 @@ public class SpellCaster : MonoBehaviour
 
     private Vector2 ClosestTarget()
     {
+        if (registry.Enemies.IsEmpty()) return RandomAngle();
         Vector3 closest = registry.EnemyPositions.Aggregate((best, p) =>
                 (p - transform.position).sqrMagnitude < (best - transform.position).sqrMagnitude ? p : best);
         return (closest - transform.position).normalized;
