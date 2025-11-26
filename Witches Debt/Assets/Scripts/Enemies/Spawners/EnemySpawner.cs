@@ -20,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
     private bool onCooldown = false;
     private const float cooldown = 2.5f;
     private const float spawnRadius = 10f;
-    private Dictionary<string, float> bounds = new();
+    private Dictionary<Bounds, float> bounds = new();
 
     [Inject]
     public void Construct(EnemyRegistry registry, PlayerTargetProvider targetProvider, DiContainer container)
@@ -43,10 +43,10 @@ public class EnemySpawner : MonoBehaviour
 
     private void InitializeBounds()
     {
-        bounds["Left"] = topLeft.transform.position.x;
-        bounds["Right"] = bottomRight.transform.position.x;
-        bounds["Top"] = topLeft.transform.position.y;
-        bounds["Bottom"] = bottomRight.transform.position.y;
+        bounds[Bounds.Left] = topLeft.transform.position.x;
+        bounds[Bounds.Right] = bottomRight.transform.position.x;
+        bounds[Bounds.Top] = topLeft.transform.position.y;
+        bounds[Bounds.Bottom] = bottomRight.transform.position.y;
 
     }
 
@@ -72,8 +72,6 @@ public class EnemySpawner : MonoBehaviour
         for (var i = 0; i < cnt; i++)
         {
             var enemy = enemyPools[current].Get();
-            //var angle = Random.Range(-Mathf.PI, Mathf.PI);
-            //var offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * spawnRadius;
             enemy.EnemyModel.SetTarget(targetProvider);
 
             enemy.transform.position = GetSpawnPosition();
@@ -94,10 +92,10 @@ public class EnemySpawner : MonoBehaviour
 
     private Vector3 GetPositionInBounds(Vector3 position)
     {
-        if (position.x < bounds["Left"]) position.x = bounds["Left"];
-        else if (position.x > bounds["Right"]) position.x = bounds["Right"];
-        if (position.y < bounds["Bottom"]) position.y = bounds["Bottom"];
-        else if (position.y > bounds["Top"]) position.y = bounds["Top"];
+        if (position.x < bounds[Bounds.Left]) position.x = bounds[Bounds.Left];
+        else if (position.x > bounds[Bounds.Right]) position.x = bounds[Bounds.Right];
+        if (position.y < bounds[Bounds.Bottom]) position.y = bounds[Bounds.Bottom];
+        else if (position.y > bounds[Bounds.Top]) position.y = bounds[Bounds.Top];
         return position;
     }
 }

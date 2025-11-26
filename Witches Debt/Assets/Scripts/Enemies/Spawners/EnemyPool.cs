@@ -9,7 +9,7 @@ public class EnemyPool
     public EnemyPool(EnemyModelMB prefab, EnemyRegistry registry)
     {
         this.prefab = prefab;
-        this.registry = registry; // idk if this could be replace with inject
+        this.registry = registry; // idk if this could be replaced with inject
         Pool = new ObjectPool<EnemyModelMB>
         (
             createFunc: CreateEnemy,

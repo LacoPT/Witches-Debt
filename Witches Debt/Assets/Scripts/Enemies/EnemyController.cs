@@ -10,14 +10,7 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         model = modelMB.EnemyModel;
-        model.EnemyDeath += OnDeath;
     }
-
-    //private void OnDisable()
-    //{
-    //    model.EnemyDeath -= OnDeath;
-    //}
-
 
     private void FixedUpdate()
     {
@@ -47,10 +40,4 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    //Temporary solution for testing purposes
-    //TODO: make a better one
-    private void OnDeath()
-    {
-        //Destroy(gameObject);
-    }
 }
