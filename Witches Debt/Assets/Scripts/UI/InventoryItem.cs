@@ -8,13 +8,13 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [SerializeField] private InventoryItemSO item;
     [SerializeField] private Image image;
     private Transform parentAfterDrag;
-    
     private void Start()
     {
         InitializeItem(item);
     }
     public void InitializeItem(InventoryItemSO newItem)
     {
+        item = newItem;
         image.sprite = newItem.Image;
     }
     public void SetParent(Transform parAfterDrag)

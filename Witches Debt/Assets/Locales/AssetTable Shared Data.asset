@@ -19,6 +19,10 @@ MonoBehaviour:
     m_Key: UI_test/InventoryManager
     m_Metadata:
       m_Items: []
+  - m_Id: 246039635742720
+    m_Key: InventoryItem
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items:
     - rid: 4875554020742398039
