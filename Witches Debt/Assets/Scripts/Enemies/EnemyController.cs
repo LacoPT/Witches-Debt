@@ -35,7 +35,7 @@ public class EnemyController : MonoBehaviour
             transform.localScale = new(transform.localScale.x * (-1),
                                                      transform.localScale.y,
                                                      transform.localScale.z);
-            Debug.Log("Flip");
+            //Debug.Log("Flip");
         }
     }
 

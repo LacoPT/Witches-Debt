@@ -16,10 +16,14 @@ public class PlayerController : MonoBehaviour
 
 
     [Inject]
-    public void Construct(PlayerTargetProvider targetProvider)
+    public void Construct(PlayerTargetProvider targetProvider, ModLibrary modLibrary)
     {
         this.targetProvider = targetProvider;
         targetProvider.SetTarget(transform);
+        for (int i = 0; i < 3; i++)
+        {
+            Debug.Log(modLibrary.GetCompletelyRandomMod());
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
