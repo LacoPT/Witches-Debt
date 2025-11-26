@@ -31,7 +31,7 @@ public class TestEnemySpawner : MonoBehaviour
     public void Update()
     {
         if (onCooldown) return;
-        Spawn();
+        //Spawn();
         onCooldown = true;
         StartCoroutine(WaitForCooldown());
     }
@@ -42,14 +42,14 @@ public class TestEnemySpawner : MonoBehaviour
         onCooldown = false;
     }
 
-    public void Spawn()
-    {
-        var enemy = Instantiate(EnemyPrefab).GetComponent<EnemyController>();
-        var angle = Random.Range(-Mathf.PI, Mathf.PI);
-        var offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * spawnRadius;
-        enemy.SetTarget(targetProvider);
-        enemy.transform.position = targetProvider.Position + offset;
-        registry.Register(enemy);
-        enemy.GetComponent<EnemyModelMB>().EnemyModel.EnemyDeath += () => registry.Unregister(enemy);
-    }
+    //public void Spawn()
+    //{
+    //    var enemy = Instantiate(EnemyPrefab).GetComponent<EnemyController>();
+    //    var angle = Random.Range(-Mathf.PI, Mathf.PI);
+    //    var offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * spawnRadius;
+    //    enemy.SetTarget(targetProvider);
+    //    enemy.transform.position = targetProvider.Position + offset;
+    //    registry.Register(enemy);
+    //    enemy.GetComponent<EnemyModelMB>().EnemyModel.EnemyDeath += () => registry.Unregister(enemy);
+    //}
 }

@@ -164,9 +164,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   EnemyPrefabs:
-  - {fileID: 9208267084048820381, guid: 79739b07cdb918a46a300b593905414d, type: 3}
-  - {fileID: 675800326828819734, guid: ae7ef676b5b85a04daead0ea960fb68d, type: 3}
+  - {fileID: 1635247279692677647, guid: 79739b07cdb918a46a300b593905414d, type: 3}
+  - {fileID: 5172310770245594630, guid: ae7ef676b5b85a04daead0ea960fb68d, type: 3}
   EnemyNames: 0000000001000000
+  coins: 10
 --- !u!1 &552890746
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,7 +456,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 80648208435925748, guid: da7b40b6402b3e3b1b0a6283a3fb8f46, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2262752204440943003, guid: da7b40b6402b3e3b1b0a6283a3fb8f46, type: 3}
       propertyPath: m_Size.x

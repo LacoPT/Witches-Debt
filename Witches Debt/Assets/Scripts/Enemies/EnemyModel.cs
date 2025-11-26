@@ -13,6 +13,7 @@ public class EnemyModel
     private float attackDamage;
     private float baseAttackSpeed;
     private float currentAttackSpeed;
+    private PlayerTargetProvider target;
 
     public EnemyNames Name => name;
     public int Cost => cost;
@@ -21,6 +22,8 @@ public class EnemyModel
     public float CurrentAttackSpeed => currentAttackSpeed;
     public float ContactDamage => contactDamage;
     public float AttackDamage => attackDamage;
+    public PlayerTargetProvider Target => target;
+
     public event Action EnemyDeath;
 
     public EnemyModel(EnemyConfig config)
@@ -56,5 +59,10 @@ public class EnemyModel
             currentHealth = maxHealth;
             EnemyDeath = null;
         }
+    }
+
+    public void SetTarget(PlayerTargetProvider target)
+    {
+        this.target = target;
     }
 }
