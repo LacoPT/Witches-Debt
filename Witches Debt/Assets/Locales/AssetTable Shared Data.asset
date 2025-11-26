@@ -26,6 +26,7 @@ MonoBehaviour:
   m_Metadata:
     m_Items:
     - rid: 4875554020742398039
+    - rid: 4875554020742398047
   m_KeyGenerator:
     rid: 4875554006606020701
   references:
@@ -44,3 +45,13 @@ MonoBehaviour:
           - ru
         m_TypeString: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
+    - rid: 4875554020742398047
+      type: {class: AssetTypeMetadata, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries:
+        - m_KeyId: 246039635742720
+          m_TableCodes:
+          - en
+          - ru
+        m_TypeString: InventoryItemSO, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null

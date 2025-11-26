@@ -5,7 +5,7 @@ public class InventorySpellModSpawner : MonoBehaviour
 {
     [SerializeField] private InventoryManager inventoryManager;
     [SerializeField] private ModRarityDistribution rarityDistribution;
-
+    
     private ModLibrary modLibrary;
     public void Awake()
     {
@@ -14,9 +14,9 @@ public class InventorySpellModSpawner : MonoBehaviour
     
     public void SpawnRandomSpellMod()
     {
-        var mod = modLibrary.GetRandomMod();
-        Debug.Log(mod.GetType().Name);
-        var inventorySpellMod = (InventoryItemSO)Resources.Load("InventoryItems/" + mod.GetType().Name);
+        var modToSpawn = modLibrary.GetRandomMod();
+        Debug.Log(modToSpawn.GetType().Name);
+        var inventorySpellMod = (InventoryItemSO)Resources.Load("InventoryItems/" + modToSpawn.GetType().Name);
         inventoryManager.AddSpellModificator(inventorySpellMod);
     }
 }

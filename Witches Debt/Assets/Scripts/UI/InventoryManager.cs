@@ -5,26 +5,22 @@ public class InventoryManager : MonoBehaviour
 {
     [FormerlySerializedAs("spellSlots")] [SerializeField] private SpellSlot[] spellModsSlots;
     [SerializeField] private GameObject inventoryItemPrefab;
-    //<summary>
-    // Adds item into inventory
-    // If success returns true,
-    // If filed returns false
-    //</summary>
+    /// <summary>Adds item into inventory.</summary>
+    /// <returns> returns True if added with success, False if adding is filed (slots are full for example). </returns>
+    /// <param name="spellMod"> Scriptable Object of Inventory Spell Modificator. </param>
     public bool AddSpellModificator(InventoryItemSO spellMod)
     {
-        for (var i = 0; i < spellModsSlots.Length; i++)
+        foreach (var slot in spellModsSlots)
         {
-            var slot = spellModsSlots[i];
             var modInSlot = slot.GetComponentInChildren<InventoryItem>();
-            if (modInSlot == null)
-            {
-                SpawnNewSpellMod(spellMod, slot);
-                return true;
-            }
+            if (modInSlot != null) continue;
+            SpawnNewSpellMod(spellMod, slot);
+            return true;
         }
+        
         return false;
     }
-    public void SpawnNewSpellMod(InventoryItemSO spellMod, SpellSlot slot)
+    private void SpawnNewSpellMod(InventoryItemSO spellMod, SpellSlot slot)
     {
         var newSpellModGo = Instantiate(inventoryItemPrefab, slot.transform);
         var inventorySpellMod = newSpellModGo.GetComponent<InventoryItem>();

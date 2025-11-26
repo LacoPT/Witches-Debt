@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Localization-Assets-Russian (ru)
   m_GUID: 9d089b965bef1e741b72de670f2af932
   m_SerializeEntries:
+  - m_GUID: c459c3ebc20d4314f9067f78f6bc4a8f
+    m_Address: RocketMod
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-ru
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d81d5bc726578bd4d817f8be6e75db6c
     m_Address: InventoryItem
     m_ReadOnly: 1
