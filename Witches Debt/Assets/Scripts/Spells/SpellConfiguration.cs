@@ -9,7 +9,7 @@ public class SpellConfiguration
    public Spell ApplyMods(Spell spell)
    {
       foreach (var mod in mods) mod.Apply(spell);
-      spell.config = this;
+      spell.Config = this;
       return spell;
    }
 }

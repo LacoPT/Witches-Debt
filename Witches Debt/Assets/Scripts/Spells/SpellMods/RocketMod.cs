@@ -8,10 +8,10 @@ public class RocketMod : SpellMod
 
     public override void Apply(Spell spell)
     {
-        spell.data.speed *= 0.1f;
-        spell.AfterUpdate.AddListener(() =>
+        spell.Data.speed *= 0.1f;
+        spell.afterUpdate.AddListener(() =>
         {
-            spell.data.speed += SPEED_UP_FACTOR * Time.deltaTime;
+            spell.Data.speed += SPEED_UP_FACTOR * Time.deltaTime;
         });
     }
 }

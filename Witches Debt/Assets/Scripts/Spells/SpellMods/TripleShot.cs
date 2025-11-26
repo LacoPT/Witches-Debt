@@ -11,8 +11,8 @@ public class TripleShot : SpellMod
     public override void Apply(Spell spell)
     {
         //TODO: Come up with a smarter way to do this
-        if (spell.isClone) return;
-        spell.Spawn.AddListener(() =>
+        if (spell.IsClone) return;
+        spell.spawn.AddListener(() =>
         {
             var offsetAngle1 = DISPERSION_RADIANS;
             var offsetAngle2 = -DISPERSION_RADIANS;
@@ -22,11 +22,11 @@ public class TripleShot : SpellMod
             
             var clone1 = GameObject.Instantiate(spell, spell.transform.position + offset1, spell.transform.rotation);
             var clone2 = GameObject.Instantiate(spell, spell.transform.position + offset2, spell.transform.rotation);
-            clone1.isClone = true;
-            clone2.isClone = true;
+            clone1.IsClone = true;
+            clone2.IsClone = true;
 
-            spell.config.ApplyMods(clone1);
-            spell.config.ApplyMods(clone2);
+            spell.Config.ApplyMods(clone1);
+            spell.Config.ApplyMods(clone2);
         });
     }
 }

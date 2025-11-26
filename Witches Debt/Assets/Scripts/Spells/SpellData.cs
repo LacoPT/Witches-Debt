@@ -1,4 +1,4 @@
-public struct SpellData
+public class SpellData
 {
     public float baseDamage;
     public float size;
