@@ -31,7 +31,7 @@ public class TestEnemySpawner : MonoBehaviour
     public void Update()
     {
         if (onCooldown) return;
-        Spawn();
+        //Spawn();
         onCooldown = true;
         StartCoroutine(WaitForCooldown());
     }
