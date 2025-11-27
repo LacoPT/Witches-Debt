@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2928089561087509816}
   - component: {fileID: 1635247279692677647}
   - component: {fileID: 9208267084048820381}
+  - component: {fileID: 7837257353023295047}
   m_Layer: 0
   m_Name: SwarmerEnemy
   m_TagString: Untagged
@@ -187,3 +188,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   model: {fileID: 1635247279692677647}
   rb: {fileID: 2928089561087509816}
+--- !u!114 &7837257353023295047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8801695637362804015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a2c98d497542258b5da0a89234db73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHittable
