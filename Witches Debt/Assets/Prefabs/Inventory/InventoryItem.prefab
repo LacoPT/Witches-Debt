@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9074993422833894305}
   - component: {fileID: 7041323068833472634}
   - component: {fileID: 7567031544742782378}
+  - component: {fileID: 7431932192666626004}
   m_Layer: 5
   m_Name: InventoryItem
   m_TagString: Untagged
@@ -89,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bf2057f99227b841bb71479b1ca0a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItem
-  item: {fileID: 11400000, guid: e8bb8ac210d8f294fba688125733c740, type: 2}
+  item: {fileID: 11400000, guid: c459c3ebc20d4314f9067f78f6bc4a8f, type: 2}
   image: {fileID: 9074993422833894305}
 --- !u!114 &7567031544742782378
 MonoBehaviour:
@@ -115,3 +116,47 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &7431932192666626004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2764851161583258010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.PropertyVariants.GameObjectLocalizer
+  m_TrackedObjects:
+  - rid: 4875554020742398044
+  references:
+    version: 2
+    RefIds:
+    - rid: 4875554020742398044
+      type: {class: TrackedMonoBehaviourObject, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 7041323068833472634}
+        m_TrackedProperties:
+          items:
+          - rid: 4875554020742398045
+        m_UpdateType: 0
+        m_Changed:
+          m_PersistentCalls:
+            m_Calls: []
+    - rid: 4875554020742398045
+      type: {class: LocalizedAssetProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_Localized:
+          rid: 4875554020742398046
+        m_PropertyPath: item
+    - rid: 4875554020742398046
+      type: {class: LocalizedObject, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:181b5d843fcff324fb2049f652f13aa9
+        m_TableEntryReference:
+          m_KeyId: 246039635742720
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0

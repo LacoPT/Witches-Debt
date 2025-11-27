@@ -31,6 +31,10 @@ MonoBehaviour:
     m_Key: EnvironmentTest/ShopCanvas/StorageTitle/Text (TMP)
     m_Metadata:
       m_Items: []
+  - m_Id: 4324625271410688
+    m_Key: UI_test/ShopCanvas/AddRandomMod/Text (TMP)
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
