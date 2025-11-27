@@ -2,7 +2,6 @@ using System;
 
 public class EnemyModel
 {
-    private EnemyConfig config;
     private EnemyNames name;
     private int cost;
     private float maxHealth;
@@ -28,15 +27,14 @@ public class EnemyModel
 
     public EnemyModel(EnemyConfig config)
     {
-        this.config = config;
         cost = config.Cost;
         name = config.EnemyName;
-        maxHealth = config.MaxHealth;
+        maxHealth = config.BaseMaxHealth;
         currentHealth = maxHealth;
         baseMovingSpeed = config.BaseMovingSpeed;
         currentMovingSpeed = baseMovingSpeed;
-        contactDamage = config.ContactDamage;
-        attackDamage = config.AttackDamage;
+        contactDamage = config.BaseContactDamage;
+        attackDamage = config.BaseAttackDamage;
         baseAttackSpeed = config.BaseAttackSpeed;
         currentAttackSpeed = baseAttackSpeed;
     }

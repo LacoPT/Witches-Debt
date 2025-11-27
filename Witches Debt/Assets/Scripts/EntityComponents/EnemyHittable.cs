@@ -3,10 +3,10 @@ using UnityEngine;
 [RequireComponent (typeof(EnemyModelMB))]
 public class EnemyHittable : MonoBehaviour
 {
-    private EnemyModel model;
+    private EnemyModelMB model;
     private void Start()
     {
-        model = GetComponent<EnemyModelMB>().EnemyModel;
+        model = GetComponent<EnemyModelMB>();
     }
 
     public void TakeDamage(float damage) => model.TakeDamage(damage);

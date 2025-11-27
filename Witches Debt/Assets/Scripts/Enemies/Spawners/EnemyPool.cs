@@ -5,11 +5,13 @@ public class EnemyPool
     public ObjectPool<EnemyModelMB> Pool { get; private set; }
     private readonly EnemyModelMB prefab;
     private EnemyRegistry registry;
+    //private EnemyStatsScale scale;
 
     public EnemyPool(EnemyModelMB prefab, EnemyRegistry registry)
     {
         this.prefab = prefab;
         this.registry = registry; // idk if this could be replaced with inject
+        //this.scale = scale;
         Pool = new ObjectPool<EnemyModelMB>
         (
             createFunc: CreateEnemy,
@@ -25,7 +27,6 @@ public class EnemyPool
     private EnemyModelMB CreateEnemy()
     {
         var e = Object.Instantiate(prefab);
-        e.gameObject.SetActive(false);
         return e;
     }
 

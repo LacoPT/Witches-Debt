@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyConfig
   enemyName: 1
   cost: 10
-  maxHP: 1000
-  baseMovingSpeed: 0.5
-  contactDamage: 30
+  baseMaxHP: 200
+  baseMovingSpeed: 1
+  baseContactDamage: 20
   baseAttackSpeed: 0
-  attackDamage: 0
+  baseAttackDamage: 0
