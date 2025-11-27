@@ -43,6 +43,7 @@ MonoBehaviour:
         - m_KeyId: 233616354758656
           m_TableCodes:
           - ru
+          - en
         m_TypeString: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
     - rid: 4875554020742398047
