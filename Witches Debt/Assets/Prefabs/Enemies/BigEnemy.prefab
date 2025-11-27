@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 237357147667413968}
   - component: {fileID: 5172310770245594630}
   - component: {fileID: 675800326828819734}
+  - component: {fileID: 6033313016038816778}
   m_Layer: 0
   m_Name: BigEnemy
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 3648912860298775589}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.01, y: -3.35, z: 0}
+  m_LocalPosition: {x: -4.2397985, y: 11.1845045, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -170,6 +171,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyModelMB
   config: {fileID: 11400000, guid: 126b94cd62bfc2748b19ca5e2ae6e331, type: 2}
+  EnemyDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &675800326828819734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +186,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca1dd779d28dfd1419bce371dcdc27a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  modelMB: {fileID: 5172310770245594630}
+  model: {fileID: 5172310770245594630}
   rb: {fileID: 237357147667413968}
-  target: {fileID: 0}
+--- !u!114 &6033313016038816778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3648912860298775589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a2c98d497542258b5da0a89234db73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHittable

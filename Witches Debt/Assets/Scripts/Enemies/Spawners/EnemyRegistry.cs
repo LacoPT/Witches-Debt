@@ -7,16 +7,16 @@ using Vector3 = UnityEngine.Vector3;
 /// </summary>
 public class EnemyRegistry
 {
-    private readonly List<EnemyController> enemies = new();
-    public IReadOnlyList<EnemyController> Enemies => enemies;
+    private readonly List<EnemyModelMB> enemies = new();
+    public IReadOnlyList<EnemyModelMB> Enemies => enemies;
     public IEnumerable<Vector3> EnemyPositions => Enemies.Select(enemy => enemy.transform.position);
 
-    public void Register(EnemyController enemy)
+    public void Register(EnemyModelMB enemy)
     {
         enemies.Add(enemy);
     }
     
-    public void Unregister(EnemyController enemy)
+    public void Unregister(EnemyModelMB enemy)
     {
         enemies.Remove(enemy);
     }

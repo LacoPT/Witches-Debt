@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5526d866cdc01e43afc7d9af9ff4484, type: 3}
   m_Name: SwarmerEnemyConfig
   m_EditorClassIdentifier: Assembly-CSharp::EnemyConfig
-  maxHP: 10
+  enemyName: 0
+  cost: 2
+  baseMaxHP: 10
   baseMovingSpeed: 5
-  contactDamage: 5
+  baseContactDamage: 5
   baseAttackSpeed: 0
-  attackDamage: 0
+  baseAttackDamage: 0

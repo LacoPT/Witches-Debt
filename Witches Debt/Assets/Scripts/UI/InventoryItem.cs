@@ -5,17 +5,16 @@ using UnityEngine.UI;
 
 public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    
     [SerializeField] private InventoryItemSO item;
     [SerializeField] private Image image;
     private Transform parentAfterDrag;
-
     private void Start()
     {
         InitializeItem(item);
     }
-    private void InitializeItem(InventoryItemSO newItem)
+    public void InitializeItem(InventoryItemSO newItem)
     {
+        item = newItem;
         image.sprite = newItem.Image;
     }
     public void SetParent(Transform parAfterDrag)

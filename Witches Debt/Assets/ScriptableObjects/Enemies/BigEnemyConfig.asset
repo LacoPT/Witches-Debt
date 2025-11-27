@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5526d866cdc01e43afc7d9af9ff4484, type: 3}
   m_Name: BigEnemyConfig
   m_EditorClassIdentifier: Assembly-CSharp::EnemyConfig
-  maxHP: 1000
-  baseMovingSpeed: 0.5
-  contactDamage: 30
+  enemyName: 1
+  cost: 10
+  baseMaxHP: 200
+  baseMovingSpeed: 1
+  baseContactDamage: 20
   baseAttackSpeed: 0
-  attackDamage: 0
+  baseAttackDamage: 0

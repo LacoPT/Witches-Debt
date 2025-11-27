@@ -14,9 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
   m_TableCollectionName: AssetTable
   m_TableCollectionNameGuidString: 181b5d843fcff324fb2049f652f13aa9
-  m_Entries: []
+  m_Entries:
+  - m_Id: 233616354758656
+    m_Key: UI_test/InventoryManager
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246039635742720
+    m_Key: InventoryItem
+    m_Metadata:
+      m_Items: []
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 4875554020742398039
+    - rid: 4875554020742398047
   m_KeyGenerator:
     rid: 4875554006606020701
   references:
@@ -26,3 +36,22 @@ MonoBehaviour:
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
         m_CustomEpoch: 1764129842503
+    - rid: 4875554020742398039
+      type: {class: AssetTypeMetadata, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries:
+        - m_KeyId: 233616354758656
+          m_TableCodes:
+          - ru
+        m_TypeString: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+    - rid: 4875554020742398047
+      type: {class: AssetTypeMetadata, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries:
+        - m_KeyId: 246039635742720
+          m_TableCodes:
+          - en
+          - ru
+        m_TypeString: InventoryItemSO, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
