@@ -1,28 +1,21 @@
 using UnityEngine;
-using Zenject.SpaceFighter;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private EnemyModelMB modelMB;
+    [SerializeField] private EnemyModelMB model;
     [SerializeField] private Rigidbody2D rb;
-    private EnemyModel model;
-
-    private void Start()
-    {
-        model = modelMB.EnemyModel;
-    }
 
     private void FixedUpdate()
     {
         var posDiff = model.Target.Position - transform.position;
         Flip(posDiff);
-        rb.MovePosition(transform.position + model.CurrentMovingSpeed * Time.fixedDeltaTime * posDiff.normalized);
+        rb.MovePosition(transform.position + model.MovingSpeed * Time.fixedDeltaTime * posDiff.normalized);
     }
 
     //TODO: move to EnemyView
     private void Flip(Vector3 posDiff)
     {
-        if (posDiff.x > 0 != transform.localScale.x > 0)
+        if ((model.Target.Position - transform.position).x > 0 != transform.localScale.x > 0)
         {
             transform.localScale = new(transform.localScale.x * (-1),
                                                      transform.localScale.y,

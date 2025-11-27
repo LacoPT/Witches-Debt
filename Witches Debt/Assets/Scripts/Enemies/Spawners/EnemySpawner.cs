@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.Pool;
 using Zenject;
 
-// works as planned, but it's really ugly
-// TODO: refactor this shit
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private List<EnemyModelMB> EnemyPrefabs;
@@ -13,6 +11,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private int coins = 10;
     [SerializeField] private Transform topLeft;
     [SerializeField] private Transform bottomRight;
+    [SerializeField] private EnemyStatsScaler scaler;
+
     private EnemyRegistry registry;
     private PlayerTargetProvider targetProvider;
     private DiContainer container;
@@ -47,7 +47,6 @@ public class EnemySpawner : MonoBehaviour
         bounds[Bounds.Right] = bottomRight.transform.position.x;
         bounds[Bounds.Top] = topLeft.transform.position.y;
         bounds[Bounds.Bottom] = bottomRight.transform.position.y;
-
     }
 
     public void Update()
@@ -72,13 +71,11 @@ public class EnemySpawner : MonoBehaviour
         for (var i = 0; i < cnt; i++)
         {
             var enemy = enemyPools[current].Get();
-            enemy.EnemyModel.SetTarget(targetProvider);
-
-            enemy.transform.position = GetSpawnPosition();
-            enemy.EnemyModel.EnemyDeath += () =>
+            enemy.Initialize(targetProvider, scaler, GetSpawnPosition());
+            enemy.EnemyDeath.AddListener(() =>
             {
-                enemyPools[enemy.EnemyModel.Name].Release(enemy);
-            };
+                enemyPools[enemy.Name].Release(enemy);
+            });
         }
     }
 
