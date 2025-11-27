@@ -17,7 +17,8 @@ public class SpellCaster : MonoBehaviour
     private bool onCooldown = false;
     private EnemyRegistry registry;
 
-    //This is a test method right now, todo: read some shit about zenject
+    //This is a test method right now
+    //TODO: make a spell build system with ui
     private void Awake()
     {
        shootDirectionFunc = ClosestTarget; 
@@ -40,13 +41,18 @@ public class SpellCaster : MonoBehaviour
     {
         if (!onCooldown)
         {
-            var spell = Instantiate(TestSpellPrefab,
-                transform.position,
-                Quaternion.LookRotation(Vector3.forward, shootDirectionFunc()));
-            config.ApplyMods(spell);
-            onCooldown = true;
-            StartCoroutine(WaitForCooldown());
+            SpawnSpell();
         }
+    }
+
+    private void SpawnSpell()
+    {
+        var spell = Instantiate(TestSpellPrefab,
+            transform.position,
+            Quaternion.LookRotation(Vector3.forward, shootDirectionFunc()));
+        config.ApplyMods(spell);
+        onCooldown = true;
+        StartCoroutine(WaitForCooldown());
     }
 
     public void UpdateConfiguration(SpellConfiguration config)

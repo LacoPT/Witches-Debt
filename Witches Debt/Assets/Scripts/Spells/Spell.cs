@@ -6,8 +6,8 @@ public abstract class Spell : MonoBehaviour
 {
     //TODO: PUBLIC UNPROTECTED FIELDS, FIX !!!
     public SpellData data;
-    public SpellConfiguration config;
-    public bool isClone = false;
+    public SpellConfiguration config { get; set; }
+    public bool isClone { get; set; } = false;
 
     public UnityEvent Spawn;
     public UnityEvent<EnemyHittable> Hit;

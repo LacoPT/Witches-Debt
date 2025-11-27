@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 3840746248522839955}
   - component: {fileID: 7156881985821278853}
   - component: {fileID: 2262752204440943003}
+  - component: {fileID: 3209640897056697681}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -322,6 +323,22 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 1.6}
   m_Direction: 0
+--- !u!114 &3209640897056697681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9058039427930090616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4532e7cf8300a1d43b1ab71c3131316b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHittable
+  hp: 100
+  Death:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &5002835508091101722
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -377,31 +394,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4932322838576328942, guid: 7618a1e2e26fbc55283c6ee72ebff21e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7008689803012012535}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7618a1e2e26fbc55283c6ee72ebff21e, type: 3}
---- !u!1 &80648208435925748 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4932322838576328942, guid: 7618a1e2e26fbc55283c6ee72ebff21e, type: 3}
-  m_PrefabInstance: {fileID: 5002835508091101722}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7008689803012012535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 80648208435925748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 550ecb6fd8fc5d74181ba9a874d8e3ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpellCaster
-  TestCastTime: 1.5
-  TestSpellPrefab: {fileID: 653394125386043038, guid: 7c6933ee26daa38a385ce9ce6d55fe1b, type: 3}
-  TestSpellType: {fileID: 11400000, guid: b5a847c2ce810660486cf31d038407f2, type: 2}
 --- !u!4 &3390462167514482631 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7665393763457508829, guid: 7618a1e2e26fbc55283c6ee72ebff21e, type: 3}

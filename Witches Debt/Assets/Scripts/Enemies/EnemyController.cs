@@ -30,8 +30,8 @@ public class EnemyController : MonoBehaviour
         if (!isContactDamageReady) return;
         if (other.gameObject.TryGetComponent<PlayerHittable>(out var playerHittable))
         {
-            //playerHittable.TakeDamage(model.ContactDamage);
-            Debug.Log($"Player took {model.ContactDamage} damage");
+            playerHittable.TakeDamage(model.ContactDamage);
+            //Debug.Log($"Player took {model.ContactDamage} damage");
             StartCoroutine(WaitForContactDamageCooldown());
         }
     }

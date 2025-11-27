@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7665393763457508829}
+  - component: {fileID: 2191476698286263098}
   m_Layer: 0
   m_Name: SpellCaster
   m_TagString: Untagged
@@ -31,3 +32,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2191476698286263098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4932322838576328942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 550ecb6fd8fc5d74181ba9a874d8e3ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpellCaster
+  TestCastTime: 1.5
+  TestSpellPrefab: {fileID: 653394125386043038, guid: 7c6933ee26daa38a385ce9ce6d55fe1b, type: 3}
+  TestSpellType: {fileID: 11400000, guid: b5a847c2ce810660486cf31d038407f2, type: 2}

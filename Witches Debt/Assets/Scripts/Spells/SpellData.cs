@@ -1,5 +1,6 @@
 public struct SpellData
 {
+    //THOSE ARE INTENDED TO BE CHANGED EXTERNALLY, BUT THIS IS BAD BECAUSE THIS IS HORRIBLE, FIX IT
     public float baseDamage;
     public float size;
     public float speed;
