@@ -7,8 +7,10 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 {
     [SerializeField] private InventoryItemConfig item;
     [SerializeField] private Image image;
+    private InventoryController controller;
     private Transform parentAfterDrag;
-    private void Start()
+    public InventoryItemConfig Item => item;
+    private void Awake()
     {
         InitializeItem(item);
     }

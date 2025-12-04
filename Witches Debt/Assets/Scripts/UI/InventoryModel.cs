@@ -60,6 +60,7 @@ public class InventoryModel
             spellsStorages.Add(spellType, new List<InventoryItemConfig>());
             for (var i = 0; i < spellModsCapacity; i++)
                 spellsStorages[spellType].Add(null);
+            OnInventoryChanged?.Invoke();
             return true;
         }
         return false;
@@ -71,9 +72,9 @@ public class InventoryModel
             if (storage[i] == null)
             {
                 storage[i] = item;
+                OnInventoryChanged?.Invoke();
                 return true;
             }
-            OnInventoryChanged?.Invoke();
         }
         return false;
     }
@@ -91,8 +92,10 @@ public class InventoryModel
     }
 
     // TODO: реализовать после того, как продумаю систему удаления модификаторов
-    public void RemoveItemFromInventory(InventoryItemConfig item, List<InventoryItemConfig> inventoryRemoveFrom)
+    public void RemoveItemFromStorage(int index)
     {
+        storage[index] = null;
+        OnInventoryChanged?.Invoke();
     }
     
 
