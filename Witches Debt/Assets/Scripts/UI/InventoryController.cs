@@ -11,7 +11,7 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private GameObject spellSlotPrefab;
     [SerializeField] private GameObject inventoryItemPrefab;
     [SerializeField] private GameObject modsInventoryPrefab;
-    // Временное решение с добавлением спеллов
+    // Временное решение с сериализацией модели
     [Header("ModelComponents")]
     [SerializeField] List<SpellType> spells;
     [SerializeField] private int storageCapacity;
