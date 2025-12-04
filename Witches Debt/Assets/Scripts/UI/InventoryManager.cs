@@ -3,6 +3,7 @@ using UnityEngine.Serialization;
 
 public class InventoryManager : MonoBehaviour
 {
+    // Временное решеине для введения модели
     [FormerlySerializedAs("spellSlots")] [SerializeField] private SpellSlot[] spellModsSlots;
     [SerializeField] private GameObject inventoryItemPrefab;
     /// <summary>Adds item into inventory.</summary>

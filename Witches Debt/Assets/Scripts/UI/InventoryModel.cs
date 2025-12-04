@@ -64,7 +64,6 @@ public class InventoryModel
         }
         return false;
     }
-    
     public bool TryAddItemToInventory(InventoryItemConfig item)
     {
         for (var i = 0; i < storageCapacity; i++)
