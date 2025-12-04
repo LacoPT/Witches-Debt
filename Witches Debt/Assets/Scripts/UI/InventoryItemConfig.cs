@@ -3,7 +3,7 @@ using UnityEngine.Localization;
 using UnityEngine.Serialization;
 
 [CreateAssetMenu(menuName = "Scriptable Objects/InventoryItem")]
-public class InventoryItemSO : ScriptableObject
+public class InventoryItemConfig : ScriptableObject
 {
     [SerializeField] private Sprite image;
     [SerializeField] private Rarity rarity;
