@@ -36,20 +36,46 @@ public class InventoryController : MonoBehaviour
         CreateInventorySlots(inventoryModel.Storage(), inventory, inventoryModel.StorageCapacity());
         foreach (var spell in inventoryModel.Spells())
         {
-            spellSlots.Add(spell, new GameObject());
             var spellInventory = Instantiate(modsInventoryPrefab, modsStorage.transform);
+            spellSlots.Add(spell, spellInventory);
             CreateInventorySlots(inventoryModel.SpellsStorages()[spell], spellInventory,
                 inventoryModel.SpellModsCapacity());
         }
 
         removeButton.onClick.AddListener(RemoveFirstModificator);
         inventoryModel.OnInventoryChanged += UpdateInventoryView;
-        var result = inventoryModel.TryAddItemToInventory(configToAdd);
+        inventoryModel.TryAddItemToInventory(configToAdd);
+        inventoryModel.TryAddItemToInventory(configToAdd);
+    }
+    
+    private void CreateInventorySlots(List<InventoryItemConfig> items, GameObject inventoryToAdd, int capacity)
+    {
+        for (var i = 0; i < capacity; i++)
+        {
+            var spellSlot = Instantiate(spellSlotPrefab, inventoryToAdd.transform);
+            spellSlot.GetComponent<SpellSlot>().SetIndex(i);
+            if (items[i] != null)
+            {
+                var spellModGo = Instantiate(inventoryItemPrefab, spellSlot.transform);
+                spellModGo.GetComponent<InventoryItemUI>().InitializeItem(items[i]);
+            }
+        }
     }
 
     private void UpdateInventoryView()
     {
         ReplaceInventorySlots(inventoryModel.Storage(), inventory, inventoryModel.StorageCapacity());
+        foreach (var spell in inventoryModel.Spells())
+        {
+            if (spellSlots.ContainsKey(spell))
+                ReplaceInventorySlots(inventoryModel.SpellsStorages()[spell], spellSlots[spell], inventoryModel.SpellModsCapacity());
+            else
+            {
+                var spellInventory = Instantiate(modsInventoryPrefab, modsStorage.transform);
+                spellSlots.Add(spell, spellInventory);
+                CreateInventorySlots(inventoryModel.SpellsStorages()[spell], spellInventory, inventoryModel.SpellModsCapacity());;
+            }
+        }
     }
 
     //Test Method
@@ -70,29 +96,15 @@ public class InventoryController : MonoBehaviour
 
             if (spellSlot.transform.childCount > 0)
             {
-                var inventoryItem = spellSlot.transform.GetChild(0).GetComponent<InventoryItem>();
+                var inventoryItem = spellSlot.transform.GetChild(0).GetComponent<InventoryItemUI>();
                 if (inventoryItem.Item == items[i])
                     continue;
                 inventoryItem.InitializeItem(items[i]);
             }
             var spellModGo = Instantiate(inventoryItemPrefab, spellSlot.transform);
-            spellModGo.GetComponent<InventoryItem>().InitializeItem(items[i]);
+            spellModGo.GetComponent<InventoryItemUI>().InitializeItem(items[i]);
         }
     }
-
-    private void CreateInventorySlots(List<InventoryItemConfig> items, GameObject inventoryToAdd, int capacity)
-    {
-        for (var i = 0; i < capacity; i++)
-        {
-            var spellSlot = Instantiate(spellSlotPrefab, inventoryToAdd.transform);
-            if (items[i] != null)
-            {
-                var spellModGo = Instantiate(inventoryItemPrefab, spellSlot.transform);
-                spellModGo.GetComponent<InventoryItem>().InitializeItem(items[i]);
-            }
-        }
-    }
-
     private void SetNewSpellMod(InventoryItemConfig spellMod, int slotIndex)
     {
     }
@@ -102,7 +114,7 @@ public class InventoryController : MonoBehaviour
         if (inventoryModel.TryAddItemToInventory(spellMod))
         {
             var newSpellModGo = Instantiate(inventoryItemPrefab, slot.transform);
-            var inventorySpellMod = newSpellModGo.GetComponent<InventoryItem>();
+            var inventorySpellMod = newSpellModGo.GetComponent<InventoryItemUI>();
             inventorySpellMod.InitializeItem(spellMod);
         }
     }

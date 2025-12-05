@@ -13,7 +13,7 @@ public class InventoryManager : MonoBehaviour
     {
         foreach (var slot in spellModsSlots)
         {
-            var modInSlot = slot.GetComponentInChildren<InventoryItem>();
+            var modInSlot = slot.GetComponentInChildren<InventoryItemUI>();
             if (modInSlot != null) continue;
             SpawnNewSpellMod(spellMod, slot);
             return true;
@@ -24,7 +24,7 @@ public class InventoryManager : MonoBehaviour
     private void SpawnNewSpellMod(InventoryItemConfig spellMod, SpellSlot slot)
     {
         var newSpellModGo = Instantiate(inventoryItemPrefab, slot.transform);
-        var inventorySpellMod = newSpellModGo.GetComponent<InventoryItem>();
+        var inventorySpellMod = newSpellModGo.GetComponent<InventoryItemUI>();
         inventorySpellMod.InitializeItem(spellMod);
     }
 
