@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -7,7 +8,6 @@ public class InventoryItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 {
     [SerializeField] private InventoryItemConfig item;
     [SerializeField] private Image image;
-    private InventoryController controller;
     private Transform parentAfterDrag;
     private InventoryController inventoryController;
     public InventoryItemConfig Item => item;
@@ -31,6 +31,8 @@ public class InventoryItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         image.raycastTarget = false;
         var transform1 = transform;
         parentAfterDrag = transform1.parent;
+        var spellSlot = parentAfterDrag.GameObject().GetComponent<SpellSlot>();
+        InventoryController.GetInstance().SetSpellFrom(spellSlot);
         transform.SetParent(transform1.root);
     }
     public void OnDrag(PointerEventData eventData)

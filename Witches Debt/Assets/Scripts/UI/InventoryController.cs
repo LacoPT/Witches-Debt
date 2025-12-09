@@ -31,10 +31,13 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private int spellModsCapacity;
     
     private Dictionary<GameObject, SpellType> spellSlots;
+    // Contains SpellSlot from item was dragged;
+    private SpellSlot spellSlotFrom;
     public Dictionary<GameObject, SpellType> GetSpellSlots() => spellSlots;
 
     public void Awake()
     {
+        instance = this;
         // Временное решение, пока нету некого подобия GameManager
         inventoryModel = new InventoryModel(spells, storageCapacity, spellModsCapacity);
         spellSlots = new Dictionary<GameObject, SpellType>();
@@ -130,16 +133,24 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    public void ReplaceMods(int indexFrom, int indexTo, SpellType stInventoryFrom, SpellType stInventoryTo)
+    public void ReplaceMods(SpellSlot slotTo)
     {
-        var inventoryFrom = GetInventoryFromSpellType(stInventoryFrom);
-        var inventoryTo = GetInventoryFromSpellType(stInventoryFrom);
+        var inventoryFrom = GetInventoryFromSpellSlot(spellSlotFrom);
+        var inventoryTo = GetInventoryFromSpellSlot(slotTo);
         
-        inventoryModel.MoveItem(indexFrom, indexTo, inventoryFrom, inventoryTo);
+        inventoryModel.MoveItem(spellSlotFrom.index, slotTo.index, inventoryFrom, inventoryTo);
     }
     
-    private List<InventoryItemConfig> GetInventoryFromSpellType(SpellType spellType)
+    public void SetSpellFrom(SpellSlot spellSlot) => spellSlotFrom = spellSlot; 
+    
+    private List<InventoryItemConfig> GetInventoryFromSpellSlot(SpellSlot spellSlot)
     {
+        var parentInventory = spellSlot.transform.parent.GameObject();
+
+        SpellType spellType = null;
+        if (spellSlots.ContainsKey(parentInventory))
+            spellType = spellSlots[parentInventory];
+        
         if (spellType == null)
             return inventoryModel.Storage();
         return inventoryModel.SpellsStorages()[spellType];
