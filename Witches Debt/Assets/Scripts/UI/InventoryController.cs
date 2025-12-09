@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,6 +10,8 @@ using Button = UnityEngine.UI.Button;
 public class InventoryController : MonoBehaviour
 {
     private InventoryModel inventoryModel;
+    private static InventoryController instance;
+    public static InventoryController GetInstance() => instance;
 
     [Header("UI components")] [SerializeField]
     private GameObject inventory;
@@ -26,7 +29,9 @@ public class InventoryController : MonoBehaviour
 
     [SerializeField] private int storageCapacity;
     [SerializeField] private int spellModsCapacity;
+    
     private Dictionary<GameObject, SpellType> spellSlots;
+    public Dictionary<GameObject, SpellType> GetSpellSlots() => spellSlots;
 
     public void Awake()
     {
@@ -65,13 +70,13 @@ public class InventoryController : MonoBehaviour
 
     private void UpdateInventoryView()
     {
-        ReplaceInventorySlots(inventoryModel.Storage(), inventory, inventoryModel.StorageCapacity());
+        UpdateInventorySlotsView(inventoryModel.Storage(), inventory, inventoryModel.StorageCapacity());
         foreach (var spell in inventoryModel.Spells())
         {
             if (spellSlots.ContainsValue(spell))
             {
                 var spellInventory = spellSlots.FirstOrDefault(x => x.Value == spell).Key;
-                ReplaceInventorySlots(inventoryModel.SpellsStorages()[spell], spellInventory,
+                UpdateInventorySlotsView(inventoryModel.SpellsStorages()[spell], spellInventory,
                     inventoryModel.SpellModsCapacity());
             }
             else
@@ -87,7 +92,7 @@ public class InventoryController : MonoBehaviour
     public void RemoveFirstModificator() => inventoryModel.RemoveItemFromStorage(0);
 
     
-    private void ReplaceInventorySlots(List<InventoryItemConfig> items, GameObject inventoryToAdd, int capacity)
+    private void UpdateInventorySlotsView(List<InventoryItemConfig> items, GameObject inventoryToAdd, int capacity)
     {
         for (var i = 0; i < capacity; i++)
         {
@@ -110,6 +115,7 @@ public class InventoryController : MonoBehaviour
             spellModGo.GetComponent<InventoryItemUI>().InitializeItem(items[i]);
         }
     }
+    
     private void SetNewSpellMod(InventoryItemConfig spellMod, int slotIndex)
     {
     }
@@ -124,6 +130,21 @@ public class InventoryController : MonoBehaviour
         }
     }
 
+    public void ReplaceMods(int indexFrom, int indexTo, SpellType stInventoryFrom, SpellType stInventoryTo)
+    {
+        var inventoryFrom = GetInventoryFromSpellType(stInventoryFrom);
+        var inventoryTo = GetInventoryFromSpellType(stInventoryFrom);
+        
+        inventoryModel.MoveItem(indexFrom, indexTo, inventoryFrom, inventoryTo);
+    }
+    
+    private List<InventoryItemConfig> GetInventoryFromSpellType(SpellType spellType)
+    {
+        if (spellType == null)
+            return inventoryModel.Storage();
+        return inventoryModel.SpellsStorages()[spellType];
+    }
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
