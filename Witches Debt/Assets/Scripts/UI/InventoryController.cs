@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -25,19 +26,19 @@ public class InventoryController : MonoBehaviour
 
     [SerializeField] private int storageCapacity;
     [SerializeField] private int spellModsCapacity;
-    private Dictionary<SpellType, GameObject> spellSlots;
+    private Dictionary<GameObject, SpellType> spellSlots;
 
     public void Awake()
     {
         // Временное решение, пока нету некого подобия GameManager
         inventoryModel = new InventoryModel(spells, storageCapacity, spellModsCapacity);
-        spellSlots = new Dictionary<SpellType, GameObject>();
+        spellSlots = new Dictionary<GameObject, SpellType>();
 
         CreateInventorySlots(inventoryModel.Storage(), inventory, inventoryModel.StorageCapacity());
         foreach (var spell in inventoryModel.Spells())
         {
             var spellInventory = Instantiate(modsInventoryPrefab, modsStorage.transform);
-            spellSlots.Add(spell, spellInventory);
+            spellSlots.Add(spellInventory, spell);
             CreateInventorySlots(inventoryModel.SpellsStorages()[spell], spellInventory,
                 inventoryModel.SpellModsCapacity());
         }
@@ -67,12 +68,16 @@ public class InventoryController : MonoBehaviour
         ReplaceInventorySlots(inventoryModel.Storage(), inventory, inventoryModel.StorageCapacity());
         foreach (var spell in inventoryModel.Spells())
         {
-            if (spellSlots.ContainsKey(spell))
-                ReplaceInventorySlots(inventoryModel.SpellsStorages()[spell], spellSlots[spell], inventoryModel.SpellModsCapacity());
+            if (spellSlots.ContainsValue(spell))
+            {
+                var spellInventory = spellSlots.FirstOrDefault(x => x.Value == spell).Key;
+                ReplaceInventorySlots(inventoryModel.SpellsStorages()[spell], spellInventory,
+                    inventoryModel.SpellModsCapacity());
+            }
             else
             {
                 var spellInventory = Instantiate(modsInventoryPrefab, modsStorage.transform);
-                spellSlots.Add(spell, spellInventory);
+                spellSlots.Add(spellInventory, spell);
                 CreateInventorySlots(inventoryModel.SpellsStorages()[spell], spellInventory, inventoryModel.SpellModsCapacity());;
             }
         }

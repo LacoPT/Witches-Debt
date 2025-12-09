@@ -26,14 +26,12 @@ public class InventoryItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         parentAfterDrag = parAfterDrag;
     }
     // Drag and drop system
-    
     public void OnBeginDrag(PointerEventData eventData)
     {
         image.raycastTarget = false;
         var transform1 = transform;
         parentAfterDrag = transform1.parent;
         transform.SetParent(transform1.root);
-        
     }
     public void OnDrag(PointerEventData eventData)
     {
