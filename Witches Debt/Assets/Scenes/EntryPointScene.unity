@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f42ecee0ce46d54fb1fe62ac4184bd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
-  mainSceneBuildIndex: 1
+  sceneIndex: 1
 --- !u!114 &1234952501
 MonoBehaviour:
   m_ObjectHideFlags: 0
