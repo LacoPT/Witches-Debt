@@ -1,12 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Zenject;
 
 public class SpellConfiguration
 {
    public SpellType type;
    public List<SpellMod> mods = new();
 
+   private ModLibrary library;
+
+   [Inject]
+   public void Construct(ModLibrary library)
+   {
+       this.library = library;
+   }
    public Spell ApplyMods(Spell spell)
    {
       foreach (var mod in mods) mod.Apply(spell);
@@ -30,27 +38,7 @@ public class SpellConfiguration
         type = data.Type;
         foreach (var mod in data.ModTypes)
         {
-            mods.Add(GetModByString(mod));
-        }
-    }
-
-    // Temporary solution for testing purposes
-    public SpellMod GetModByString(string name)
-    {
-        switch (name)
-        {
-            case "TripleShot":
-            {
-                return new TripleShot();
-            }
-            case "RocketMod":
-            {
-                return new RocketMod();
-            }
-            default:
-            {
-                return new SpeedUpMod();
-            }
+            mods.Add(library.GetModByName(mod));
         }
     }
 }
