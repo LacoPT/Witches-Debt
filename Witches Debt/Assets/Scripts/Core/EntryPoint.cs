@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Monobehaviour class, that creates gameplay scnece (Main scene)
+/// Monobehaviour class, that creates gameplay snene (Main scene)
 /// and managing initialization flow
 /// game can be loaded normally (first default load on Awake) 
 /// reloaded (default load, caused by OnReload)
@@ -22,8 +22,10 @@ public class EntryPoint : MonoBehaviour
     private GameSerializer serializer;
     private GameSaveLoader saveLoader = new();
 
+    public static EntryPoint Instance; // TODO: remove with zenject
     public void Awake()
     {
+        Instance = this;
         DontDestroyOnLoad(gameObject);
         //You can't reference the Application not in method
         serializer = new XMLGameSerializer(Application.persistentDataPath + "/save.xml");
@@ -33,20 +35,16 @@ public class EntryPoint : MonoBehaviour
     /// <summary>
     /// Called by input, saves the game
     /// </summary>
-    /// <param name="context"></param>
-    public void OnSave(InputAction.CallbackContext context)
+    public void OnSave()
     {
-        if (!context.started) return;
         saveLoader.SaveGame(serializer, gameState);
     }
 
     /// <summary>
-    /// Called by input, loads the game (using Restore state load)
+    /// loads the game (using Restore state load)
     /// </summary>
-    /// <param name="context"></param>
-    public void OnLoad(InputAction.CallbackContext context)
+    public void OnLoad()
     {
-        if (!context.started) return;
         if (!saveLoader.TryLoadGame(serializer, ref gameState))
         {
             Debug.Log("Failed to load game");
