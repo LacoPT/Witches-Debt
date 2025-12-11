@@ -18,13 +18,39 @@ public class SpellConfiguration
     {
         var data = new SpellConfigurationSaveData();
         data.Type = type;
-        data.Mods = mods;
+        foreach (var mod in mods)
+        {
+            data.ModTypes.Add(mod.GetType().Name);
+        }
         return data;
     }
 
     public void FromSaveData(SpellConfigurationSaveData data)
     {
         type = data.Type;
-        mods = data.Mods;
+        foreach (var mod in data.ModTypes)
+        {
+            mods.Add(GetModByString(mod));
+        }
+    }
+
+    // Temporary solution for testing purposes
+    public SpellMod GetModByString(string name)
+    {
+        switch (name)
+        {
+            case "TripleShot":
+            {
+                return new TripleShot();
+            }
+            case "RocketMod":
+            {
+                return new RocketMod();
+            }
+            default:
+            {
+                return new SpeedUpMod();
+            }
+        }
     }
 }
