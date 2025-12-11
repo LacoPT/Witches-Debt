@@ -299,7 +299,7 @@ MonoBehaviour:
     m_ActionId: 88e289d4-e8c7-477c-ab85-e73e7de49893
     m_ActionName: 'UI/Save[/Keyboard/f5]'
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultControlScheme: 
   m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
