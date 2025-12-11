@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using ModestTree;
 using UnityEngine;
+using UnityEngine.Events;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -11,11 +12,12 @@ public class SpellCaster : MonoBehaviour
     [SerializeField] private float TestCastTime = 1.5f;
     [SerializeField] private Spell TestSpellPrefab;
     [SerializeField] private SpellType TestSpellType;
-    
+    private AudioSource source; // TODO: move to separate class
     private SpellConfiguration config;
     private Func<Vector2> shootDirectionFunc;
     private bool onCooldown = false;
     private EnemyRegistry registry;
+    public UnityEvent<SpellType> SpellCasted;
 
     //This is a test method right now
     //TODO: make a spell build system with ui
@@ -52,6 +54,7 @@ public class SpellCaster : MonoBehaviour
             Quaternion.LookRotation(Vector3.forward, shootDirectionFunc()));
         config.ApplyMods(spell);
         onCooldown = true;
+        SpellCasted?.Invoke(TestSpellType);
         StartCoroutine(WaitForCooldown());
     }
 
