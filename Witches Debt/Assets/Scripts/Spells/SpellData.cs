@@ -18,4 +18,10 @@ public struct SpellData
         this.size = spellData.size;
         this.speed = spellData.speed;
     }
+
+    public SpellSaveData ToSaveData()
+    {
+        var data = new SpellSaveData(baseDamage, size, speed);
+        return data;
+    }
 }

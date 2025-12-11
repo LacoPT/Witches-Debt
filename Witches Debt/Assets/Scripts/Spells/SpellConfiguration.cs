@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class SpellConfiguration
 {
@@ -12,4 +13,16 @@ public class SpellConfiguration
       spell.config = this;
       return spell;
    }
+
+    public SpellConfigurationSaveData ToSaveData()
+    {
+        var data = new SpellConfigurationSaveData(type, mods);
+        return data;
+    }
+
+    public void FromSaveData(SpellConfigurationSaveData data)
+    {
+        type = data.Type;
+        mods = data.Mods;
+    }
 }

@@ -86,4 +86,16 @@ public class InventoryModel
         storage[index] = null;
         OnInventoryChanged?.Invoke();
     }
+
+    public InventorySaveData ToSaveData()
+    {
+        var data = new InventorySaveData(storage, spellsStorages);
+        return data;
+    }
+
+    public void FromSaveData(InventorySaveData data)
+    {
+        storage = data.Storage;
+        spellsStorages = data.SpellsStorages;
+    }
 }
