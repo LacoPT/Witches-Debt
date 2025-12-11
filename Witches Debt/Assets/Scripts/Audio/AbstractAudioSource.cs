@@ -14,7 +14,7 @@ public abstract class AbstractAudioSource : MonoBehaviour
         baseVolume = source.volume;
         AudioMixer.Instance.GeneralVolumeChanged.AddListener(OnGeneralVolumeChanged);
         if (sourceType == AudioSourceType.SFX)
-            AudioMixer.Instance.SFXVolumeChanged.AddListener(OnTypeVolumeChanged);
+            AudioMixer.Instance.SoundEffectsVolumeChanged.AddListener(OnTypeVolumeChanged);
         else
             AudioMixer.Instance.MusicVolumeChanged.AddListener(OnTypeVolumeChanged);
             source.Play();
