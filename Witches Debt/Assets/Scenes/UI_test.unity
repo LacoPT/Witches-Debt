@@ -498,6 +498,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShopCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7728651836141810133, guid: 5570902d5c2dc364bb0638898951c55e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8868959959764590247, guid: 5570902d5c2dc364bb0638898951c55e, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -579,7 +583,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6846665051890264957, guid: 5570902d5c2dc364bb0638898951c55e, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8868959959764590247, guid: 5570902d5c2dc364bb0638898951c55e, type: 3}
       insertIndex: -1

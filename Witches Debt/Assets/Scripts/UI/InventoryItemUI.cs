@@ -42,7 +42,7 @@ public class InventoryItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        image.raycastTarget = true;
-        transform.SetParent(parentAfterDrag);
+        InventoryController.GetInstance().ReplaceMods(parentAfterDrag.GetComponent<SpellSlot>());
+        transform.GameObject().SetActive(false);
     }
 }
