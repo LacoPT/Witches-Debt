@@ -16,7 +16,7 @@ public class InventorySpellModSpawner : MonoBehaviour
     {
         var modToSpawn = modLibrary.GetRandomMod();
         Debug.Log(modToSpawn.GetType().Name);
-        var inventorySpellMod = (InventoryItemSO)Resources.Load("InventoryItems/" + modToSpawn.GetType().Name);
+        var inventorySpellMod = (InventoryItemConfig)Resources.Load("InventoryItems/" + modToSpawn.GetType().Name);
         inventoryManager.AddSpellModificator(inventorySpellMod);
     }
 }
