@@ -49,4 +49,9 @@ public class ModLibrary
         var index = UnityEngine.Random.Range(0, rarityPool.Count);
         return rarityPool[index];
     }
+
+    public SpellMod GetModByName(string modName)
+    {
+        return Mods[modName];
+    }
 }
