@@ -2,14 +2,12 @@ using System.Collections.Generic;
 
 public class InventorySaveData
 {
-    public List<InventoryItemConfig> Storage { get; }
-    public Dictionary<SpellType, List<InventoryItemConfig>> SpellsStorages { get; }
+    public List<InventoryItemConfig> Storage;
+    public Dictionary<SpellType, List<InventoryItemConfig>> SpellsStorages;
 
-    public InventorySaveData(List<InventoryItemConfig> storage, 
-                             Dictionary<SpellType, List<InventoryItemConfig>> spellsStorages)
+    public InventorySaveData()
     {
-        Storage = storage;
-        SpellsStorages = spellsStorages;
     }
+
 
 }

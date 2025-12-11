@@ -1,15 +1,10 @@
 public class SpellSaveData
 {
-    public float BaseDamage { get; }
-    public float Size { get; }
-    public float Speed { get; }
+    public float BaseDamage;
+    public float Size;
+    public float Speed;
 
-    public SpellSaveData(float baseDamage, 
-                         float size, 
-                         float speed)
+    public SpellSaveData()
     {
-        BaseDamage = baseDamage;
-        Size = size;
-        Speed = speed;
     }
 }

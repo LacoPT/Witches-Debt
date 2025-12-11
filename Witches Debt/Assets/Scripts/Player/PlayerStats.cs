@@ -12,15 +12,16 @@ public class PlayerStats
 
     public PlayerSaveData ToSaveData()
     {
-        var data = new PlayerSaveData(MaxHP,
-                                      MoveSpeed, 
-                                      CastSpeed, 
-                                      VampChance, 
-                                      Regeneration, 
-                                      HealPercent, 
-                                      DodgeChance, 
-                                      Armor,
-                                      Greed);
+        var data = new PlayerSaveData();
+        data.MaxHP = MaxHP;
+        data.MoveSpeed = MoveSpeed;
+        data.CastSpeed = CastSpeed;
+        data.VampChance = VampChance;
+        data.Regeneration = Regeneration;
+        data.HealPercent = HealPercent;
+        data.DodgeChance = DodgeChance;
+        data.Armor = Armor;
+        data.Greed = Greed;
         return data;
     }
 

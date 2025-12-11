@@ -89,7 +89,9 @@ public class InventoryModel
 
     public InventorySaveData ToSaveData()
     {
-        var data = new InventorySaveData(storage, spellsStorages);
+        var data = new InventorySaveData();
+        data.Storage = storage;
+        data.SpellsStorages = spellsStorages;
         return data;
     }
 

@@ -21,7 +21,17 @@ public struct SpellData
 
     public SpellSaveData ToSaveData()
     {
-        var data = new SpellSaveData(baseDamage, size, speed);
+        var data = new SpellSaveData();
+        data.BaseDamage = baseDamage;
+        data.Size = size;
+        data.Speed = speed;
         return data;
+    }
+
+    public void FromSaveData(SpellSaveData data)
+    {
+        baseDamage = data.BaseDamage;
+        size = data.Size;
+        speed = data.Speed;
     }
 }

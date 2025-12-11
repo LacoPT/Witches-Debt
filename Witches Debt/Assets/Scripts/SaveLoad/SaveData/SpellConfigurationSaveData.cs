@@ -2,12 +2,10 @@ using System.Collections.Generic;
 
 public class SpellConfigurationSaveData
 {
-    public SpellType Type { get; }
-    public List<SpellMod> Mods { get; }
+    public SpellType Type;
+    public List<SpellMod> Mods;
 
-    public SpellConfigurationSaveData(SpellType type, List<SpellMod> mods)
+    public SpellConfigurationSaveData()
     {
-        Type = type;
-        Mods = mods;
     }
 }

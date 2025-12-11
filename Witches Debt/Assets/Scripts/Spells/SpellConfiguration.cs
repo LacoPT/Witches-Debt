@@ -16,7 +16,9 @@ public class SpellConfiguration
 
     public SpellConfigurationSaveData ToSaveData()
     {
-        var data = new SpellConfigurationSaveData(type, mods);
+        var data = new SpellConfigurationSaveData();
+        data.Type = type;
+        data.Mods = mods;
         return data;
     }
 
