@@ -335,6 +335,30 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4224093449370613502, guid: da7b40b6402b3e3b1b0a6283a3fb8f46, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4224093449370613502, guid: da7b40b6402b3e3b1b0a6283a3fb8f46, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 4224093449370613502, guid: da7b40b6402b3e3b1b0a6283a3fb8f46, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_ActionId
+      value: 4999e4f4-3267-41a7-b7ea-9e3a8bf19faa
+      objectReference: {fileID: 0}
+    - target: {fileID: 4224093449370613502, guid: da7b40b6402b3e3b1b0a6283a3fb8f46, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_ActionId
+      value: 88e289d4-e8c7-477c-ab85-e73e7de49893
+      objectReference: {fileID: 0}
+    - target: {fileID: 4224093449370613502, guid: da7b40b6402b3e3b1b0a6283a3fb8f46, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_ActionName
+      value: 'UI/Load[/Keyboard/f9]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4224093449370613502, guid: da7b40b6402b3e3b1b0a6283a3fb8f46, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_ActionName
+      value: 'UI/Save[/Keyboard/f5]'
+      objectReference: {fileID: 0}
     - target: {fileID: 7156881985821278853, guid: da7b40b6402b3e3b1b0a6283a3fb8f46, type: 3}
       propertyPath: rb
       value: 
@@ -438,6 +462,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1648461595}
   - component: {fileID: 1648461596}
+  - component: {fileID: 1648461597}
+  - component: {fileID: 1648461598}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -518,6 +544,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1648461597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648461594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9245bf67754642541b08017945f8ccd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!70 &1648461598
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648461594}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.21, y: 0.43}
+  m_Direction: 0
 --- !u!1 &2042108287
 GameObject:
   m_ObjectHideFlags: 0
