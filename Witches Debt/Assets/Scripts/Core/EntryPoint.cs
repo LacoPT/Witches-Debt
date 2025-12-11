@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -12,8 +13,8 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class EntryPoint : MonoBehaviour
 {
-    [SerializeField] private int mainSceneBuildIndex;
-
+    [SerializeField] private int sceneIndex;
+    private int lastSceneIndex;
     private GameState gameState;
     /// <summary>
     /// Passed to the SaveLoader, to support different types of serialization
@@ -43,8 +44,13 @@ public class EntryPoint : MonoBehaviour
     /// <summary>
     /// loads the game (using Restore state load)
     /// </summary>
-    public void OnLoad()
+    public void OnLoad(int newSceneIndex = -1)
     {
+        if (sceneIndex != -1)
+        {
+            lastSceneIndex = this.sceneIndex;
+            sceneIndex = newSceneIndex;
+        }
         if (!saveLoader.TryLoadGame(serializer, ref gameState))
         {
             Debug.Log("Failed to load game");
@@ -70,12 +76,12 @@ public class EntryPoint : MonoBehaviour
     /// </summary>
     private IEnumerator LoadScene(bool defaultLoad = true)
     {
-        var load = SceneManager.LoadSceneAsync(mainSceneBuildIndex, LoadSceneMode.Additive);
+        var load = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
         while (!load.isDone)
         {
             yield return null;
         }
-        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(mainSceneBuildIndex));
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneIndex));
         if (defaultLoad)
         {
             DefaultLoad();
@@ -115,7 +121,7 @@ public class EntryPoint : MonoBehaviour
     /// </summary>
     private IEnumerator UnloadScene()
     {
-        var unload = SceneManager.UnloadSceneAsync(mainSceneBuildIndex);
+        var unload = SceneManager.UnloadSceneAsync(lastSceneIndex);
         while (!unload.isDone)
         {
             yield return null;

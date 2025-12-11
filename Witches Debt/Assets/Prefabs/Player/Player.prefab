@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 3209640897056697681}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -241,8 +241,16 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4999e4f4-3267-41a7-b7ea-9e3a8bf19faa
+    m_ActionName: 'UI/Load[/Keyboard/f9]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 88e289d4-e8c7-477c-ab85-e73e7de49893
+    m_ActionName: 'UI/Save[/Keyboard/f5]'
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -285,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3b6f211da7c81bbf90fb060ad795899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  rb: {fileID: 0}
+  rb: {fileID: 3840746248522839955}
 --- !u!70 &2262752204440943003
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -337,6 +345,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHittable
   hp: 100
   Death:
+    m_PersistentCalls:
+      m_Calls: []
+  HealthChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1001 &5002835508091101722

@@ -21,6 +21,7 @@ public class InventoryModel
     public Dictionary<SpellType, List<InventoryItemConfig>> SpellsStorages() => spellsStorages;
     public int StorageCapacity() => storageCapacity;
     public int SpellModsCapacity() => spellModsCapacity;
+
     /// <summary> Create InventoryModel with empty slots</summary>
     public InventoryModel(
         List<SpellType> spells,
@@ -41,18 +42,6 @@ public class InventoryModel
         }
         this.storageCapacity = storageCapacity;
         this.spellModsCapacity = spellModsCapacity;
-    }
-
-    /// <summary> Create InventoryModel with current inventory storage and spells storages</summary>
-    public InventoryModel(
-        List<InventoryItemConfig> storage,
-        Dictionary<SpellType, List<InventoryItemConfig>> spellsStorages 
-        )
-    {
-        this.storage = storage;
-        this.spellsStorages = spellsStorages;
-        storageCapacity = storage.Count;
-        spellModsCapacity = spellsStorages.Values.ToList()[0].Count;
     }
 
     public bool TryAddNewSpell(SpellType spellType)
@@ -97,6 +86,18 @@ public class InventoryModel
         storage[index] = null;
         OnInventoryChanged?.Invoke();
     }
-    
 
+    public InventorySaveData ToSaveData()
+    {
+        var data = new InventorySaveData();
+        data.Storage = storage;
+        data.SpellsStorages = spellsStorages;
+        return data;
+    }
+
+    public void FromSaveData(InventorySaveData data)
+    {
+        storage = data.Storage;
+        spellsStorages = data.SpellsStorages;
+    }
 }
