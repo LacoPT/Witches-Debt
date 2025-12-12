@@ -178,20 +178,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e149b5b01345d45eea4c99c97e276381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  isClone: 0
-  OnSpawn:
+  Spawn:
     m_PersistentCalls:
       m_Calls: []
-  OnHit:
+  Hit:
     m_PersistentCalls:
       m_Calls: []
-  OnUpdate:
+  AfterUpdate:
     m_PersistentCalls:
       m_Calls: []
-  OnDestroy:
+  PreDestroy:
     m_PersistentCalls:
       m_Calls: []
-  testSpeed: 15
+  dataConfig: {fileID: 11400000, guid: c6f9e89b81eb65661a76dd55319d2abe, type: 2}
 --- !u!58 &8895596509151106253
 CircleCollider2D:
   m_ObjectHideFlags: 0

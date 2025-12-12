@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class SpellConfigurationSaveData
 {
-    public SpellType Type;
+    public SpellPrefabConfig PrefabConfig;
     public List<string> ModTypes = new();
 
     public SpellConfigurationSaveData()

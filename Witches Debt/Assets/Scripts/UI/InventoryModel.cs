@@ -9,27 +9,27 @@ public class InventoryModel
     public event Action OnInventoryChanged; 
     
     private List<InventoryItemConfig> storage;
-    private Dictionary<SpellType, List<InventoryItemConfig>> spellsStorages;
+    private Dictionary<SpellPrefabConfig, List<InventoryItemConfig>> spellsStorages;
     private int storageCapacity;
     private int spellModsCapacity;
     private static InventoryModel instance;
 
     public static InventoryModel GetInstance() => instance;
     public List<InventoryItemConfig> Storage() => storage;
-    public List<SpellType> Spells() => spellsStorages.Keys.ToList();
-    public List<InventoryItemConfig> SpellStorage(SpellType spellType) => spellsStorages[spellType];
-    public Dictionary<SpellType, List<InventoryItemConfig>> SpellsStorages() => spellsStorages;
+    public List<SpellPrefabConfig> Spells() => spellsStorages.Keys.ToList();
+    public List<InventoryItemConfig> SpellStorage(SpellPrefabConfig spellPrefabConfig) => spellsStorages[spellPrefabConfig];
+    public Dictionary<SpellPrefabConfig, List<InventoryItemConfig>> SpellsStorages() => spellsStorages;
     public int StorageCapacity() => storageCapacity;
     public int SpellModsCapacity() => spellModsCapacity;
 
     /// <summary> Create InventoryModel with empty slots</summary>
     public InventoryModel(
-        List<SpellType> spells,
+        List<SpellPrefabConfig> spells,
         int storageCapacity,
         int spellModsCapacity)
     {
         storage = new List<InventoryItemConfig>();
-        spellsStorages = new Dictionary<SpellType, List<InventoryItemConfig>>();
+        spellsStorages = new Dictionary<SpellPrefabConfig, List<InventoryItemConfig>>();
         
         for (var i = 0; i < storageCapacity; i++)
             storage.Add(null);
@@ -44,13 +44,13 @@ public class InventoryModel
         this.spellModsCapacity = spellModsCapacity;
     }
 
-    public bool TryAddNewSpell(SpellType spellType)
+    public bool TryAddNewSpell(SpellPrefabConfig spellPrefabConfig)
     {
-        if (!spellsStorages.ContainsKey(spellType))
+        if (!spellsStorages.ContainsKey(spellPrefabConfig))
         {
-            spellsStorages.Add(spellType, new List<InventoryItemConfig>());
+            spellsStorages.Add(spellPrefabConfig, new List<InventoryItemConfig>());
             for (var i = 0; i < spellModsCapacity; i++)
-                spellsStorages[spellType].Add(null);
+                spellsStorages[spellPrefabConfig].Add(null);
             OnInventoryChanged?.Invoke();
             return true;
         }
