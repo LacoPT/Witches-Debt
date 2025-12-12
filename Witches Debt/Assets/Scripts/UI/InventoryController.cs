@@ -25,22 +25,22 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private InventoryItemConfig configToAdd;
     // Временное решение с сериализацией модели
     [Header("ModelComponents")] [SerializeField]
-    List<SpellType> spells;
+    List<SpellPrefabConfig> spells;
 
     [SerializeField] private int storageCapacity;
     [SerializeField] private int spellModsCapacity;
     
-    private Dictionary<GameObject, SpellType> spellSlots;
+    private Dictionary<GameObject, SpellPrefabConfig> spellSlots;
     // Contains SpellSlot from item was dragged;
     private SpellSlot spellSlotFrom;
-    public Dictionary<GameObject, SpellType> GetSpellSlots() => spellSlots;
+    public Dictionary<GameObject, SpellPrefabConfig> GetSpellSlots() => spellSlots;
 
     public void Awake()
     {
         instance = this;
         // Временное решение, пока нету некого подобия GameManager
         inventoryModel = new InventoryModel(spells, storageCapacity, spellModsCapacity);
-        spellSlots = new Dictionary<GameObject, SpellType>();
+        spellSlots = new Dictionary<GameObject, SpellPrefabConfig>();
 
         CreateInventorySlots(inventoryModel.Storage(), inventory, inventoryModel.StorageCapacity());
         foreach (var spell in inventoryModel.Spells())
@@ -147,13 +147,13 @@ public class InventoryController : MonoBehaviour
     {
         var parentInventory = spellSlot.transform.parent.GameObject();
 
-        SpellType spellType = null;
+        SpellPrefabConfig spellPrefabConfig = null;
         if (spellSlots.ContainsKey(parentInventory))
-            spellType = spellSlots[parentInventory];
+            spellPrefabConfig = spellSlots[parentInventory];
         
-        if (spellType == null)
+        if (spellPrefabConfig == null)
             return inventoryModel.Storage();
-        return inventoryModel.SpellsStorages()[spellType];
+        return inventoryModel.SpellsStorages()[spellPrefabConfig];
     }
     
 

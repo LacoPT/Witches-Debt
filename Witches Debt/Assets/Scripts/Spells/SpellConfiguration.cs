@@ -1,12 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Zenject;
 
 public class SpellConfiguration
 {
-   public SpellType type;
+   public SpellPrefabConfig PrefabConfig;
+   public GameObject Prefab;
    public List<SpellMod> mods = new();
 
+   private ModLibrary library;
+
+   [Inject]
+   public void Construct(ModLibrary library)
+   {
+       this.library = library;
+   }
    public Spell ApplyMods(Spell spell)
    {
       foreach (var mod in mods) mod.Apply(spell);
@@ -17,7 +26,7 @@ public class SpellConfiguration
     public SpellConfigurationSaveData ToSaveData()
     {
         var data = new SpellConfigurationSaveData();
-        data.Type = type;
+        data.PrefabConfig = PrefabConfig;
         foreach (var mod in mods)
         {
             data.ModTypes.Add(mod.GetType().Name);
@@ -27,30 +36,10 @@ public class SpellConfiguration
 
     public void FromSaveData(SpellConfigurationSaveData data)
     {
-        type = data.Type;
+        PrefabConfig = data.PrefabConfig;
         foreach (var mod in data.ModTypes)
         {
-            mods.Add(GetModByString(mod));
-        }
-    }
-
-    // Temporary solution for testing purposes
-    public SpellMod GetModByString(string name)
-    {
-        switch (name)
-        {
-            case "TripleShot":
-            {
-                return new TripleShot();
-            }
-            case "RocketMod":
-            {
-                return new RocketMod();
-            }
-            default:
-            {
-                return new SpeedUpMod();
-            }
+            mods.Add(library.GetModByName(mod));
         }
     }
 }
