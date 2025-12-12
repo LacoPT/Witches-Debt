@@ -5,7 +5,8 @@ using Zenject;
 
 public class SpellConfiguration
 {
-   public SpellType type;
+   public SpellPrefabConfig PrefabConfig;
+   public GameObject Prefab;
    public List<SpellMod> mods = new();
 
    private ModLibrary library;
@@ -25,7 +26,7 @@ public class SpellConfiguration
     public SpellConfigurationSaveData ToSaveData()
     {
         var data = new SpellConfigurationSaveData();
-        data.Type = type;
+        data.PrefabConfig = PrefabConfig;
         foreach (var mod in mods)
         {
             data.ModTypes.Add(mod.GetType().Name);
@@ -35,7 +36,7 @@ public class SpellConfiguration
 
     public void FromSaveData(SpellConfigurationSaveData data)
     {
-        type = data.Type;
+        PrefabConfig = data.PrefabConfig;
         foreach (var mod in data.ModTypes)
         {
             mods.Add(library.GetModByName(mod));

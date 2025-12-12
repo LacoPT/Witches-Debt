@@ -9,8 +9,8 @@ using Random = UnityEngine.Random;
 public class SpellCaster : MonoBehaviour
 {
     [SerializeField] private float TestCastTime = 1.5f;
-    [SerializeField] private Spell TestSpellPrefab;
-    [SerializeField] private SpellType TestSpellType;
+    //[SerializeField] private Spell TestSpellPrefab;
+    //[SerializeField] private SpellPrefabConfig testSpellPrefabConfig;
     
     private SpellConfiguration config;
     private Func<Vector2> shootDirectionFunc;
@@ -22,13 +22,13 @@ public class SpellCaster : MonoBehaviour
     private void Awake()
     {
        shootDirectionFunc = ClosestTarget; 
-        config = new SpellConfiguration
-        {
-            type = TestSpellType
-        };
-        config.mods.Add(new RocketMod());
-        config.mods.Add(new TripleShot());
-        UpdateConfiguration(config);
+        //config = new SpellConfiguration
+        //{
+            //PrefabConfig = testSpellPrefabConfig
+        //};
+        //config.mods.Add(new RocketMod());
+        //config.mods.Add(new TripleShot());
+        //UpdateConfiguration(config);
     }
 
     [Inject]
@@ -47,9 +47,10 @@ public class SpellCaster : MonoBehaviour
 
     private void SpawnSpell()
     {
-        var spell = Instantiate(TestSpellPrefab,
+        var spellObject = Instantiate(config.Prefab,
             transform.position,
             Quaternion.LookRotation(Vector3.forward, shootDirectionFunc()));
+        var spell = spellObject.GetComponent<Spell>();
         config.ApplyMods(spell);
         onCooldown = true;
         StartCoroutine(WaitForCooldown());

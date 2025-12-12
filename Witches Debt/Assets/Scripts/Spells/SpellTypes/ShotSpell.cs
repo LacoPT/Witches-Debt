@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class ShotSpell : Spell
 {
-    [SerializeField] private SpellDataConfig config;
+    [SerializeField] private SpellDataConfig dataConfig;
 
     protected override void Awake()
     {
         base.Awake();
-        data.speed = config.DefaultSpeed;
-        data.baseDamage = config.DefaultDamage;
-        data.size = config.DefaultScale;
+        data.speed = dataConfig.DefaultSpeed;
+        data.baseDamage = dataConfig.DefaultDamage;
+        data.size = dataConfig.DefaultScale;
     }
 
     protected override void Update()
