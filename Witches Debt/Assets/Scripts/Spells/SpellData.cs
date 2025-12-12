@@ -19,6 +19,7 @@ public struct SpellData
         this.speed = spellData.speed;
     }
 
+    //Actually, is not meant to be savable
     public SpellSaveData ToSaveData()
     {
         var data = new SpellSaveData();
