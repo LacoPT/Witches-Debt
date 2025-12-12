@@ -12,7 +12,7 @@ public class SpellCaster : MonoBehaviour
     [SerializeField] private float TestCastTime = 1.5f;
     private AudioSource source; // TODO: move to separate class
     //[SerializeField] private Spell TestSpellPrefab;
-    //[SerializeField] private SpellPrefabConfig testSpellPrefabConfig;
+    [SerializeField] private SpellPrefabConfig testSpellPrefabConfig;
     
     private SpellConfiguration config;
     private Func<Vector2> shootDirectionFunc;
@@ -56,7 +56,7 @@ public class SpellCaster : MonoBehaviour
         var spell = spellObject.GetComponent<Spell>();
         config.ApplyMods(spell);
         onCooldown = true;
-        SpellCasted?.Invoke(TestSpellType);
+        SpellCasted?.Invoke(SpellType.Shot);
         StartCoroutine(WaitForCooldown());
     }
 
