@@ -469,6 +469,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d42a16d7945f94082e628a73332793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControls
+  BindChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1149068280 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1118124978631649245, guid: 9412db58fa60b3c4b931bce0b173cc8a, type: 3}
@@ -572,31 +575,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1311187975263257676, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1311187975263257676, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1589113739509161885, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1589113739509161885, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2122247232197032005, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2122247232197032005, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2122247232197032005, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2560815769793177686, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
       propertyPath: playerControls
@@ -644,38 +647,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5174062856739189663, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5174062856739189663, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5174062856739189663, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5618440172373246905, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 5618440172373246905, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687672398610986463, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
+      propertyPath: playerControls
+      value: 
+      objectReference: {fileID: 1125137467}
     - target: {fileID: 6448883914279694267, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6448883914279694267, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6448883914279694267, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6798021587553062385, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6798021587553062385, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8375049552939975000, guid: b18d8d8f71cbd7448ae0b948f537c184, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -868,7 +883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1118124978631649245, guid: 9412db58fa60b3c4b931bce0b173cc8a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3131837042746209742, guid: 9412db58fa60b3c4b931bce0b173cc8a, type: 3}
       propertyPath: scaler

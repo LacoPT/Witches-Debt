@@ -1,30 +1,33 @@
+using AYellowpaper.SerializedCollections;
+using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
-
 public class PlayerControlsUI : MonoBehaviour
 {
-    [SerializeField] private Button up;
-    [SerializeField] private Button down;
-    [SerializeField] private Button left;
-    [SerializeField] private Button right;
-    [SerializeField] private TMP_Text upText;
-    [SerializeField] private TMP_Text downText;
-    [SerializeField] private TMP_Text leftText;
-    [SerializeField] private TMP_Text rightText;
+    [SerializedDictionary] public SerializedDictionary<Button, PlayerControlsElement> buttonToText;
     [SerializeField] private PlayerControls playerControls;
-
+    [SerializeField] private string changeBindText;
+    private TMP_Text lastChanged;
     private void Awake()
     {
-        up.onClick.AddListener(() => OnRebind(upText, 1));
-        down.onClick.AddListener(() => OnRebind(downText, 3));
-        left.onClick.AddListener(() => OnRebind(leftText, 5));
-        right.onClick.AddListener(() => OnRebind(rightText, 7));
+        foreach (var (button, element) in buttonToText)
+        {
+            element.desc.text = element.defaultPath;
+            button.onClick.AddListener(() => OnRebind(element.desc, element.index));
+        }
+        playerControls.BindChanged.AddListener(OnBindChanged);
     }
 
     private void OnRebind(TMP_Text text, int bindingIndex)
     {
-        text.text = playerControls.OnRebindMove(bindingIndex);
+        text.text = changeBindText;
+        playerControls.OnRebindMove(bindingIndex);
+        lastChanged = text;
+    }
+
+    private void OnBindChanged(string newBindText)
+    {
+        lastChanged.text = newBindText.Replace("<Keyboard>/", "").ToUpper();
     }
 }   

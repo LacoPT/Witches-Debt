@@ -1368,6 +1368,7 @@ GameObject:
   - component: {fileID: 7912848216492806594}
   - component: {fileID: 3578405226734899771}
   - component: {fileID: 6664770737618432736}
+  - component: {fileID: 398709812000672270}
   m_Layer: 5
   m_Name: OptionsUI
   m_TagString: Untagged
@@ -1464,6 +1465,42 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &398709812000672270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4565538060850904713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51dfe3bf6082e824aa3d607ef171eb98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerControlsUI
+  buttonToText:
+    _serializedList:
+    - Key: {fileID: 8902455370725834060}
+      Value:
+        desc: {fileID: 494102181320433564}
+        defaultPath: W
+        index: 1
+    - Key: {fileID: 6862442357771191611}
+      Value:
+        desc: {fileID: 4977300417761884975}
+        defaultPath: S
+        index: 3
+    - Key: {fileID: 3588514726024959173}
+      Value:
+        desc: {fileID: 4002225863719597058}
+        defaultPath: A
+        index: 5
+    - Key: {fileID: 4807623837057299891}
+      Value:
+        desc: {fileID: 7116761851339535687}
+        defaultPath: D
+        index: 7
+  playerControls: {fileID: 0}
+  changeBindText: Press any key
 --- !u!1 &4725694892786730181
 GameObject:
   m_ObjectHideFlags: 0
