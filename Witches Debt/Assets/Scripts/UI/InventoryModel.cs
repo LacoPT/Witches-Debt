@@ -12,9 +12,9 @@ public class InventoryModel
     private Dictionary<SpellPrefabConfig, List<string>> spellsStorages;
     private int storageCapacity;
     private int spellModsCapacity;
-    private static InventoryModel instance;
+    private static InventoryModel Instance;
 
-    public static InventoryModel GetInstance() => instance;
+    public static InventoryModel GetInstance() => Instance;
     public List<string> Storage => storage;
     public List<SpellPrefabConfig> Spells => spellsStorages.Keys.ToList();
     public List<string> SpellStorage(SpellPrefabConfig spellPrefabConfig) => spellsStorages[spellPrefabConfig];
