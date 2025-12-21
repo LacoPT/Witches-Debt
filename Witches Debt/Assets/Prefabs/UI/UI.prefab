@@ -124,7 +124,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4565538060850904713, guid: 9584a2b4ee8ffc14c987dee27ae6072e, type: 3}
       propertyPath: m_Name
-      value: AudioMixerUI
+      value: OptionsUI
       objectReference: {fileID: 0}
     - target: {fileID: 4900066709878597213, guid: 9584a2b4ee8ffc14c987dee27ae6072e, type: 3}
       propertyPath: m_Layer
