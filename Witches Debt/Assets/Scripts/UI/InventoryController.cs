@@ -34,7 +34,7 @@ public class InventoryController : MonoBehaviour
     // Contains SpellSlot from item was dragged;
     private SpellSlot spellSlotFrom;
     public Dictionary<GameObject, SpellPrefabConfig> GetSpellSlots() => spellSlots;
-
+    
     public void Awake()
     {
         instance = this;
@@ -42,13 +42,13 @@ public class InventoryController : MonoBehaviour
         inventoryModel = new InventoryModel(spells, storageCapacity, spellModsCapacity);
         spellSlots = new Dictionary<GameObject, SpellPrefabConfig>();
 
-        CreateInventorySlots(inventoryModel.Storage(), inventory, inventoryModel.StorageCapacity());
-        foreach (var spell in inventoryModel.Spells())
+        CreateInventorySlots(inventoryModel.Storage, inventory, inventoryModel.StorageCapacity);
+        foreach (var spell in inventoryModel.Spells)
         {
             var spellInventory = Instantiate(modsInventoryPrefab, modsStorage.transform);
             spellSlots.Add(spellInventory, spell);
-            CreateInventorySlots(inventoryModel.SpellsStorages()[spell], spellInventory,
-                inventoryModel.SpellModsCapacity());
+            CreateInventorySlots(inventoryModel.SpellsStorages[spell], spellInventory,
+                inventoryModel.SpellModsCapacity);
         }
 
         removeButton.onClick.AddListener(RemoveFirstModificator);
