@@ -64,9 +64,20 @@ public class InventoryController : MonoBehaviour
         inventoryModel.TryAddItemToInventory(configToAdd);
     }
 
-    private List<InventoryItemConfig> GetConfigsFromNames(List<string> inventoryModelStorage)
+    private List<InventoryItemConfig> GetConfigsFromNames(List<string> names)
     {
-        throw new NotImplementedException();
+        var inventoryItemConfigs = new List<InventoryItemConfig>();
+        
+        foreach (var n in names)
+        {
+            if (n == null) continue;
+            
+            
+            
+            
+        }
+        
+        return inventoryItemConfigs;
     }
 
     private void CreateInventorySlots(List<InventoryItemConfig> items, GameObject inventoryToAdd, int capacity)
