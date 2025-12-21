@@ -32,7 +32,7 @@ public class InventoryItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         var transform1 = transform;
         parentAfterDrag = transform1.parent;
         var spellSlot = parentAfterDrag.GameObject().GetComponent<SpellSlot>();
-        InventoryController.GetInstance().SetSpellFrom(spellSlot);
+        InventoryController.GetInstance.SetSpellFrom(spellSlot);
         transform.SetParent(transform1.root);
     }
     public void OnDrag(PointerEventData eventData)
@@ -42,7 +42,7 @@ public class InventoryItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        InventoryController.GetInstance().ReplaceMods(parentAfterDrag.GetComponent<SpellSlot>());
+        InventoryController.GetInstance.ReplaceMods(parentAfterDrag.GetComponent<SpellSlot>());
         transform.GameObject().SetActive(false);
     }
 }

@@ -23,8 +23,7 @@ MonoBehaviour:
   - m_GUID: c459c3ebc20d4314f9067f78f6bc4a8f
     m_Address: RocketMod
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - Locale-ru
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e8bb8ac210d8f294fba688125733c740
     m_Address: Assets/ScriptableObjects/InventoryItems/TripleShot.asset

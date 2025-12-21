@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 
@@ -11,7 +13,7 @@ public class InventoryController : MonoBehaviour
 {
     private InventoryModel inventoryModel;
     private static InventoryController instance;
-    public static InventoryController GetInstance() => instance;
+    public static InventoryController GetInstance => instance;
 
     [Header("UI components")] [SerializeField]
     private GameObject inventory;
@@ -41,13 +43,18 @@ public class InventoryController : MonoBehaviour
         // Временное решение, пока нету некого подобия GameManager
         inventoryModel = new InventoryModel(spells, storageCapacity, spellModsCapacity);
         spellSlots = new Dictionary<GameObject, SpellPrefabConfig>();
-
-        CreateInventorySlots(inventoryModel.Storage, inventory, inventoryModel.StorageCapacity);
+        
+        var inventoryItemsConfigs = GetConfigsFromNames(inventoryModel.Storage);
+        
+        CreateInventorySlots(inventoryItemsConfigs, inventory, inventoryModel.StorageCapacity);
         foreach (var spell in inventoryModel.Spells)
         {
             var spellInventory = Instantiate(modsInventoryPrefab, modsStorage.transform);
             spellSlots.Add(spellInventory, spell);
-            CreateInventorySlots(inventoryModel.SpellsStorages[spell], spellInventory,
+
+            var inventoryItemsConfigsForSpell = GetConfigsFromNames(inventoryModel.SpellsStorages[spell]);
+            
+            CreateInventorySlots(inventoryItemsConfigsForSpell, spellInventory,
                 inventoryModel.SpellModsCapacity);
         }
 
@@ -56,7 +63,12 @@ public class InventoryController : MonoBehaviour
         inventoryModel.TryAddItemToInventory(configToAdd);
         inventoryModel.TryAddItemToInventory(configToAdd);
     }
-    
+
+    private List<InventoryItemConfig> GetConfigsFromNames(List<string> inventoryModelStorage)
+    {
+        throw new NotImplementedException();
+    }
+
     private void CreateInventorySlots(List<InventoryItemConfig> items, GameObject inventoryToAdd, int capacity)
     {
         for (var i = 0; i < capacity; i++)
@@ -73,20 +85,20 @@ public class InventoryController : MonoBehaviour
 
     private void UpdateInventoryView()
     {
-        UpdateInventorySlotsView(inventoryModel.Storage(), inventory, inventoryModel.StorageCapacity());
-        foreach (var spell in inventoryModel.Spells())
+        UpdateInventorySlotsView(GetConfigsFromNames(inventoryModel.Storage), inventory, inventoryModel.StorageCapacity);
+        foreach (var spell in inventoryModel.Spells)
         {
             if (spellSlots.ContainsValue(spell))
             {
                 var spellInventory = spellSlots.FirstOrDefault(x => x.Value == spell).Key;
-                UpdateInventorySlotsView(inventoryModel.SpellsStorages()[spell], spellInventory,
-                    inventoryModel.SpellModsCapacity());
+                UpdateInventorySlotsView(GetConfigsFromNames(inventoryModel.SpellsStorages[spell]), spellInventory,
+                    inventoryModel.SpellModsCapacity);
             }
             else
             {
                 var spellInventory = Instantiate(modsInventoryPrefab, modsStorage.transform);
                 spellSlots.Add(spellInventory, spell);
-                CreateInventorySlots(inventoryModel.SpellsStorages()[spell], spellInventory, inventoryModel.SpellModsCapacity());;
+                CreateInventorySlots(GetConfigsFromNames(inventoryModel.SpellsStorages[spell]), spellInventory, inventoryModel.SpellModsCapacity);;
             }
         }
     }
@@ -152,10 +164,9 @@ public class InventoryController : MonoBehaviour
             spellPrefabConfig = spellSlots[parentInventory];
         
         if (spellPrefabConfig == null)
-            return inventoryModel.Storage();
-        return inventoryModel.SpellsStorages()[spellPrefabConfig];
+            return GetConfigsFromNames(inventoryModel.Storage);
+        return GetConfigsFromNames(inventoryModel.SpellsStorages[spellPrefabConfig]);
     }
-    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
