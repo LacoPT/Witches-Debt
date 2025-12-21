@@ -56,6 +56,8 @@ public class InventoryModel
         }
         return false;
     }
+    
+    //TODO: переписать так, чтобы данный метод принимал строки
     public bool TryAddItemToInventory(InventoryItemConfig item)
     {
         for (var i = 0; i < storageCapacity; i++)

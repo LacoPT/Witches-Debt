@@ -63,6 +63,7 @@ public class InventoryController : MonoBehaviour
         inventoryModel.OnInventoryChanged += UpdateInventoryView;
         
         // тестовая загрузка модификаторов
+        
         inventoryModel.TryAddItemToInventory(configToAdd);
         inventoryModel.TryAddItemToInventory(configToAdd);
     }
@@ -170,10 +171,26 @@ public class InventoryController : MonoBehaviour
     {
         var inventoryFrom = GetInventoryFromSpellSlot(spellSlotFrom);
         var inventoryTo = GetInventoryFromSpellSlot(slotTo);
+
+        var stringsFrom = GetNamesFromConfigs(inventoryFrom);
+        var stringsTo = GetNamesFromConfigs(inventoryTo);
         
-        inventoryModel.MoveItem(spellSlotFrom.index, slotTo.index, inventoryFrom, inventoryTo);
+        inventoryModel.MoveItem(spellSlotFrom.index, slotTo.index, stringsFrom, stringsTo);
     }
-    
+
+    private List<String> GetNamesFromConfigs(List<InventoryItemConfig> configs)
+    {
+        var names = new List<string>();
+        foreach (var config in configs)
+        {
+            if (config == null)
+                names.Add(null);
+            else
+                names.Add(config.ToString());
+        }
+        return names;
+    }
+
     public void SetSpellFrom(SpellSlot spellSlot) => spellSlotFrom = spellSlot; 
     
     private List<InventoryItemConfig> GetInventoryFromSpellSlot(SpellSlot spellSlot)
