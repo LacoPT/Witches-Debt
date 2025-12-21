@@ -73,8 +73,8 @@ public class InventoryModel
     public void MoveItem(
         int slotFrom, 
         int slotTo, 
-        List<InventoryItemConfig> inventoryFrom,
-        List<InventoryItemConfig> inventoryTo)
+        List<string> inventoryFrom,
+        List<string> inventoryTo)
     {
         (inventoryFrom[slotFrom], inventoryTo[slotTo]) = (inventoryTo[slotTo], inventoryFrom[slotFrom]);
         OnInventoryChanged?.Invoke();

@@ -17,7 +17,8 @@ public class InventoryController : MonoBehaviour
 
     [Header("UI components")] 
     [SerializeField] private GameObject inventory;
-
+    [SerializeField] private InventoryItemsAssetManager inventoryItemsAssetManager;
+    
     [SerializeField] private GameObject modsStorage;
     [SerializeField] private GameObject spellSlotPrefab;
     [SerializeField] private GameObject inventoryItemPrefab;
@@ -60,9 +61,13 @@ public class InventoryController : MonoBehaviour
 
         removeButton.onClick.AddListener(RemoveFirstModificator);
         inventoryModel.OnInventoryChanged += UpdateInventoryView;
+        
+        // тестовая загрузка модификаторов
         inventoryModel.TryAddItemToInventory(configToAdd);
         inventoryModel.TryAddItemToInventory(configToAdd);
     }
+    
+    
 
     private List<InventoryItemConfig> GetConfigsFromNames(List<string> names)
     {
@@ -75,9 +80,10 @@ public class InventoryController : MonoBehaviour
                 inventoryItemConfigs.Add(null);
                 continue;
             }
-            var address = "Assets/ScriptableObjects/InventoryItems/" + name + ".asset";
-            // TODO: Дописать адресс
-            var itemConfig = InventoryItemsAssetManager.Instance.GetItemConfig(address).Result;
+            
+            var address = "InventoryItemsConfigs/" + n;
+            
+            var itemConfig = inventoryItemsAssetManager.GetItemConfig(address); 
             inventoryItemConfigs.Add(itemConfig);
         }
         
@@ -181,15 +187,5 @@ public class InventoryController : MonoBehaviour
         if (spellPrefabConfig == null)
             return GetConfigsFromNames(inventoryModel.Storage);
         return GetConfigsFromNames(inventoryModel.SpellsStorages[spellPrefabConfig]);
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }

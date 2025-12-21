@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -8,33 +10,18 @@ public class InventoryItemsAssetManager : MonoBehaviour
 {
     public static InventoryItemsAssetManager Instance;
     private Dictionary<string, InventoryItemConfig> AssetsCash = new Dictionary<string, InventoryItemConfig>();
-    private Dictionary<string, AsyncOperationHandle<InventoryItemConfig>> ActiveHandles = new Dictionary<string, AsyncOperationHandle<InventoryItemConfig>>();
-
-    private void Awake()
+    
+    public void Awake()
     {
         Instance = this;
     }
 
-    public async Task<InventoryItemConfig> GetItemConfig(string address)
+    public InventoryItemConfig GetItemConfig(string address)
     {
-        if (AssetsCash.TryGetValue(address, out InventoryItemConfig inventoryItemConfig));
+        if (AssetsCash.TryGetValue(address, out var config)) return config;
         
-        var handle = Addressables.LoadAssetAsync<InventoryItemConfig>(address);
-        await handle.Task;
-
-        if (handle.Status == AsyncOperationStatus.Succeeded)
-        {
-            var result = handle.Result;
-            
-            AssetsCash[address] = result;
-            ActiveHandles[address] = handle;
-            
-            return result;
-        }
-        
-        return null;
+        var loadedConfig = Resources.Load<InventoryItemConfig>(address);
+        AssetsCash.Add(address, loadedConfig);
+        return loadedConfig;
     }
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-
 }
