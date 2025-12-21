@@ -8,35 +8,35 @@ public class InventoryModel
 {
     public event Action OnInventoryChanged; 
     
-    private List<InventoryItemConfig> storage;
-    private Dictionary<SpellPrefabConfig, List<InventoryItemConfig>> spellsStorages;
+    private List<string> storage;
+    private Dictionary<SpellPrefabConfig, List<string>> spellsStorages;
     private int storageCapacity;
     private int spellModsCapacity;
-    private static InventoryModel instance;
+    private static InventoryModel Instance;
 
-    public static InventoryModel GetInstance() => instance;
-    public List<InventoryItemConfig> Storage() => storage;
-    public List<SpellPrefabConfig> Spells() => spellsStorages.Keys.ToList();
-    public List<InventoryItemConfig> SpellStorage(SpellPrefabConfig spellPrefabConfig) => spellsStorages[spellPrefabConfig];
-    public Dictionary<SpellPrefabConfig, List<InventoryItemConfig>> SpellsStorages() => spellsStorages;
-    public int StorageCapacity() => storageCapacity;
-    public int SpellModsCapacity() => spellModsCapacity;
-
+    public static InventoryModel GetInstance() => Instance;
+    public List<string> Storage => storage;
+    public List<SpellPrefabConfig> Spells => spellsStorages.Keys.ToList();
+    public List<string> SpellStorage(SpellPrefabConfig spellPrefabConfig) => spellsStorages[spellPrefabConfig];
+    public Dictionary<SpellPrefabConfig, List<string>> SpellsStorages => spellsStorages;
+    public int StorageCapacity => storageCapacity;
+    public int SpellModsCapacity => spellModsCapacity;
+    
     /// <summary> Create InventoryModel with empty slots</summary>
     public InventoryModel(
         List<SpellPrefabConfig> spells,
         int storageCapacity,
         int spellModsCapacity)
     {
-        storage = new List<InventoryItemConfig>();
-        spellsStorages = new Dictionary<SpellPrefabConfig, List<InventoryItemConfig>>();
+        storage = new List<string>();
+        spellsStorages = new Dictionary<SpellPrefabConfig, List<string>>();
         
         for (var i = 0; i < storageCapacity; i++)
             storage.Add(null);
 
         foreach (var spell in spells)
         {
-            spellsStorages[spell] = new List<InventoryItemConfig>();
+            spellsStorages[spell] = new List<string>();
             for (var i = 0; i < spellModsCapacity; i++)
                 spellsStorages[spell].Add(null);
         }
@@ -48,7 +48,7 @@ public class InventoryModel
     {
         if (!spellsStorages.ContainsKey(spellPrefabConfig))
         {
-            spellsStorages.Add(spellPrefabConfig, new List<InventoryItemConfig>());
+            spellsStorages.Add(spellPrefabConfig, new List<string>());
             for (var i = 0; i < spellModsCapacity; i++)
                 spellsStorages[spellPrefabConfig].Add(null);
             OnInventoryChanged?.Invoke();
@@ -56,13 +56,15 @@ public class InventoryModel
         }
         return false;
     }
+    
+    //TODO: переписать так, чтобы данный метод принимал строки
     public bool TryAddItemToInventory(InventoryItemConfig item)
     {
         for (var i = 0; i < storageCapacity; i++)
         {
             if (storage[i] == null)
             {
-                storage[i] = item;
+                storage[i] = item.ToString();
                 OnInventoryChanged?.Invoke();
                 return true;
             }
@@ -73,8 +75,8 @@ public class InventoryModel
     public void MoveItem(
         int slotFrom, 
         int slotTo, 
-        List<InventoryItemConfig> inventoryFrom,
-        List<InventoryItemConfig> inventoryTo)
+        List<string> inventoryFrom,
+        List<string> inventoryTo)
     {
         (inventoryFrom[slotFrom], inventoryTo[slotTo]) = (inventoryTo[slotTo], inventoryFrom[slotFrom]);
         OnInventoryChanged?.Invoke();
@@ -94,7 +96,7 @@ public class InventoryModel
         data.SpellsStorages = spellsStorages;
         return data;
     }
-
+    
     public void FromSaveData(InventorySaveData data)
     {
         storage = data.Storage;

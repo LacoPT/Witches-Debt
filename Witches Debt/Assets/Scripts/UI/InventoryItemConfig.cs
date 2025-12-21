@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Serialization;
@@ -17,4 +18,5 @@ public class InventoryItemConfig : ScriptableObject
     public Sprite Image => image;
     public string Name => itemName.GetLocalizedString();
     public string Description => description.GetLocalizedString();
+    public override string ToString() => name.ToString().Split(" ")[0];
 }
