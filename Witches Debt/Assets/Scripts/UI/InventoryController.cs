@@ -15,8 +15,8 @@ public class InventoryController : MonoBehaviour
     private static InventoryController instance;
     public static InventoryController GetInstance => instance;
 
-    [Header("UI components")] [SerializeField]
-    private GameObject inventory;
+    [Header("UI components")] 
+    [SerializeField] private GameObject inventory;
 
     [SerializeField] private GameObject modsStorage;
     [SerializeField] private GameObject spellSlotPrefab;
@@ -70,11 +70,15 @@ public class InventoryController : MonoBehaviour
         
         foreach (var n in names)
         {
-            if (n == null) continue;
-            
-            
-            
-            
+            if (n == null)
+            {
+                inventoryItemConfigs.Add(null);
+                continue;
+            }
+            var address = "Assets/ScriptableObjects/InventoryItems/" + name + ".asset";
+            // TODO: Дописать адресс
+            var itemConfig = InventoryItemsAssetManager.Instance.GetItemConfig(address).Result;
+            inventoryItemConfigs.Add(itemConfig);
         }
         
         return inventoryItemConfigs;

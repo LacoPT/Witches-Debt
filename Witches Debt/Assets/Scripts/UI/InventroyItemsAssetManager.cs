@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-public class InventroyItemsAssetManager : MonoBehaviour
+public class InventoryItemsAssetManager : MonoBehaviour
 {
-    private static InventroyItemsAssetManager Instance;
+    public static InventoryItemsAssetManager Instance;
     private Dictionary<string, InventoryItemConfig> AssetsCash = new Dictionary<string, InventoryItemConfig>();
     private Dictionary<string, AsyncOperationHandle<InventoryItemConfig>> ActiveHandles = new Dictionary<string, AsyncOperationHandle<InventoryItemConfig>>();
 
