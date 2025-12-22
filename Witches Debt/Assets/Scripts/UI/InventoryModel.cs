@@ -89,17 +89,17 @@ public class InventoryModel
         OnInventoryChanged?.Invoke();
     }
 
-    public InventorySaveData ToSaveData()
-    {
-        var data = new InventorySaveData();
-        data.Storage = storage;
-        data.SpellsStorages = spellsStorages;
-        return data;
-    }
+    //public InventorySaveData ToSaveData()
+    //{
+    //    var data = new InventorySaveData();
+    //    data.Storage = storage;
+    //    data.SpellsStorages = spellsStorages;
+    //    return data;
+    //}
     
-    public void FromSaveData(InventorySaveData data)
-    {
-        storage = data.Storage;
-        spellsStorages = data.SpellsStorages;
-    }
+    //public void FromSaveData(InventorySaveData data)
+    //{
+    //    storage = data.Storage;
+    //    spellsStorages = data.SpellsStorages;
+    //}
 }
