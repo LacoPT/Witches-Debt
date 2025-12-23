@@ -28,22 +28,22 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private InventoryItemConfig configToAdd;
     // Временное решение с сериализацией модели
     [Header("ModelComponents")] [SerializeField]
-    List<SpellPrefabConfig> spells;
+    List<SpellType> spells;
 
     [SerializeField] private int storageCapacity;
     [SerializeField] private int spellModsCapacity;
     
-    private Dictionary<GameObject, SpellPrefabConfig> spellSlots;
+    private Dictionary<GameObject, SpellType> spellSlots;
     // Contains SpellSlot from item was dragged;
     private SpellSlot spellSlotFrom;
-    public Dictionary<GameObject, SpellPrefabConfig> GetSpellSlots() => spellSlots;
+    public Dictionary<GameObject, SpellType> GetSpellSlots() => spellSlots;
     
     public void Awake()
     {
         instance = this;
         // Временное решение, пока нету некого подобия GameManager
         inventoryModel = new InventoryModel(spells, storageCapacity, spellModsCapacity);
-        spellSlots = new Dictionary<GameObject, SpellPrefabConfig>();
+        spellSlots = new Dictionary<GameObject, SpellType>();
         
         var inventoryItemsConfigs = GetConfigsFromNames(inventoryModel.Storage);
         
@@ -196,13 +196,10 @@ public class InventoryController : MonoBehaviour
     private List<InventoryItemConfig> GetInventoryFromSpellSlot(SpellSlot spellSlot)
     {
         var parentInventory = spellSlot.transform.parent.GameObject();
-
-        SpellPrefabConfig spellPrefabConfig = null;
-        if (spellSlots.ContainsKey(parentInventory))
-            spellPrefabConfig = spellSlots[parentInventory];
-        
-        if (spellPrefabConfig == null)
+        SpellType spellType;
+        if (!spellSlots.ContainsKey(parentInventory)) 
             return GetConfigsFromNames(inventoryModel.Storage);
-        return GetConfigsFromNames(inventoryModel.SpellsStorages[spellPrefabConfig]);
+        spellType = spellSlots[parentInventory];
+        return GetConfigsFromNames(inventoryModel.SpellsStorages[spellType]);
     }
 }
