@@ -38,6 +38,7 @@ public class InventoryController : MonoBehaviour
     // Contains SpellSlot from item was dragged;
     private SpellSlot spellSlotFrom;
     public Dictionary<GameObject, SpellType> GetSpellSlots() => spellSlots;
+    public void SetSpellFrom(SpellSlot spellSlot) => spellSlotFrom = spellSlot; 
     
     public void Awake()
     {
@@ -70,8 +71,6 @@ public class InventoryController : MonoBehaviour
         inventoryModel.TryAddItemToInventory(configToAdd2);
     }
     
-    
-
     private List<InventoryItemConfig> GetConfigsFromNames(List<string> names)
     {
         var inventoryItemConfigs = new List<InventoryItemConfig>();
@@ -83,7 +82,7 @@ public class InventoryController : MonoBehaviour
                 inventoryItemConfigs.Add(null);
                 continue;
             }
-            
+            //TODO use GetConfigFromName
             var address = "InventoryItemsConfigs/" + n;
             
             var itemConfig = inventoryItemsAssetManager.GetItemConfig(address); 
@@ -91,6 +90,13 @@ public class InventoryController : MonoBehaviour
         }
         
         return inventoryItemConfigs;
+    }
+
+    private InventoryItemConfig GetConfigFromName(string inventoryConfigName)
+    {
+        var address = "InventoryItemsConfigs/" + inventoryConfigName;
+        var itemConfig = inventoryItemsAssetManager.GetItemConfig(address);
+        return itemConfig;
     }
 
     private void CreateInventorySlots(List<InventoryItemConfig> items, GameObject inventoryToAdd, int capacity)
@@ -109,13 +115,13 @@ public class InventoryController : MonoBehaviour
 
     private void UpdateInventoryView()
     {
-        UpdateInventorySlotsView(GetConfigsFromNames(inventoryModel.Storage), inventory, inventoryModel.StorageCapacity);
+        UpdateInventorySlotsView(inventoryModel.Storage, inventory, inventoryModel.StorageCapacity);
         foreach (var spell in inventoryModel.Spells)
         {
             if (spellSlots.ContainsValue(spell))
             {
                 var spellInventory = spellSlots.FirstOrDefault(x => x.Value == spell).Key;
-                UpdateInventorySlotsView(GetConfigsFromNames(inventoryModel.SpellsStorages[spell]), spellInventory,
+                UpdateInventorySlotsView(inventoryModel.SpellsStorages[spell], spellInventory,
                     inventoryModel.SpellModsCapacity);
             }
             else
@@ -131,7 +137,7 @@ public class InventoryController : MonoBehaviour
     public void RemoveFirstModificator() => inventoryModel.RemoveItemFromStorage(0);
 
     
-    private void UpdateInventorySlotsView(List<InventoryItemConfig> items, GameObject inventoryToAdd, int capacity)
+    private void UpdateInventorySlotsView(List<string> items, GameObject inventoryToAdd, int capacity)
     {
         for (var i = 0; i < capacity; i++)
         {
@@ -142,23 +148,20 @@ public class InventoryController : MonoBehaviour
                     Destroy(spellSlot.transform.GetChild(0).GameObject());
                 continue;
             }
+            var itemConfig = GetConfigFromName(items[i]);
 
             if (spellSlot.transform.childCount > 0)
             {
                 var inventoryItem = spellSlot.transform.GetChild(0).GetComponent<InventoryItemUI>();
-                if (inventoryItem.Item == items[i])
+                if (inventoryItem.Item == itemConfig)
                     continue;
-                inventoryItem.InitializeItem(items[i]);
+                inventoryItem.InitializeItem(itemConfig);
             }
             var spellModGo = Instantiate(inventoryItemPrefab, spellSlot.transform);
-            spellModGo.GetComponent<InventoryItemUI>().InitializeItem(items[i]);
+            spellModGo.GetComponent<InventoryItemUI>().InitializeItem(itemConfig);
         }
     }
     
-    private void SetNewSpellMod(InventoryItemConfig spellMod, int slotIndex)
-    {
-    }
-
     private void SpawnNewSpellMod(InventoryItemConfig spellMod, SpellSlot slot)
     {
         if (inventoryModel.TryAddItemToInventory(spellMod))
@@ -182,7 +185,6 @@ public class InventoryController : MonoBehaviour
         
         inventoryModel.MoveItem(spellSlotFrom.index, slotTo.index, inventoryFrom, inventoryTo);
     }
-
     private List<String> GetNamesFromConfigs(List<InventoryItemConfig> configs)
     {
         var names = new List<string>();
@@ -195,8 +197,6 @@ public class InventoryController : MonoBehaviour
         }
         return names;
     }
-
-    public void SetSpellFrom(SpellSlot spellSlot) => spellSlotFrom = spellSlot; 
     
     private List<InventoryItemConfig> GetInventoryFromSpellSlot(SpellSlot spellSlot)
     {
