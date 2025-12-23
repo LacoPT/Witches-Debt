@@ -26,6 +26,7 @@ public class InventoryController : MonoBehaviour
     // Тестовые поля
     [SerializeField] private Button removeButton;
     [SerializeField] private InventoryItemConfig configToAdd;
+    [SerializeField] private InventoryItemConfig configToAdd2;
     // Временное решение с сериализацией модели
     [Header("ModelComponents")] [SerializeField]
     List<SpellType> spells;
@@ -66,6 +67,7 @@ public class InventoryController : MonoBehaviour
         
         inventoryModel.TryAddItemToInventory(configToAdd);
         inventoryModel.TryAddItemToInventory(configToAdd);
+        inventoryModel.TryAddItemToInventory(configToAdd2);
     }
     
     
@@ -169,13 +171,16 @@ public class InventoryController : MonoBehaviour
 
     public void ReplaceMods(SpellSlot slotTo)
     {
-        var inventoryFrom = GetInventoryFromSpellSlot(spellSlotFrom);
-        var inventoryTo = GetInventoryFromSpellSlot(slotTo);
+        var inventoryFrom = inventoryModel.Storage;
+        var inventoryTo = inventoryModel.Storage;
 
-        var stringsFrom = GetNamesFromConfigs(inventoryFrom);
-        var stringsTo = GetNamesFromConfigs(inventoryTo);
+        if (spellSlots.TryGetValue(spellSlotFrom.transform.parent.gameObject, out var spellTypeFrom))
+            inventoryFrom = inventoryModel.SpellsStorages[spellTypeFrom];
         
-        inventoryModel.MoveItem(spellSlotFrom.index, slotTo.index, stringsFrom, stringsTo);
+        if (spellSlots.TryGetValue(slotTo.transform.parent.gameObject, out var spellTypeTo))
+            inventoryTo = inventoryModel.SpellsStorages[spellTypeTo];
+        
+        inventoryModel.MoveItem(spellSlotFrom.index, slotTo.index, inventoryFrom, inventoryTo);
     }
 
     private List<String> GetNamesFromConfigs(List<InventoryItemConfig> configs)
