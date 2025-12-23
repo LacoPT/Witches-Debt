@@ -82,11 +82,7 @@ public class InventoryController : MonoBehaviour
                 inventoryItemConfigs.Add(null);
                 continue;
             }
-            //TODO use GetConfigFromName
-            var address = "InventoryItemsConfigs/" + n;
-            
-            var itemConfig = inventoryItemsAssetManager.GetItemConfig(address); 
-            inventoryItemConfigs.Add(itemConfig);
+            inventoryItemConfigs.Add(GetConfigFromName(n));
         }
         
         return inventoryItemConfigs;
@@ -134,8 +130,7 @@ public class InventoryController : MonoBehaviour
     }
 
     //Test Method
-    public void RemoveFirstModificator() => inventoryModel.RemoveItemFromStorage(0);
-
+    private void RemoveFirstModificator() => inventoryModel.RemoveItemFromStorage(0);
     
     private void UpdateInventorySlotsView(List<string> items, GameObject inventoryToAdd, int capacity)
     {
