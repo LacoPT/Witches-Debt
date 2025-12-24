@@ -28,8 +28,8 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private InventoryItemConfig configToAdd;
     [SerializeField] private InventoryItemConfig configToAdd2;
     // Временное решение с сериализацией модели
-    [Header("ModelComponents")] [SerializeField]
-    List<SpellType> spells;
+    [Header("ModelComponents")] 
+    [SerializeField] List<SpellType> spells;
 
     [SerializeField] private int storageCapacity;
     [SerializeField] private int spellModsCapacity;
@@ -60,7 +60,7 @@ public class InventoryController : MonoBehaviour
             CreateInventorySlots(inventoryItemsConfigsForSpell, spellInventory,
                 inventoryModel.SpellModsCapacity);
         }
-
+        
         removeButton.onClick.AddListener(RemoveFirstModificator);
         inventoryModel.OnInventoryChanged += UpdateInventoryView;
         
@@ -149,8 +149,10 @@ public class InventoryController : MonoBehaviour
             {
                 var inventoryItem = spellSlot.transform.GetChild(0).GetComponent<InventoryItemUI>();
                 
-                if (inventoryItem.Item != null && inventoryItem.Item.Name == itemConfig.Name)
+                if (inventoryItem.Item.Name == itemConfig.Name)
                     continue;
+                
+                Destroy(spellSlot.transform.GetChild(0).gameObject);
                 inventoryItem.InitializeItem(itemConfig);
             }
             var spellModGo = Instantiate(inventoryItemPrefab, spellSlot.transform);
