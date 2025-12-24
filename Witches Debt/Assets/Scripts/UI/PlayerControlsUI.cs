@@ -1,22 +1,37 @@
 using AYellowpaper.SerializedCollections;
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 public class PlayerControlsUI : MonoBehaviour
 {
     [SerializedDictionary] public SerializedDictionary<Button, PlayerControlsElement> buttonToText;
-    [SerializeField] private PlayerControls playerControls;
     [SerializeField] private string changeBindText;
     private TMP_Text lastChanged;
+    private PlayerControls playerControls;
+
+    [Inject]
+    public void Construct(PlayerControls playerControls)
+    {
+        this.playerControls = playerControls;
+        playerControls.BindChanged += OnBindChanged;
+    }
+
     private void Awake()
     {
         foreach (var (button, element) in buttonToText)
         {
-            element.desc.text = element.defaultPath;
             button.onClick.AddListener(() => OnRebind(element.desc, element.index));
+            lastChanged = element.desc;
+            OnBindChanged(playerControls.MoveAction.bindings[element.index].effectivePath);
         }
-        playerControls.BindChanged.AddListener(OnBindChanged);
+    }
+
+    private void OnDisable()
+    {
+        playerControls.BindChanged -= OnBindChanged;
     }
 
     private void OnRebind(TMP_Text text, int bindingIndex)

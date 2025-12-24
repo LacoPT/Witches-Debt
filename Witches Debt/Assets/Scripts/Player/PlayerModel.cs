@@ -1,5 +1,9 @@
-public class PlayerStats
+using Mono.Cecil;
+using UnityEngine;
+using Object = UnityEngine.Object;
+public class PlayerModel : IInstanceModel
 {
+    
     private float MaxHP;
     private float MoveSpeed;
     private float CastSpeed;
@@ -9,6 +13,18 @@ public class PlayerStats
     private float DodgeChance;
     private float Armor;
     private float Greed;
+
+    private const string PREFAB_NAME = "Player Save Test";
+    private static readonly PlayerController prefab;
+    static PlayerModel()
+    {
+        prefab = Resources.Load<PlayerController>(PREFAB_NAME);
+    }
+
+    public PlayerModel()
+    {
+        MaxHP = Random.value;
+    }
 
     public PlayerSaveData ToSaveData()
     {
@@ -36,5 +52,12 @@ public class PlayerStats
         DodgeChance = data.DodgeChance;
         Armor = data.Armor;
         Greed = data.Greed;
+    }
+
+    public GameObject CreateInstance()
+    {
+        var player = Object.Instantiate(prefab);
+        player.Initialize(this);
+        return player.gameObject;
     }
 }

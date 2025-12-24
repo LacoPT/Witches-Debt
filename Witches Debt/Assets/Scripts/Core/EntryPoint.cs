@@ -99,10 +99,14 @@ public class EntryPoint : MonoBehaviour
     private void DefaultLoad()
     {
         gameState = new GameState();
-        var itemModel = new TestItemModel();
-        var item = itemModel.CreateInstance().GetComponent<TestItem>();
-        gameState.Create(itemModel);
-        gameState.BindItemDespawned(item.ItemPicked);
+        //var itemModel = new TestItemModel();
+        //var item = itemModel.CreateInstance().GetComponent<TestItem>();
+        //gameState.Create(itemModel);
+        //gameState.BindItemDespawned(item.ItemPicked);
+        var playerModel = new PlayerModel();
+        //var player = playerModel.CreateInstance().GetComponent<PlayerController>();
+        gameState.PlayerModel = playerModel;
+        OnSave(); // is here for test purposes only TODO: remove
     }
 
     /// <summary>
@@ -117,7 +121,7 @@ public class EntryPoint : MonoBehaviour
     /// SceneManager.UnloadScene() is deprecated, and you can only use Async version, but since
     /// PlayerInput with UnityEvents invocation doesn't support Async methods, you simply create a coroutine
     /// that checks every frame if AsyncOperation is done yet
-    /// There's also nothing wrong (i think) with creating and destroying scene ant the same time
+    /// There's also nothing wrong (i think) with creating and destroying scene at the same time
     /// </summary>
     private IEnumerator UnloadScene()
     {

@@ -11,8 +11,8 @@ using UnityEngine.Events;
 [XmlRootAttribute("GameState", IsNullable = false)]
 public class GameState
 {
-    //[XmlElement("Player", IsNullable = false)]
-    //public PlayerModel PlayerModel { get; private set; }
+    [XmlElement("Player", IsNullable = false)]
+    public PlayerModel PlayerModel { get; set; }
     //[XmlArray("Dots")]
     //[XmlArrayItem("Dot", typeof(DotModel))]
     //public List<DotModel> DotModels { get; private set; } = new();
