@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,15 +7,15 @@ using UnityEngine.UI;
 
 public class InventoryItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    [SerializeField] private InventoryItemConfig item;
+    private InventoryItemConfig item;
     [SerializeField] private Image image;
     private Transform parentAfterDrag;
     private InventoryController inventoryController;
     public InventoryItemConfig Item => item;
-    public void SetInventoryModel(InventoryController inventoryController) => this.inventoryController = inventoryController;
+    
     private void Awake()
     {
-        InitializeItem(item);
+        // InitializeItem(item);
     }
     public void InitializeItem(InventoryItemConfig newItem)
     {
@@ -42,6 +43,7 @@ public class InventoryItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        //test change
         InventoryController.GetInstance.ReplaceMods(parentAfterDrag.GetComponent<SpellSlot>());
         transform.GameObject().SetActive(false);
     }

@@ -143,17 +143,19 @@ public class InventoryController : MonoBehaviour
                     Destroy(spellSlot.transform.GetChild(0).GameObject());
                 continue;
             }
+            
             var itemConfig = GetConfigFromName(items[i]);
-
             if (spellSlot.transform.childCount > 0)
             {
                 var inventoryItem = spellSlot.transform.GetChild(0).GetComponent<InventoryItemUI>();
-                if (inventoryItem.Item == itemConfig)
+                
+                if (inventoryItem.Item != null && inventoryItem.Item.Name == itemConfig.Name)
                     continue;
                 inventoryItem.InitializeItem(itemConfig);
             }
             var spellModGo = Instantiate(inventoryItemPrefab, spellSlot.transform);
-            spellModGo.GetComponent<InventoryItemUI>().InitializeItem(itemConfig);
+            var inventoryItemUI = spellModGo.GetComponent<InventoryItemUI>();
+            inventoryItemUI.InitializeItem(itemConfig);
         }
     }
     
@@ -171,7 +173,7 @@ public class InventoryController : MonoBehaviour
     {
         var inventoryFrom = inventoryModel.Storage;
         var inventoryTo = inventoryModel.Storage;
-
+        
         if (spellSlots.TryGetValue(spellSlotFrom.transform.parent.gameObject, out var spellTypeFrom))
             inventoryFrom = inventoryModel.SpellsStorages[spellTypeFrom];
         

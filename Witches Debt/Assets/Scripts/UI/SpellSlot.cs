@@ -11,7 +11,6 @@ public class SpellSlot : MonoBehaviour, IDropHandler
         {
             var inventoryItem = eventData.pointerDrag.GetComponent<InventoryItemUI>();
             inventoryItem.SetParent(transform);
-            
         }
     }
 }
