@@ -26,24 +26,26 @@ public class InventoryController : MonoBehaviour
     // Тестовые поля
     [SerializeField] private Button removeButton;
     [SerializeField] private InventoryItemConfig configToAdd;
+    [SerializeField] private InventoryItemConfig configToAdd2;
     // Временное решение с сериализацией модели
-    [Header("ModelComponents")] [SerializeField]
-    List<SpellPrefabConfig> spells;
+    [Header("ModelComponents")] 
+    [SerializeField] List<SpellType> spells;
 
     [SerializeField] private int storageCapacity;
     [SerializeField] private int spellModsCapacity;
     
-    private Dictionary<GameObject, SpellPrefabConfig> spellSlots;
+    private Dictionary<GameObject, SpellType> spellSlots;
     // Contains SpellSlot from item was dragged;
     private SpellSlot spellSlotFrom;
-    public Dictionary<GameObject, SpellPrefabConfig> GetSpellSlots() => spellSlots;
+    public Dictionary<GameObject, SpellType> GetSpellSlots() => spellSlots;
+    public void SetSpellFrom(SpellSlot spellSlot) => spellSlotFrom = spellSlot; 
     
     public void Awake()
     {
         instance = this;
         // Временное решение, пока нету некого подобия GameManager
         inventoryModel = new InventoryModel(spells, storageCapacity, spellModsCapacity);
-        spellSlots = new Dictionary<GameObject, SpellPrefabConfig>();
+        spellSlots = new Dictionary<GameObject, SpellType>();
         
         var inventoryItemsConfigs = GetConfigsFromNames(inventoryModel.Storage);
         
@@ -58,7 +60,7 @@ public class InventoryController : MonoBehaviour
             CreateInventorySlots(inventoryItemsConfigsForSpell, spellInventory,
                 inventoryModel.SpellModsCapacity);
         }
-
+        
         removeButton.onClick.AddListener(RemoveFirstModificator);
         inventoryModel.OnInventoryChanged += UpdateInventoryView;
         
@@ -66,10 +68,9 @@ public class InventoryController : MonoBehaviour
         
         inventoryModel.TryAddItemToInventory(configToAdd);
         inventoryModel.TryAddItemToInventory(configToAdd);
+        inventoryModel.TryAddItemToInventory(configToAdd2);
     }
     
-    
-
     private List<InventoryItemConfig> GetConfigsFromNames(List<string> names)
     {
         var inventoryItemConfigs = new List<InventoryItemConfig>();
@@ -81,14 +82,17 @@ public class InventoryController : MonoBehaviour
                 inventoryItemConfigs.Add(null);
                 continue;
             }
-            
-            var address = "InventoryItemsConfigs/" + n;
-            
-            var itemConfig = inventoryItemsAssetManager.GetItemConfig(address); 
-            inventoryItemConfigs.Add(itemConfig);
+            inventoryItemConfigs.Add(GetConfigFromName(n));
         }
         
         return inventoryItemConfigs;
+    }
+
+    private InventoryItemConfig GetConfigFromName(string inventoryConfigName)
+    {
+        var address = "InventoryItemsConfigs/" + inventoryConfigName;
+        var itemConfig = inventoryItemsAssetManager.GetItemConfig(address);
+        return itemConfig;
     }
 
     private void CreateInventorySlots(List<InventoryItemConfig> items, GameObject inventoryToAdd, int capacity)
@@ -107,13 +111,13 @@ public class InventoryController : MonoBehaviour
 
     private void UpdateInventoryView()
     {
-        UpdateInventorySlotsView(GetConfigsFromNames(inventoryModel.Storage), inventory, inventoryModel.StorageCapacity);
+        UpdateInventorySlotsView(inventoryModel.Storage, inventory, inventoryModel.StorageCapacity);
         foreach (var spell in inventoryModel.Spells)
         {
             if (spellSlots.ContainsValue(spell))
             {
                 var spellInventory = spellSlots.FirstOrDefault(x => x.Value == spell).Key;
-                UpdateInventorySlotsView(GetConfigsFromNames(inventoryModel.SpellsStorages[spell]), spellInventory,
+                UpdateInventorySlotsView(inventoryModel.SpellsStorages[spell], spellInventory,
                     inventoryModel.SpellModsCapacity);
             }
             else
@@ -126,10 +130,9 @@ public class InventoryController : MonoBehaviour
     }
 
     //Test Method
-    public void RemoveFirstModificator() => inventoryModel.RemoveItemFromStorage(0);
-
+    private void RemoveFirstModificator() => inventoryModel.RemoveItemFromStorage(0);
     
-    private void UpdateInventorySlotsView(List<InventoryItemConfig> items, GameObject inventoryToAdd, int capacity)
+    private void UpdateInventorySlotsView(List<string> items, GameObject inventoryToAdd, int capacity)
     {
         for (var i = 0; i < capacity; i++)
         {
@@ -140,23 +143,24 @@ public class InventoryController : MonoBehaviour
                     Destroy(spellSlot.transform.GetChild(0).GameObject());
                 continue;
             }
-
+            
+            var itemConfig = GetConfigFromName(items[i]);
             if (spellSlot.transform.childCount > 0)
             {
                 var inventoryItem = spellSlot.transform.GetChild(0).GetComponent<InventoryItemUI>();
-                if (inventoryItem.Item == items[i])
+                
+                if (inventoryItem.Item.Name == itemConfig.Name)
                     continue;
-                inventoryItem.InitializeItem(items[i]);
+                
+                Destroy(spellSlot.transform.GetChild(0).gameObject);
+                inventoryItem.InitializeItem(itemConfig);
             }
             var spellModGo = Instantiate(inventoryItemPrefab, spellSlot.transform);
-            spellModGo.GetComponent<InventoryItemUI>().InitializeItem(items[i]);
+            var inventoryItemUI = spellModGo.GetComponent<InventoryItemUI>();
+            inventoryItemUI.InitializeItem(itemConfig);
         }
     }
     
-    private void SetNewSpellMod(InventoryItemConfig spellMod, int slotIndex)
-    {
-    }
-
     private void SpawnNewSpellMod(InventoryItemConfig spellMod, SpellSlot slot)
     {
         if (inventoryModel.TryAddItemToInventory(spellMod))
@@ -169,15 +173,17 @@ public class InventoryController : MonoBehaviour
 
     public void ReplaceMods(SpellSlot slotTo)
     {
-        var inventoryFrom = GetInventoryFromSpellSlot(spellSlotFrom);
-        var inventoryTo = GetInventoryFromSpellSlot(slotTo);
-
-        var stringsFrom = GetNamesFromConfigs(inventoryFrom);
-        var stringsTo = GetNamesFromConfigs(inventoryTo);
+        var inventoryFrom = inventoryModel.Storage;
+        var inventoryTo = inventoryModel.Storage;
         
-        inventoryModel.MoveItem(spellSlotFrom.index, slotTo.index, stringsFrom, stringsTo);
+        if (spellSlots.TryGetValue(spellSlotFrom.transform.parent.gameObject, out var spellTypeFrom))
+            inventoryFrom = inventoryModel.SpellsStorages[spellTypeFrom];
+        
+        if (spellSlots.TryGetValue(slotTo.transform.parent.gameObject, out var spellTypeTo))
+            inventoryTo = inventoryModel.SpellsStorages[spellTypeTo];
+        
+        inventoryModel.MoveItem(spellSlotFrom.index, slotTo.index, inventoryFrom, inventoryTo);
     }
-
     private List<String> GetNamesFromConfigs(List<InventoryItemConfig> configs)
     {
         var names = new List<string>();
@@ -190,19 +196,14 @@ public class InventoryController : MonoBehaviour
         }
         return names;
     }
-
-    public void SetSpellFrom(SpellSlot spellSlot) => spellSlotFrom = spellSlot; 
     
     private List<InventoryItemConfig> GetInventoryFromSpellSlot(SpellSlot spellSlot)
     {
         var parentInventory = spellSlot.transform.parent.GameObject();
-
-        SpellPrefabConfig spellPrefabConfig = null;
-        if (spellSlots.ContainsKey(parentInventory))
-            spellPrefabConfig = spellSlots[parentInventory];
-        
-        if (spellPrefabConfig == null)
+        SpellType spellType;
+        if (!spellSlots.ContainsKey(parentInventory)) 
             return GetConfigsFromNames(inventoryModel.Storage);
-        return GetConfigsFromNames(inventoryModel.SpellsStorages[spellPrefabConfig]);
+        spellType = spellSlots[parentInventory];
+        return GetConfigsFromNames(inventoryModel.SpellsStorages[spellType]);
     }
 }

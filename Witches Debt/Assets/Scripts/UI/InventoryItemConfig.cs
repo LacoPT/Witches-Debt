@@ -1,9 +1,11 @@
 using System;
+using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Serialization;
 
 [CreateAssetMenu(menuName = "Scriptable Objects/InventoryItem")]
+
 public class InventoryItemConfig : ScriptableObject
 {
     [SerializeField] private Sprite image;

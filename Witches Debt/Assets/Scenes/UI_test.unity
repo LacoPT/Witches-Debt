@@ -531,6 +531,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 86c3ba06010328741ac2c29912ec588b, type: 2}
     - target: {fileID: 4465641464349258889, guid: 5570902d5c2dc364bb0638898951c55e, type: 3}
+      propertyPath: configToAdd2
+      value: 
+      objectReference: {fileID: 11400000, guid: e8bb8ac210d8f294fba688125733c740, type: 2}
+    - target: {fileID: 4465641464349258889, guid: 5570902d5c2dc364bb0638898951c55e, type: 3}
       propertyPath: removeButton
       value: 
       objectReference: {fileID: 1960832909}
