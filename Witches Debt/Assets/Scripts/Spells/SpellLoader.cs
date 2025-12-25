@@ -1,20 +1,32 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
 public class SpellLoader : MonoBehaviour
 {
     [SerializeField] private SpellCaster casterPrefab;
+    private List<GameObject> casters = new();
     private DiContainer container;
+    private ModLibrary library;
 
     [Inject]
-    public void Construct(DiContainer container)
+    public void Construct(DiContainer container, ModLibrary library)
     {
         this.container = container;
+        this.library = library;
     }
 
     private void Awake()
     {
-        TestLoadDefault();
+        //TestLoadDefault();
+    }
+
+    public void ClearAllCasters()
+    {
+        foreach (var caster in casters)
+        {
+            Destroy(caster);
+        }
     }
 
     public void LoadFromSaveData(SpellConfigurationSaveData saveData)
@@ -24,6 +36,27 @@ public class SpellLoader : MonoBehaviour
         //var caster = Instantiate(casterPrefab, transform);
         var caster = container.InstantiatePrefabForComponent<SpellCaster>(casterPrefab, transform);
         caster.UpdateConfiguration(spellConfiguration);
+    }
+
+    public void LoadFromInventoryModel(InventoryModel inventoryModel)
+    {
+        var storages = inventoryModel.SpellsStorages;
+        foreach (var storageKv in storages)
+        {
+            var spellType = storageKv.Key;
+            var storage = storageKv.Value;
+            var spellConfiguration = container.Instantiate<SpellConfiguration>();
+            var spellPrefab = GetSpellPrefab(spellType);
+            spellConfiguration.Prefab =  spellPrefab;
+            foreach (var modName in storage)
+            {
+                if (modName is null) continue;
+                spellConfiguration.mods.Add(library.GetModByName(modName));
+            }
+            var caster = container.InstantiatePrefabForComponent<SpellCaster>(casterPrefab, transform);
+            caster.UpdateConfiguration(spellConfiguration);
+            casters.Add(caster.gameObject);
+        }
     }
 
     public void TestLoadDefault()
