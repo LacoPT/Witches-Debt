@@ -545,7 +545,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6169977572072742713, guid: 4424fa9311bd68346888b9dd89a5e8f1, type: 3}
       propertyPath: nextSceneIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169977572072742713, guid: 4424fa9311bd68346888b9dd89a5e8f1, type: 3}
+      propertyPath: nextSceneIndices.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169977572072742713, guid: 4424fa9311bd68346888b9dd89a5e8f1, type: 3}
+      propertyPath: 'nextSceneIndices.Array.data[0]'
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169977572072742713, guid: 4424fa9311bd68346888b9dd89a5e8f1, type: 3}
+      propertyPath: 'nextSceneIndices.Array.data[1]'
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -703,7 +715,7 @@ PrefabInstance:
       objectReference: {fileID: 7134724101259924352}
     - target: {fileID: 5760482302051553566, guid: fdd2c7f884fa5ca499532fde57ad4d9a, type: 3}
       propertyPath: nextSceneIndex
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8920346343792032444, guid: fdd2c7f884fa5ca499532fde57ad4d9a, type: 3}
       propertyPath: m_Name

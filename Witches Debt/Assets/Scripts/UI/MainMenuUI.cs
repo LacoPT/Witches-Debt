@@ -5,9 +5,11 @@ public class MainMenuUI : MonoBehaviour
 {
     [SerializeField] private Button startRun;
     [SerializeField] private Button continueRun;
-    private void Awake()
+    private void Start()
     {
-        startRun.onClick.AddListener(() => EntryPoint.Instance.OnDefaultLoad());
-        continueRun.onClick.AddListener(() => EntryPoint.Instance.OnLoad());
+        var entryPoint = EntryPoint.Instance;
+        startRun.onClick.AddListener(() => entryPoint.OnDefaultLoad());
+        continueRun.onClick.AddListener(() => entryPoint.OnLoad());
+        continueRun.enabled = entryPoint.IsContinueAvailable();
     }
 }

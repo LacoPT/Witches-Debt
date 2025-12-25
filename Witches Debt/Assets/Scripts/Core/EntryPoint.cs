@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using Zenject;
+using Zenject.Asteroids;
 
 /// <summary>
 /// Monobehaviour class, that creates gameplay snene (Main scene)
@@ -94,7 +95,7 @@ public class EntryPoint : MonoBehaviour
     /// </summary>
     private IEnumerator LoadScene(bool defaultLoad = true, bool menuLoad = false)
     {
-        
+
         var load = SceneManager.LoadSceneAsync(nextSceneIndex, LoadSceneMode.Additive);
         while (!load.isDone)
         {
@@ -165,5 +166,12 @@ public class EntryPoint : MonoBehaviour
     private void Reload()
     {
         OnLoad(nextSceneIndex);
+    }
+
+    public bool IsContinueAvailable()
+    {
+        GameState testState = new();
+        if (!saveLoader.TryLoadGame(serializer, ref testState)) return false;
+        return testState.NextSceneIndex != 0;
     }
 }

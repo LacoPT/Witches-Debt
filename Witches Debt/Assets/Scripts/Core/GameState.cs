@@ -37,6 +37,5 @@ public class GameState
         var player = PlayerModel.CreateInstance().GetComponent<PlayerController>();
         PlayerModel.FromSaveData(PlayerSaveData);
         ProjectContext.Instance.Container.Inject(player);
-        Debug.Log(PlayerSaveData.MaxHP);
     }
 }
