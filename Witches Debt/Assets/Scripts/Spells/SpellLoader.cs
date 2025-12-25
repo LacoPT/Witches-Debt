@@ -5,7 +5,7 @@ using Zenject;
 public class SpellLoader : MonoBehaviour
 {
     [SerializeField] private SpellCaster casterPrefab;
-    private List<GameObject> casters;
+    private List<GameObject> casters = new();
     private DiContainer container;
     private ModLibrary library;
 
@@ -18,7 +18,15 @@ public class SpellLoader : MonoBehaviour
 
     private void Awake()
     {
-        TestLoadDefault();
+        //TestLoadDefault();
+    }
+
+    public void ClearAllCasters()
+    {
+        foreach (var caster in casters)
+        {
+            Destroy(caster);
+        }
     }
 
     public void LoadFromSaveData(SpellConfigurationSaveData saveData)
@@ -42,10 +50,12 @@ public class SpellLoader : MonoBehaviour
             spellConfiguration.Prefab =  spellPrefab;
             foreach (var modName in storage)
             {
+                if (modName is null) continue;
                 spellConfiguration.mods.Add(library.GetModByName(modName));
             }
             var caster = container.InstantiatePrefabForComponent<SpellCaster>(casterPrefab, transform);
             caster.UpdateConfiguration(spellConfiguration);
+            casters.Add(caster.gameObject);
         }
     }
 
