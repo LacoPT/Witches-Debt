@@ -13,6 +13,7 @@ public class PlayerControls
     private PlayerInput playerInput;
     public InputAction MoveAction => playerInput.actions.FindActionMap("Player").FindAction("Move");
     private string bindingsPath => Application.persistentDataPath + "/bindings.json";
+    public event Action InputSet;
     public event Action<string> BindChanged;
     public void OnRebindMove(int bindingIndex) => OnRebind(MoveAction, bindingIndex);
 
@@ -35,6 +36,7 @@ public class PlayerControls
     {
         playerInput = input;
         LoadBindings();
+        InputSet?.Invoke();
     }
 
     private void SaveBindings()

@@ -1,5 +1,6 @@
 using Mono.Cecil;
 using UnityEngine;
+using Zenject;
 using Object = UnityEngine.Object;
 public class PlayerModel : IInstanceModel
 {
@@ -13,9 +14,9 @@ public class PlayerModel : IInstanceModel
     private float DodgeChance;
     private float Armor;
     private float Greed;
-
     private const string PREFAB_NAME = "Player Save Test";
     private static readonly PlayerController prefab;
+
     static PlayerModel()
     {
         prefab = Resources.Load<PlayerController>(PREFAB_NAME);
@@ -23,7 +24,6 @@ public class PlayerModel : IInstanceModel
 
     public PlayerModel()
     {
-        MaxHP = Random.value;
     }
 
     public PlayerSaveData ToSaveData()

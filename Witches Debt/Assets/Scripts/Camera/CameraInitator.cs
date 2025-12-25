@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 using Zenject;
@@ -12,9 +13,15 @@ public class CameraInitator : MonoBehaviour
         this.targetProvider = targetProvider;
     }
 
-    private void Start()
+    private void Awake()
     {
-        cinemachineCamera.Follow = targetProvider.Target;
+        StartCoroutine(Initialize());
     }
 
+    private IEnumerator Initialize()
+    {
+        yield return new WaitWhile(() => targetProvider.Target == null);
+        cinemachineCamera.Follow = targetProvider.Target;
+
+    }
 }

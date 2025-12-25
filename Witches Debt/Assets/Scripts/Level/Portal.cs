@@ -11,7 +11,6 @@ public class Portal : MonoBehaviour
     [SerializeField] private Collider2D portalCollider;
     private void Awake()
     {
-        Debug.Log(spawnPoints.Count);
         if (spawnPoints.Count == 0) return;
         gameObject.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].position;
         StartCoroutine(WaitForSpawn());

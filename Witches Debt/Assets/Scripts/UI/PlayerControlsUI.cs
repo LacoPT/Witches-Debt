@@ -16,10 +16,11 @@ public class PlayerControlsUI : MonoBehaviour
     public void Construct(PlayerControls playerControls)
     {
         this.playerControls = playerControls;
+        playerControls.InputSet += Initialize;
         playerControls.BindChanged += OnBindChanged;
     }
 
-    private void Awake()
+    private void Initialize()
     {
         foreach (var (button, element) in buttonToText)
         {
@@ -27,6 +28,7 @@ public class PlayerControlsUI : MonoBehaviour
             lastChanged = element.desc;
             OnBindChanged(playerControls.MoveAction.bindings[element.index].effectivePath);
         }
+        playerControls.InputSet -= Initialize;
     }
 
     private void OnDisable()

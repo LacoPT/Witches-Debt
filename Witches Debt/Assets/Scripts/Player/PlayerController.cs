@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour, IActor
     private PlayerModel model;
 
     [Inject]
-    public void Construct(PlayerTargetProvider targetProvider, ModLibrary modLibrary, PlayerControls playerControls)
+    public void Construct(PlayerTargetProvider targetProvider, PlayerControls playerControls)
     {
         this.targetProvider = targetProvider;
         targetProvider.SetTarget(transform);
