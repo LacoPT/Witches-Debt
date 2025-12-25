@@ -14,7 +14,7 @@ public class GameState
 {
     [XmlElement("PlayerSaveData", IsNullable = false)]
     public PlayerSaveData PlayerSaveData { get; set; }
-    [XmlElement] public PlayerModel PlayerModel { get; set; }
+    [XmlElement] public PlayerStats PlayerStats { get; set; }
     [XmlElement("NextSceneIndex")] public int NextSceneIndex { get; set; }
 
     /// <summary>
@@ -23,10 +23,6 @@ public class GameState
     public GameState()
     {
     }
-    //public void Create(PlayerModel playerModel)
-    //{
-    //    PlayerModel = playerModel;
-    //}
 
     /// <summary>
     /// Creates all of the instances, AFTER SERIALIZATION
@@ -34,8 +30,8 @@ public class GameState
     /// </summary>
     public void Initialize()
     {
-        var player = PlayerModel.CreateInstance().GetComponent<PlayerController>();
-        PlayerModel.FromSaveData(PlayerSaveData);
+        var player = PlayerStats.CreateInstance().GetComponent<PlayerController>();
+        PlayerStats.FromSaveData(PlayerSaveData);
         ProjectContext.Instance.Container.Inject(player);
     }
 }

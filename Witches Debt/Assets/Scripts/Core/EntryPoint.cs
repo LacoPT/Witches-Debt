@@ -120,10 +120,10 @@ public class EntryPoint : MonoBehaviour
     private void DefaultLoad()
     {
         gameState = new GameState();
-        var playerModel = new PlayerModel();
+        var playerModel = new PlayerStats();
         var player = playerModel.CreateInstance().GetComponent<PlayerController>();
         var playerSaveData = playerModel.ToSaveData();
-        gameState.PlayerModel = playerModel;
+        gameState.PlayerStats = playerModel;
         gameState.PlayerSaveData = playerSaveData;
         ProjectContext.Instance.Container.Inject(player);
         OnSave(); // is here for test purposes only TODO: remove

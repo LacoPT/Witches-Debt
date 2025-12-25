@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour, IActor
     private Vector2 moveInput;
     private EnemyRegistry enemyRegistry;
     private PlayerTargetProvider targetProvider;
-    private PlayerModel model;
+    private PlayerStats model;
 
     [Inject]
     public void Construct(PlayerTargetProvider targetProvider, PlayerControls playerControls)
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour, IActor
 
     public void Initialize(IInstanceModel model)
     {
-        this.model = (PlayerModel)model;
+        this.model = (PlayerStats)model;
     }
 
     public void OnMove(InputAction.CallbackContext context)
