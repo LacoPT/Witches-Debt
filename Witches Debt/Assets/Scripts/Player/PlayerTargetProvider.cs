@@ -5,7 +5,7 @@ public class PlayerTargetProvider
 {
     private Transform target;
     public Transform Target => target; // transform is needed for following camera 
-    public Vector3 Position => target.position;
+    public Vector3 Position => (target == null) ? default : target.position;
 
     public void SetTarget(Transform target)
     {

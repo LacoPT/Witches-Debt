@@ -869,7 +869,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1118124978631649245, guid: 9412db58fa60b3c4b931bce0b173cc8a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3131837042746209742, guid: 9412db58fa60b3c4b931bce0b173cc8a, type: 3}
       propertyPath: scaler

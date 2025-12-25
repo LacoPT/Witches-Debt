@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     private const float contactDamageCooldown = 1f;
     private void FixedUpdate()
     {
+        if (model.Target == null) return;
         var posDiff = model.Target.Position - transform.position;
         Flip(posDiff);
         rb.MovePosition(transform.position + model.MovingSpeed * Time.fixedDeltaTime * posDiff.normalized);
