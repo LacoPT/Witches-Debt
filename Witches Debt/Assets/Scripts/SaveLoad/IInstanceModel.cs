@@ -5,5 +5,5 @@ using UnityEngine;
 /// </summary>
 public interface IInstanceModel
 {
-    public GameObject CreateInstance();
+    //public GameObject CreateInstance();
 }
