@@ -35,6 +35,54 @@ MonoBehaviour:
     m_Key: UI_test/ShopCanvas/AddRandomMod/Text (TMP)
     m_Metadata:
       m_Items: []
+  - m_Id: 15157898293727232
+    m_Key: UI_test/ShopCanvas/StorageTitle/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15158219803906048
+    m_Key: UI_test/Settings/Buttons/Button/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15158375894929408
+    m_Key: UI_test/Settings/Buttons/Button/Text (TMP) 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15158433033932800
+    m_Key: UI_test/Settings/Buttons/Button/Text (TMP) 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15158514520870912
+    m_Key: UI_test/Settings/Menu/Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15165367455764480
+    m_Key: UI_test/OptionsUI/Up/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15165781521649664
+    m_Key: UI_test/OptionsUI/General/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15165828862758912
+    m_Key: UI_test/OptionsUI/Music/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15165852669628416
+    m_Key: UI_test/OptionsUI/SFX/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15165899352231936
+    m_Key: UI_test/OptionsUI/Down/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15165945011425280
+    m_Key: UI_test/OptionsUI/Left/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15166124556996608
+    m_Key: UI_test/OptionsUI/Right/Text (TMP)
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
