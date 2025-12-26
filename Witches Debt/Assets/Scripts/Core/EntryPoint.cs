@@ -43,14 +43,21 @@ public class EntryPoint : MonoBehaviour
     {
         lastSceneIndex = SceneManager.GetActiveScene().buildIndex;
         sceneIndex = menuSceneIndex;
-        StartCoroutine(LoadScene(defaultLoad: false, menuLoad: true));
+        StartCoroutine(LoadScene());
+    }
+    public void LoadNewGame()
+    {
+        lastSceneIndex = sceneIndex;
+        sceneIndex = firstLevelSceneIndex;
+        InitializeState();
+        StartCoroutine(LoadScene());
     }
 
     public void Save(int nextSceneIndex = -1)
     {
         if (nextSceneIndex != -1)
         {
-            this.sceneIndex = nextSceneIndex;
+            sceneIndex = nextSceneIndex;
         }
         gameState.OnSave(nextSceneIndex);
         saveLoader.SaveGame(serializer, gameState);
@@ -67,21 +74,25 @@ public class EntryPoint : MonoBehaviour
             Debug.Log("Failed to load game");
             return;
         }
-        sceneIndex = (newSceneIndex != -1) ? newSceneIndex : gameState.NextSceneIndex;
-        StartCoroutine(LoadScene(defaultLoad: false));
+        if (newSceneIndex == -1)
+        {
+            sceneIndex = gameState.NextSceneIndex;
+            RestoreStateFromSave();
+            StartCoroutine(LoadScene());
+        }
+        else
+        {
+            sceneIndex = newSceneIndex;
+            StartCoroutine(LoadScene());
+        }
+        Save();
     }
 
-    public void OnDefaultLoad()
-    {
-        lastSceneIndex = sceneIndex;
-        sceneIndex = firstLevelSceneIndex;
-        StartCoroutine(LoadScene());
-    }
 
     /// <summary>
     /// A general method that loads the gameplay *scene*, using SceneManager
     /// </summary>
-    private IEnumerator LoadScene(bool defaultLoad = true, bool menuLoad = false)
+    private IEnumerator LoadScene()
     {
         var load = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
         while (!load.isDone)
@@ -89,37 +100,19 @@ public class EntryPoint : MonoBehaviour
             yield return null;
         }
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneIndex));
-        if (defaultLoad)
-        {
-            DefaultLoad();
-        }
-        else if (!menuLoad)
-        {
-            RestoreStateLoad();
-        }
         StartCoroutine(UnloadScene());
         BindEvents();
     }
 
-    /// <summary>
-    /// Default state of the game, when it's just launched / reloaded.
-    /// </summary>
-    private void DefaultLoad()
+    private void InitializeState()
     {
         gameState = new GameState();
-        gameState.OnDefaultLoad();
-
-        // is here for test purposes only TODO: remove
-        Save();
     }
 
-    /// <summary>
-    /// Uses deserialized gameState
-    /// </summary>
-    private void RestoreStateLoad()
+
+    private void RestoreStateFromSave()
     {
-        gameState.Initialize();
-        Save();
+        gameState.OnLoadFromSave();
     }
 
     /// <summary>
@@ -130,8 +123,6 @@ public class EntryPoint : MonoBehaviour
     /// </summary>
     private IEnumerator UnloadScene()
     {
-        var enemyRegistry = ProjectContext.Instance.Container.Resolve<EnemyRegistry>();
-        if (enemyRegistry != null) enemyRegistry.UnregisterAll();
         var unload = SceneManager.UnloadSceneAsync(lastSceneIndex);
         while (!unload.isDone)
         {
@@ -147,26 +138,10 @@ public class EntryPoint : MonoBehaviour
         //UI.Instance.BindEvents(gameState);
     }
 
-
-    /// <summary>
-    /// Reloads the game using default load
-    /// </summary>
-    //public void OnReload()
-    //{
-    //    Reload();
-    //}
-    /// <summary>
-    /// Uses default scene load
-    /// </summary>
-    //private void Reload()
-    //{
-    //    Load(nextSceneIndex);
-    //}
-
     public bool IsContinueAvailable()
     {
         var testState = new GameState();
         if (!saveLoader.TryLoadGame(serializer, ref testState)) return false;
-        return testState.NextSceneIndex != 0;
+        return testState.NextSceneIndex > 0;
     }
 }

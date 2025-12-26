@@ -1,11 +1,10 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SaveAndQuitButton : MonoBehaviour
 {
     [SerializeField] private Button button;
-    [SerializeField] private int nextSceneIndex;
+    [SerializeField] private NextSceneIndexSelector sceneIndexSelector;
     private void Awake()
     {
         button.onClick.AddListener(SaveAndQuit);
@@ -14,7 +13,7 @@ public class SaveAndQuitButton : MonoBehaviour
     private void SaveAndQuit()
     {
         var entryPoint = EntryPoint.Instance;
-        entryPoint.Save(nextSceneIndex);
+        entryPoint.Save(sceneIndexSelector.NextSceneIndex);
         entryPoint.LoadMenu();
     }
 }
