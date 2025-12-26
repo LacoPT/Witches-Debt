@@ -23,14 +23,9 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private GameObject spellSlotPrefab;
     [SerializeField] private GameObject inventoryItemPrefab;
     [SerializeField] private GameObject modsInventoryPrefab;
-    // Тестовые поля
-    [SerializeField] private Button removeButton;
-    [SerializeField] private InventoryItemConfig configToAdd;
-    [SerializeField] private InventoryItemConfig configToAdd2;
     // Временное решение с сериализацией модели
     [Header("ModelComponents")] 
     [SerializeField] List<SpellType> spells;
-
     [SerializeField] private int storageCapacity;
     [SerializeField] private int spellModsCapacity;
     
@@ -61,14 +56,9 @@ public class InventoryController : MonoBehaviour
                 inventoryModel.SpellModsCapacity);
         }
         
-        removeButton.onClick.AddListener(RemoveFirstModificator);
-        inventoryModel.OnInventoryChanged += UpdateInventoryView;
-        
-        // тестовая загрузка модификаторов
-        
-        inventoryModel.TryAddItemToInventory(configToAdd);
-        inventoryModel.TryAddItemToInventory(configToAdd);
-        inventoryModel.TryAddItemToInventory(configToAdd2);
+        // Кнопка удаления первого модификатора
+        // removeButton.onClick.AddListener(RemoveFirstModificator);
+        // inventoryModel.OnInventoryChanged += UpdateInventoryView;
     }
     
     private List<InventoryItemConfig> GetConfigsFromNames(List<string> names)
