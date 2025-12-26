@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using Zenject;
 
 public class InventoryController : MonoBehaviour, IActor
 {
@@ -27,8 +28,15 @@ public class InventoryController : MonoBehaviour, IActor
     // Contains SpellSlot from item was dragged;
     private SpellSlot spellSlotFrom;
     public Dictionary<GameObject, SpellType> GetSpellSlots() => spellSlots;
-    public void SetSpellFrom(SpellSlot spellSlot) => spellSlotFrom = spellSlot; 
-    
+    public void SetSpellFrom(SpellSlot spellSlot) => spellSlotFrom = spellSlot;
+
+    [Inject]
+    public void Construct(InventoryModel inventoryModel)
+    {
+        this.inventoryModel = inventoryModel;
+        Initialize(inventoryModel);
+    }
+
     public void Initialize(IInstanceModel model)
     {
         inventoryModel = model as InventoryModel;
