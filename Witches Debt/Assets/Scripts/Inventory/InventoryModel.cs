@@ -24,21 +24,23 @@ public class InventoryModel : IInstanceModel
 
     // TODO: replace with scriptable object
     private const int DEFAULT_STORAGE_CAPACITY = 6;
-    private const int DEAFULT_SPELL_MOD_CAPACITY = 6;
+    private const int DEFAULT_SPELL_MODS_CAPACITY = 6;
     private readonly List<SpellType> DEFAULT_SPELLS = new() { SpellType.Shot };
 
     public InventoryModel()
     {
         storage = new List<string>();
         spellsStorages = new Dictionary<SpellType, List<string>>();
-        
-        for (var i = 0; i < DEFAULT_STORAGE_CAPACITY; i++)
+        storageCapacity = DEFAULT_STORAGE_CAPACITY;
+        spellModsCapacity = DEFAULT_SPELL_MODS_CAPACITY;
+
+        for (var i = 0; i < storageCapacity; i++)
             storage.Add(null);
 
         foreach (var spell in DEFAULT_SPELLS)
         {
             spellsStorages[spell] = new List<string>();
-            for (var i = 0; i < DEAFULT_SPELL_MOD_CAPACITY; i++)
+            for (var i = 0; i < spellModsCapacity; i++)
                 spellsStorages[spell].Add(null);
         }
         spellsStorages[SpellType.Shot] = new() { new RocketMod().ToString(), new TripleShot().ToString() };
