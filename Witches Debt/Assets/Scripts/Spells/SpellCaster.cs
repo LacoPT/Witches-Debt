@@ -22,23 +22,14 @@ public class SpellCaster : MonoBehaviour
 
     private void Awake()
     {
-        registry = ProjectContext.Instance.Container.Resolve<EnemyRegistry>();
         shootDirectionFunc = ClosestTarget;
-
-        //config = new SpellConfiguration
-        //{
-        //PrefabConfig = testSpellPrefabConfig
-        //};
-        //config.mods.Add(new RocketMod());
-        //config.mods.Add(new TripleShot());
-        //UpdateConfiguration(config);
     }
 
-    //[Inject]
-    //public void Contruct(EnemyRegistry registry)
-    //{
-    //    this.registry = registry;
-    //}
+    [Inject]
+    public void Contruct(EnemyRegistry registry)
+    {
+        this.registry = registry;
+    }
 
     private void Update()
     {

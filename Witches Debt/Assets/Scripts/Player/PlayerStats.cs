@@ -25,6 +25,7 @@ public class PlayerStats : IInstanceModel
     {
     }
 
+
     public PlayerSaveData ToSaveData()
     {
         var data = new PlayerSaveData();

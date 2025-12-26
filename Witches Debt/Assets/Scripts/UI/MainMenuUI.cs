@@ -8,7 +8,7 @@ public class MainMenuUI : MonoBehaviour
     private void Start()
     {
         var entryPoint = EntryPoint.Instance;
-        startRun.onClick.AddListener(() => entryPoint.OnDefaultLoad());
+        startRun.onClick.AddListener(() => entryPoint.LoadNewGame());
         continueRun.onClick.AddListener(() => entryPoint.Load());
         continueRun.enabled = entryPoint.IsContinueAvailable();
     }

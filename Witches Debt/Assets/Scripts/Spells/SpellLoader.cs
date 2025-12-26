@@ -9,18 +9,16 @@ public class SpellLoader : MonoBehaviour
     private List<GameObject> casters = new();
     private DiContainer container;
     private ModLibrary library;
+    private InventoryModel inventoryModel;
     //private SpellConfiguration spellConfiguration;
-    //[Inject]
-    //public void Construct(DiContainer container, ModLibrary library)
-    //{
-    //    this.container = container;
-    //    this.library = library;
-    //}
-
-    private void Awake()
+    [Inject]
+    public void Construct(DiContainer container, ModLibrary library, InventoryModel inventoryModel)
     {
-        container = ProjectContext.Instance.Container;
-        library = container.Resolve<ModLibrary>();
+        this.container = container;
+        this.library = library;
+        this.inventoryModel = inventoryModel;
+        ClearAllCasters();
+        LoadFromInventoryModel();
     }
 
     public void ClearAllCasters()
@@ -31,9 +29,8 @@ public class SpellLoader : MonoBehaviour
         }
     }
 
-    public void LoadFromInventoryModel(InventoryModel inventoryModel)
+    public void LoadFromInventoryModel()
     {
-        Debug.Log($"Library is null: {library == null}");
         var storages = inventoryModel.SpellsStorages;
         foreach (var (spellType, storage) in storages)
         {
@@ -45,8 +42,7 @@ public class SpellLoader : MonoBehaviour
             {
                 spellConfiguration.Mods.Add(library.GetModByName(modName));
             }
-            //var caster = container.InstantiatePrefabForComponent<SpellCaster>(casterPrefab, transform);
-            var caster = Instantiate(casterPrefab, transform);
+            var caster = container.InstantiatePrefabForComponent<SpellCaster>(casterPrefab, transform);
             caster.UpdateConfiguration(spellConfiguration);
             casters.Add(caster.gameObject);
         }

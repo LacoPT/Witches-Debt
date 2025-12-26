@@ -104,6 +104,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9245bf67754642541b08017945f8ccd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  timeToSpawn: 0
+  spawnPoints: []
+  spriteRenderer: {fileID: 4744848125425701322}
+  portalCollider: {fileID: 7378149893165599291}
+  indexSelector: {fileID: 0}
 --- !u!70 &7378149893165599291
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
