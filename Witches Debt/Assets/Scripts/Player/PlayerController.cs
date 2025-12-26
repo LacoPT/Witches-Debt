@@ -9,37 +9,20 @@ public class PlayerController : MonoBehaviour, IActor
     //TEMP SOLUTION
     private const float MoveSpeed = 15f;    
     private Vector2 moveInput;
-    private EnemyRegistry enemyRegistry;
-    private PlayerTargetProvider targetProvider;
-    private PlayerControls playerControls;
-    private PlayerStats model;
+    private PlayerStats stats;
 
-
-    public void Awake()
+    [Inject]
+    public void Construct(DiContainer container, PlayerTargetProvider targetProvider, PlayerControls playerControls, PlayerStats stats)
     {
-        targetProvider = ProjectContext.Instance.Container.Resolve<PlayerTargetProvider>();
         targetProvider.SetTarget(transform);
         var input = GetComponent<PlayerInput>();
-        playerControls = ProjectContext.Instance.Container.Resolve<PlayerControls>();
         playerControls.SetPlayerInput(input);
+        Initialize(stats);
     }
-    //[Inject]
-    //public void Construct(DiContainer container, PlayerTargetProvider targetProvider, PlayerControls playerControls)
-    //{
-    //    this.targetProvider = targetProvider;
-    //    targetProvider.SetTarget(transform);
-    //    var input = GetComponent<PlayerInput>();
-    //    playerControls.SetPlayerInput(input);
-    //    this.container = container;
-    //}
 
     public void Initialize(IInstanceModel model)
     {
-        this.model = (PlayerStats)model;
-        var loader = GetComponent<SpellLoader>();
-        loader.ClearAllCasters();
-        loader.TestLoadDefault();
-        //loader.LoadFromInventoryModel(InventoryModel.GetInstance());
+        stats = (PlayerStats)model;
     }
 
     public void OnMove(InputAction.CallbackContext context)
