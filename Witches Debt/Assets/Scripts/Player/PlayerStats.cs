@@ -14,6 +14,18 @@ public class PlayerStats : IInstanceModel
     public float Armor { get; set; }
     public float Greed { get; set; }
 
+    private const string PREFAB_NAME = "Player Save Test";
+    private static readonly PlayerController prefab;
+
+    static PlayerStats()
+    {
+        prefab = Resources.Load<PlayerController>(PREFAB_NAME);
+    }
+
+    public PlayerStats()
+    {
+    }
+
     public PlayerSaveData ToSaveData()
     {
         var data = new PlayerSaveData();
