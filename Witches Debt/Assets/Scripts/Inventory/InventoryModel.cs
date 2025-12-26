@@ -36,7 +36,7 @@ public class InventoryModel : IInstanceModel
 
         for (var i = 0; i < storageCapacity; i++)
             storage.Add(null);
-
+        
         foreach (var spell in DEFAULT_SPELLS)
         {
             //spellsStorages[spell] = new List<string>();
@@ -45,6 +45,12 @@ public class InventoryModel : IInstanceModel
             for (var i = 0; i < spellModsCapacity - spellsStorages.Count; i++)
                 spellsStorages[spell].Add(null);
         }
+        
+        // temporary solution for adding mods into inventory
+        storage[0] = new RocketMod().ToString();
+        storage[1] = new TripleShot().ToString();
+        storage[2] = new SpeedUpMod().ToString();
+        
         Instance = this;
     }
 
