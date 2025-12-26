@@ -43,8 +43,7 @@ public class InventoryItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //test change
         InventoryController.GetInstance.ReplaceMods(parentAfterDrag.GetComponent<SpellSlot>());
-        transform.GameObject().SetActive(false);
+        Destroy(transform.GameObject());
     }
 }

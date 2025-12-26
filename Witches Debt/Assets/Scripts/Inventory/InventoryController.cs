@@ -28,7 +28,6 @@ public class InventoryController : MonoBehaviour
     [SerializeField] List<SpellType> spells;
     [SerializeField] private int storageCapacity;
     [SerializeField] private int spellModsCapacity;
-    
     private Dictionary<GameObject, SpellType> spellSlots;
     // Contains SpellSlot from item was dragged;
     private SpellSlot spellSlotFrom;
@@ -58,7 +57,7 @@ public class InventoryController : MonoBehaviour
         
         // Кнопка удаления первого модификатора
         // removeButton.onClick.AddListener(RemoveFirstModificator);
-        // inventoryModel.OnInventoryChanged += UpdateInventoryView;
+        inventoryModel.OnInventoryChanged += UpdateInventoryView;
     }
     
     private List<InventoryItemConfig> GetConfigsFromNames(List<string> names)
