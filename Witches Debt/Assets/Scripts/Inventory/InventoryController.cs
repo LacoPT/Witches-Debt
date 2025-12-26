@@ -86,6 +86,7 @@ public class InventoryController : MonoBehaviour, IActor
 
     private void CreateInventorySlots(List<InventoryItemConfig> items, GameObject inventoryToAdd, int capacity)
     {
+        capacity = Math.Min(capacity, items.Count);
         for (var i = 0; i < capacity; i++)
         {
             var spellSlot = Instantiate(spellSlotPrefab, inventoryToAdd.transform);
