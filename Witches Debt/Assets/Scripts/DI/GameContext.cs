@@ -9,8 +9,9 @@ public class GameContext : MonoInstaller
     {
         Container.Bind<PlayerTargetProvider>().AsSingle();
         Container.Bind<PlayerControls>().AsSingle();
-        Container.Bind<ModLibrary>().AsSingle().WithArguments(modRarityDistribution);
+        Container.Bind<ModLibrary>().AsSingle().WithArguments(modRarityDistribution, Container);
         Container.Bind<SpellConfiguration>().AsSingle();
         Container.Bind<EnemyRegistry>().AsSingle();
+        Container.Bind<StatusEffectLibrary>().AsSingle();
     }
 }

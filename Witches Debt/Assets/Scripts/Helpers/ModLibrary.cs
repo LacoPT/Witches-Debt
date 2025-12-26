@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 using RarityPools = System.Collections.Generic.Dictionary<ModRarity, System.Collections.Generic.List<SpellMod>>;
 
 public class ModLibrary
@@ -16,13 +17,16 @@ public class ModLibrary
     };
     
     private ModRarityDistribution distribution;
+    private DiContainer container;
     
-    public ModLibrary(ModRarityDistribution distribution)
+    public ModLibrary(ModRarityDistribution distribution, DiContainer container)
     {
         this.distribution = distribution;
-        RegisterMod(new SpeedUpMod());
-        RegisterMod(new RocketMod());
-        RegisterMod(new TripleShot());
+        this.container = container;
+        RegisterMod(container.Instantiate<SpeedUpMod>());
+        RegisterMod(container.Instantiate<RocketMod>());
+        RegisterMod(container.Instantiate<TripleShot>());
+        RegisterMod(container.Instantiate<PoisonMod>());
     }
 
     public void RegisterMod(SpellMod mod)
@@ -53,5 +57,10 @@ public class ModLibrary
     public SpellMod GetModByName(string modName)
     {
         return Mods[modName];
+    }
+
+    public T Resolve<T>() where T : SpellMod
+    {
+        return Mods[typeof(T).Name] as T;
     }
 }
