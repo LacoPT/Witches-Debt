@@ -454,10 +454,10 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: en
-          value: {fileID: 11400000, guid: b2f2a572112a47a48a569b77f71c8002, type: 2}
+          value: {fileID: 11400000, guid: ccf417f4f049d364f836aff885f6a084, type: 2}
         - localeIdentifier:
             m_Code: ru
-          value: {fileID: 11400000, guid: a4b59a07bace44a43b1723f001ddf0fa, type: 2}
+          value: {fileID: 11400000, guid: ccf417f4f049d364f836aff885f6a084, type: 2}
     - rid: 4875553750582296857
       type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
       data:
@@ -467,10 +467,10 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: en
-          value: {fileID: -1712727901444666126, guid: b2f2a572112a47a48a569b77f71c8002, type: 2}
+          value: {fileID: -8833922811450890645, guid: ccf417f4f049d364f836aff885f6a084, type: 2}
         - localeIdentifier:
             m_Code: ru
-          value: {fileID: -781442185553107098, guid: a4b59a07bace44a43b1723f001ddf0fa, type: 2}
+          value: {fileID: -8833922811450890645, guid: ccf417f4f049d364f836aff885f6a084, type: 2}
     - rid: 4875553750582296858
       type: {class: IntTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
       data:
