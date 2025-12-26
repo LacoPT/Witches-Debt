@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -30,30 +31,19 @@ public class SpellLoader : MonoBehaviour
         }
     }
 
-    //public void LoadFromSaveData(SpellConfigurationSaveData saveData)
-    //{
-    //    var spellConfiguration = container.Instantiate<SpellConfiguration>();
-    //    spellConfiguration.FromSaveData(saveData);
-    //    //var caster = Instantiate(casterPrefab, transform);
-    //    var caster = container.InstantiatePrefabForComponent<SpellCaster>(casterPrefab, transform);
-    //    caster.UpdateConfiguration(spellConfiguration);
-    //}
-
     public void LoadFromInventoryModel(InventoryModel inventoryModel)
     {
         Debug.Log($"Library is null: {library == null}");
         var storages = inventoryModel.SpellsStorages;
-        foreach (var storageKv in storages)
+        foreach (var (spellType, storage) in storages)
         {
-            var spellType = storageKv.Key;
-            var storage = storageKv.Value;
             var spellConfiguration = container.Instantiate<SpellConfiguration>();
             var spellPrefab = GetSpellPrefab(spellType);
-            spellConfiguration.Prefab = spellPrefab;
-            foreach (var modName in storage)
+            spellConfiguration.Type = spellType;
+            spellConfiguration.Prefab =  spellPrefab;
+            foreach (var modName in storage.Where(modName => modName is not null))
             {
-                if (modName is null) continue;
-                spellConfiguration.mods.Add(library.GetModByName(modName));
+                spellConfiguration.Mods.Add(library.GetModByName(modName));
             }
             //var caster = container.InstantiatePrefabForComponent<SpellCaster>(casterPrefab, transform);
             var caster = Instantiate(casterPrefab, transform);
@@ -65,15 +55,15 @@ public class SpellLoader : MonoBehaviour
     public void TestLoadDefault()
     {
         var spellConfiguration = container.Instantiate<SpellConfiguration>();
-        //spellConfiguration.PrefabConfig = SpellPrefabConfig.;
-        spellConfiguration.Prefab = GetSpellPrefab(SpellType.Shot);
+        spellConfiguration.Prefab = GetSpellPrefab(SpellType.Area);
+        spellConfiguration.Type = SpellType.Area;
         var caster = container.InstantiatePrefabForComponent<SpellCaster>(casterPrefab, transform);
-        spellConfiguration.mods.Add(new RocketMod());
-        spellConfiguration.mods.Add(new TripleShot());
+        spellConfiguration.Mods.Add(new RocketMod());
+        spellConfiguration.Mods.Add(new TripleShot());
         caster.UpdateConfiguration(spellConfiguration);
     }
     
-    public GameObject GetSpellPrefab(SpellType type)
+    private static GameObject GetSpellPrefab(SpellType type)
     {
         var prefabName = type.ToString();
         return Resources.Load<GameObject>(prefabName);

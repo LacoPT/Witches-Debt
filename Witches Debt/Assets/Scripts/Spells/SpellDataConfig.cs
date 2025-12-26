@@ -6,4 +6,5 @@ public class SpellDataConfig : ScriptableObject
     public float DefaultDamage = 1;
     public float DefaultSpeed = 5f;
     public float DefaultScale = 1f;
+    public float DefaultLifeTime = 3f;
 }
