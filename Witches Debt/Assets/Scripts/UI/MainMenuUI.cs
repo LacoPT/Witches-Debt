@@ -9,7 +9,7 @@ public class MainMenuUI : MonoBehaviour
     {
         var entryPoint = EntryPoint.Instance;
         startRun.onClick.AddListener(() => entryPoint.OnDefaultLoad());
-        continueRun.onClick.AddListener(() => entryPoint.OnLoad());
+        continueRun.onClick.AddListener(() => entryPoint.Load());
         continueRun.enabled = entryPoint.IsContinueAvailable();
     }
 }

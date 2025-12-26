@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using UnityEngine;
 using RarityPools = System.Collections.Generic.Dictionary<ModRarity, System.Collections.Generic.List<SpellMod>>;
 
 public class ModLibrary

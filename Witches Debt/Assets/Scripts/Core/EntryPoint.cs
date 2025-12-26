@@ -17,7 +17,7 @@ public class EntryPoint : MonoBehaviour
 {
     [SerializeField] private int menuSceneIndex = 1;
     [SerializeField] private int firstLevelSceneIndex = 2;
-    private int nextSceneIndex;
+    private int sceneIndex;
     private int lastSceneIndex;
     private GameState gameState;
     /// <summary>
@@ -26,68 +26,56 @@ public class EntryPoint : MonoBehaviour
     /// </summary>
     private GameSerializer serializer;
     private GameSaveLoader saveLoader = new();
-
     public static EntryPoint Instance; // TODO: remove with zenject
 
     public void Awake()
     {
         lastSceneIndex = 0;
-        nextSceneIndex = menuSceneIndex;
+        sceneIndex = menuSceneIndex;
         Instance = this;
         DontDestroyOnLoad(gameObject);
         //You can't reference the Application not in method
         serializer = new XMLGameSerializer(Application.persistentDataPath + "/save.xml");
-        OnMenuLoad();
+        LoadMenu();
     }
 
-    /// <summary>
-    /// Called by input, saves the game
-    /// </summary>
-    public void OnSave(int nextSceneIndex = -1)
+    public void LoadMenu()
+    {
+        lastSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        sceneIndex = menuSceneIndex;
+        StartCoroutine(LoadScene(defaultLoad: false, menuLoad: true));
+    }
+
+    public void Save(int nextSceneIndex = -1)
     {
         if (nextSceneIndex != -1)
         {
-            gameState.NextSceneIndex = nextSceneIndex;
-            this.nextSceneIndex = nextSceneIndex;
+            this.sceneIndex = nextSceneIndex;
         }
+        gameState.OnSave(nextSceneIndex);
         saveLoader.SaveGame(serializer, gameState);
     }
 
     /// <summary>
     /// loads the game (using Restore state load)
     /// </summary>
-    public void OnLoad(int newSceneIndex = -1)
+    public void Load(int newSceneIndex = -1)
     {
-        lastSceneIndex = nextSceneIndex;
+        lastSceneIndex = sceneIndex;
         if (!saveLoader.TryLoadGame(serializer, ref gameState))
         {
             Debug.Log("Failed to load game");
             return;
         }
-        nextSceneIndex = (newSceneIndex != -1) ? newSceneIndex : gameState.NextSceneIndex;
+        sceneIndex = (newSceneIndex != -1) ? newSceneIndex : gameState.NextSceneIndex;
         StartCoroutine(LoadScene(defaultLoad: false));
     }
 
     public void OnDefaultLoad()
     {
-        lastSceneIndex = this.nextSceneIndex;
-        nextSceneIndex = firstLevelSceneIndex;
+        lastSceneIndex = sceneIndex;
+        sceneIndex = firstLevelSceneIndex;
         StartCoroutine(LoadScene());
-    }
-
-    public void OnMenuLoad()
-    {
-        lastSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        nextSceneIndex = menuSceneIndex;
-        StartCoroutine(LoadScene(defaultLoad: false, menuLoad: true));
-    }
-
-    /// <summary>
-    /// Called by button, reloads the game using default load
-    /// </summary>
-    public void OnReload()
-    {
-        Reload();
     }
 
     /// <summary>
@@ -95,13 +83,12 @@ public class EntryPoint : MonoBehaviour
     /// </summary>
     private IEnumerator LoadScene(bool defaultLoad = true, bool menuLoad = false)
     {
-
-        var load = SceneManager.LoadSceneAsync(nextSceneIndex, LoadSceneMode.Additive);
+        var load = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
         while (!load.isDone)
         {
             yield return null;
         }
-        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(nextSceneIndex));
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneIndex));
         if (defaultLoad)
         {
             DefaultLoad();
@@ -120,13 +107,10 @@ public class EntryPoint : MonoBehaviour
     private void DefaultLoad()
     {
         gameState = new GameState();
-        var playerModel = new PlayerStats();
-        var player = playerModel.CreateInstance().GetComponent<PlayerController>();
-        var playerSaveData = playerModel.ToSaveData();
-        gameState.PlayerStats = playerModel;
-        gameState.PlayerSaveData = playerSaveData;
-        ProjectContext.Instance.Container.Inject(player);
-        OnSave(); // is here for test purposes only TODO: remove
+        gameState.OnDefaultLoad();
+
+        // is here for test purposes only TODO: remove
+        Save();
     }
 
     /// <summary>
@@ -135,6 +119,7 @@ public class EntryPoint : MonoBehaviour
     private void RestoreStateLoad()
     {
         gameState.Initialize();
+        Save();
     }
 
     /// <summary>
@@ -145,6 +130,8 @@ public class EntryPoint : MonoBehaviour
     /// </summary>
     private IEnumerator UnloadScene()
     {
+        var enemyRegistry = ProjectContext.Instance.Container.Resolve<EnemyRegistry>();
+        if (enemyRegistry != null) enemyRegistry.UnregisterAll();
         var unload = SceneManager.UnloadSceneAsync(lastSceneIndex);
         while (!unload.isDone)
         {
@@ -160,17 +147,25 @@ public class EntryPoint : MonoBehaviour
         //UI.Instance.BindEvents(gameState);
     }
 
+
+    /// <summary>
+    /// Reloads the game using default load
+    /// </summary>
+    //public void OnReload()
+    //{
+    //    Reload();
+    //}
     /// <summary>
     /// Uses default scene load
     /// </summary>
-    private void Reload()
-    {
-        OnLoad(nextSceneIndex);
-    }
+    //private void Reload()
+    //{
+    //    Load(nextSceneIndex);
+    //}
 
     public bool IsContinueAvailable()
     {
-        GameState testState = new();
+        var testState = new GameState();
         if (!saveLoader.TryLoadGame(serializer, ref testState)) return false;
         return testState.NextSceneIndex != 0;
     }

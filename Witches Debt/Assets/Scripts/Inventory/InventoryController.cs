@@ -9,7 +9,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 
-public class InventoryController : MonoBehaviour
+public class InventoryController : MonoBehaviour, IActor
 {
     private InventoryModel inventoryModel;
     private static InventoryController instance;
@@ -35,11 +35,12 @@ public class InventoryController : MonoBehaviour
     public Dictionary<GameObject, SpellType> GetSpellSlots() => spellSlots;
     public void SetSpellFrom(SpellSlot spellSlot) => spellSlotFrom = spellSlot; 
     
-    public void Awake()
+    public void Initialize(IInstanceModel model)
     {
+        inventoryModel = model as InventoryModel;
         instance = this;
         // Временное решение, пока нету некого подобия GameManager
-        inventoryModel = new InventoryModel(spells, storageCapacity, spellModsCapacity);
+        //inventoryModel = new InventoryModel(spells, storageCapacity, spellModsCapacity);
         spellSlots = new Dictionary<GameObject, SpellType>();
         
         var inventoryItemsConfigs = GetConfigsFromNames(inventoryModel.Storage);

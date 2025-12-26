@@ -6,8 +6,8 @@ public class ReloadButton : MonoBehaviour
 {
     [SerializeField] private Button reloadButton;
 
-    private void Awake()
-    {
-        reloadButton.onClick.AddListener(() => EntryPoint.Instance.OnReload());
-    }
+    //private void Awake()
+    //{
+    //    reloadButton.onClick.AddListener(() => EntryPoint.Instance.OnReload());
+    //}
 }

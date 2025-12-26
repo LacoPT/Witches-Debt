@@ -74,3 +74,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 694cae368b865484f8fcadd67e7b4958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameContext
+  modRarityDistribution: {fileID: 11400000, guid: 8a22acff943be6a44a913559edc89f5c, type: 2}
