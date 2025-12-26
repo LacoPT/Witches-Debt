@@ -11,5 +11,6 @@ public class ProjectInstaller : MonoInstaller
         Container.Bind<ModLibrary>().AsSingle().WithArguments(modRarityDistribution);
         Container.Bind<PlayerStats>().AsSingle();
         Container.Bind<InventoryModel>().AsSingle();
+        Container.Bind<StatusEffectLibrary>().AsSingle();
     }
 }
