@@ -12,11 +12,11 @@ using Zenject;
 [XmlRootAttribute("GameState", IsNullable = false)]
 public class GameState
 {
+    [XmlElement("NextSceneIndex")] public int NextSceneIndex { get; set; }
     [XmlElement("PlayerSaveData", IsNullable = false)]
     public PlayerSaveData PlayerSaveData { get; set; }
-    [XmlElement] public PlayerStats PlayerStats { get; set; }
-    [XmlElement("NextSceneIndex")] public int NextSceneIndex { get; set; }
-
+    [XmlElement("InventorySaveData", IsNullable = false)]
+    public InventorySaveData InventorySaveData { get; set; }
     /// <summary>
     /// ParameterLess constructor is required by XML.Serialization
     /// </summary>
@@ -30,8 +30,9 @@ public class GameState
     /// </summary>
     public void Initialize()
     {
-        var player = PlayerStats.CreateInstance().GetComponent<PlayerController>();
-        PlayerStats.FromSaveData(PlayerSaveData);
+        var playerStats = new PlayerStats();
+        playerStats.FromSaveData(PlayerSaveData);
+        var player = playerStats.CreateInstance().GetComponent<PlayerController>();
         ProjectContext.Instance.Container.Inject(player);
     }
 }

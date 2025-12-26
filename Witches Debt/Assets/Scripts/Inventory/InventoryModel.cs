@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class InventoryModel
 {
-    public event Action OnInventoryChanged; 
-    
+    public event Action OnInventoryChanged;
+
     private List<string> storage;
     private Dictionary<SpellType, List<string>> spellsStorages;
     private int storageCapacity;
@@ -20,29 +20,50 @@ public class InventoryModel
     public Dictionary<SpellType, List<string>> SpellsStorages => spellsStorages;
     public int StorageCapacity => storageCapacity;
     public int SpellModsCapacity => spellModsCapacity;
-    
-    /// <summary> Create InventoryModel with empty slots</summary>
-    public InventoryModel(
-        List<SpellType> spells,
-        int storageCapacity,
-        int spellModsCapacity)
+
+
+    // TODO: replace with scriptable object
+    private const int DEFAULT_STORAGE_CAPACITY = 6;
+    private const int DEAFULT_SPELL_MOD_CAPACITY = 6;
+    private readonly List<SpellType> DEFAULT_SPELLS = new() { SpellType.Shot };
+
+    ///// <summary> Create InventoryModel with empty slots</summary>
+    //public InventoryModel(
+    //    List<SpellType> spells,
+    //    int storageCapacity,
+    //    int spellModsCapacity)
+    //{
+    //    storage = new List<string>();
+    //    spellsStorages = new Dictionary<SpellType, List<string>>();
+    //    for (var i = 0; i < this.storageCapacity; i++)
+    //        storage.Add(null);
+
+    //    foreach (var spell in spells)
+    //    {
+    //        spellsStorages[spell] = new List<string>();
+    //        for (var i = 0; i < this.spellModsCapacity; i++)
+    //            spellsStorages[spell].Add(null);
+    //    }
+
+    //    //TODO: Make a safer alternative
+    //    Instance = this;
+    //}
+
+    public InventoryModel()
     {
         storage = new List<string>();
         spellsStorages = new Dictionary<SpellType, List<string>>();
         
-        for (var i = 0; i < storageCapacity; i++)
+        for (var i = 0; i < DEFAULT_STORAGE_CAPACITY; i++)
             storage.Add(null);
 
-        foreach (var spell in spells)
+        foreach (var spell in DEFAULT_SPELLS)
         {
             spellsStorages[spell] = new List<string>();
-            for (var i = 0; i < spellModsCapacity; i++)
+            for (var i = 0; i < DEAFULT_SPELL_MOD_CAPACITY; i++)
                 spellsStorages[spell].Add(null);
         }
-        this.storageCapacity = storageCapacity;
-        this.spellModsCapacity = spellModsCapacity;
-        
-        //TODO: Make a safer alternative
+
         Instance = this;
     }
 
@@ -90,19 +111,18 @@ public class InventoryModel
         storage[index] = null;
         OnInventoryChanged?.Invoke();
     }
-    
-    public enum SpellTypes
-    {
-        Shoot,
-        Area
-    }
 
     public InventorySaveData ToSaveData()
     {
+        var saveStorages = new List<SpellEntry>();
+        foreach (var kvPair in spellsStorages)
+        {
+            saveStorages.Add(new SpellEntry(kvPair.Key, kvPair.Value));
+        }
         var data = new InventorySaveData
         {
             Storage = storage,
-            SpellsStorages = spellsStorages
+            SpellsStorages = saveStorages
         };
         return data;
     }
@@ -110,6 +130,9 @@ public class InventoryModel
     public void FromSaveData(InventorySaveData data)
     {
         storage = data.Storage;
-        spellsStorages = data.SpellsStorages;
+        foreach (var entry in data.SpellsStorages)
+        {
+            spellsStorages[entry.type] = entry.mods;
+        }
     }
 }
