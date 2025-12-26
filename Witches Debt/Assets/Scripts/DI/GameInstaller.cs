@@ -7,7 +7,6 @@ public class GameInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.Bind<PlayerTargetProvider>().AsSingle();
-        Container.Bind<SpellConfiguration>().AsSingle();
         Container.Bind<EnemyRegistry>().AsSingle();
     }
 }
