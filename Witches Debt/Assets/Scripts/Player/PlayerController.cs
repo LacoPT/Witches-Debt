@@ -3,23 +3,28 @@ using UnityEngine.InputSystem;
 using Zenject;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IActor
 {
-    //TEMP SOLUTION
-    private const float MoveSpeed = 15f;
-    
     [SerializeField] Rigidbody2D rb;
-    
+    //TEMP SOLUTION
+    private const float MoveSpeed = 15f;    
     private Vector2 moveInput;
     private EnemyRegistry enemyRegistry;
     private PlayerTargetProvider targetProvider;
-
+    private PlayerStats model;
 
     [Inject]
-    public void Construct(PlayerTargetProvider targetProvider, ModLibrary modLibrary)
+    public void Construct(PlayerTargetProvider targetProvider, PlayerControls playerControls)
     {
         this.targetProvider = targetProvider;
         targetProvider.SetTarget(transform);
+        var input = GetComponent<PlayerInput>();
+        playerControls.SetPlayerInput(input);
+    }
+
+    public void Initialize(IInstanceModel model)
+    {
+        this.model = (PlayerStats)model;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -35,4 +40,5 @@ public class PlayerController : MonoBehaviour
     {
         rb.MovePosition(rb.position + Time.fixedDeltaTime * MoveSpeed * moveInput.normalized);
     }
+
 }

@@ -1,14 +1,18 @@
-public class PlayerStats
+using Mono.Cecil;
+using UnityEngine;
+using Zenject;
+using Object = UnityEngine.Object;
+public class PlayerStats : IInstanceModel
 {
-    private float MaxHP;
-    private float MoveSpeed;
-    private float CastSpeed;
-    private float VampChance;
-    private float Regeneration;
-    private float HealPercent;
-    private float DodgeChance;
-    private float Armor;
-    private float Greed;
+    public float MaxHP { get; set; }
+    public float MoveSpeed { get; set; }
+    public float CastSpeed { get; set; }
+    public float VampChance { get; set; }
+    public float Regeneration { get; set; }
+    public float HealPercent { get; set; }
+    public float DodgeChance { get; set; }
+    public float Armor { get; set; }
+    public float Greed { get; set; }
 
     public PlayerSaveData ToSaveData()
     {
@@ -36,5 +40,12 @@ public class PlayerStats
         DodgeChance = data.DodgeChance;
         Armor = data.Armor;
         Greed = data.Greed;
+    }
+
+    public GameObject CreateInstance()
+    {
+        var player = Object.Instantiate(prefab);
+        player.Initialize(this);
+        return player.gameObject;
     }
 }

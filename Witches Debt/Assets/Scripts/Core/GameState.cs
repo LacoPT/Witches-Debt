@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 
 /// <summary>
 /// GameState is a model class that have references to all others models that are being saved/loaded
@@ -11,29 +12,16 @@ using UnityEngine.Events;
 [XmlRootAttribute("GameState", IsNullable = false)]
 public class GameState
 {
-    //[XmlElement("Player", IsNullable = false)]
-    //public PlayerModel PlayerModel { get; private set; }
-    //[XmlArray("Dots")]
-    //[XmlArrayItem("Dot", typeof(DotModel))]
-    //public List<DotModel> DotModels { get; private set; } = new();
+    [XmlElement("PlayerSaveData", IsNullable = false)]
+    public PlayerSaveData PlayerSaveData { get; set; }
+    [XmlElement] public PlayerStats PlayerStats { get; set; }
+    [XmlElement("NextSceneIndex")] public int NextSceneIndex { get; set; }
 
-    [XmlArray("TestItems")]
-    [XmlArrayItem("TestItem", typeof(TestItemModel))]
-    public List<TestItemModel> TestItemModels { get; set; } = new();
     /// <summary>
     /// ParameterLess constructor is required by XML.Serialization
     /// </summary>
     public GameState()
     {
-    }
-
-    //public void Create(PlayerModel playerModel)
-    //{
-    //    PlayerModel = playerModel;
-    //}
-    public void Create(TestItemModel testItemModel)
-    {
-        TestItemModels.Add(testItemModel);
     }
 
     /// <summary>
@@ -42,22 +30,8 @@ public class GameState
     /// </summary>
     public void Initialize()
     {
-        //if (PlayerModel == null)
-        //    throw new Exception("PlayerModel is null / wrong Initialize usage");
-        //PlayerModel.CreateInstance();
-        foreach (TestItemModel tiModel in TestItemModels)
-        {
-            tiModel.CreateInstance();
-        }
-    }
-
-    public void BindItemDespawned(UnityEvent<TestItem> _event)
-    {
-        _event.AddListener(OnItemDespawned);
-    }
-
-    private void OnItemDespawned(TestItem item)
-    {
-        TestItemModels.Remove(item.Model);
+        var player = PlayerStats.CreateInstance().GetComponent<PlayerController>();
+        PlayerStats.FromSaveData(PlayerSaveData);
+        ProjectContext.Instance.Container.Inject(player);
     }
 }

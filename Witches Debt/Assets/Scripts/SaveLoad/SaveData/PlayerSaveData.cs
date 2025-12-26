@@ -9,7 +9,6 @@ public class PlayerSaveData
     public float DodgeChance;
     public float Armor;
     public float Greed;
-
     public PlayerSaveData()
     {
     }
