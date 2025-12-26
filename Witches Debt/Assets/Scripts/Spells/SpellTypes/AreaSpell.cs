@@ -17,6 +17,5 @@ public class AreaSpell : Spell
         {
             hittable.TakeDamage(data.baseDamage);
         }
-        Destroy(gameObject);
     }
 }

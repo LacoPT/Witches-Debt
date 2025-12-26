@@ -38,8 +38,8 @@ public class PlayerController : MonoBehaviour, IActor
         this.model = (PlayerStats)model;
         var loader = GetComponent<SpellLoader>();
         loader.ClearAllCasters();
-        //loader.TestLoadDefault();
-        loader.LoadFromInventoryModel(InventoryModel.GetInstance());
+        loader.TestLoadDefault();
+        //loader.LoadFromInventoryModel(InventoryModel.GetInstance());
     }
 
     public void OnMove(InputAction.CallbackContext context)

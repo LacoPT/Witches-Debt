@@ -96,7 +96,7 @@ public class SpellCaster : MonoBehaviour
                 (p - transform.position).sqrMagnitude < (best - transform.position).sqrMagnitude ? p : best);
         if(selectType == TargetSelectType.Point)
             //TODO: move to const/config
-            return (closest - transform.position).sqrMagnitude < 100 ? closest : RandomAngle();
+            return (closest - transform.position).sqrMagnitude < 150 ? closest : RandomAngle();
         return (closest - transform.position).normalized;
     }
 }
