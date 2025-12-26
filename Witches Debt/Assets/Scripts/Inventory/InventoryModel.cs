@@ -4,7 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class InventoryModel
+public class InventoryModel : IInstanceModel
 {
     public event Action OnInventoryChanged;
 
@@ -26,28 +26,6 @@ public class InventoryModel
     private const int DEFAULT_STORAGE_CAPACITY = 6;
     private const int DEAFULT_SPELL_MOD_CAPACITY = 6;
     private readonly List<SpellType> DEFAULT_SPELLS = new() { SpellType.Shot };
-
-    ///// <summary> Create InventoryModel with empty slots</summary>
-    //public InventoryModel(
-    //    List<SpellType> spells,
-    //    int storageCapacity,
-    //    int spellModsCapacity)
-    //{
-    //    storage = new List<string>();
-    //    spellsStorages = new Dictionary<SpellType, List<string>>();
-    //    for (var i = 0; i < this.storageCapacity; i++)
-    //        storage.Add(null);
-
-    //    foreach (var spell in spells)
-    //    {
-    //        spellsStorages[spell] = new List<string>();
-    //        for (var i = 0; i < this.spellModsCapacity; i++)
-    //            spellsStorages[spell].Add(null);
-    //    }
-
-    //    //TODO: Make a safer alternative
-    //    Instance = this;
-    //}
 
     public InventoryModel()
     {

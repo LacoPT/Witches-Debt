@@ -1,13 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.UIElements;
-using Button = UnityEngine.UI.Button;
 
 public class InventoryController : MonoBehaviour, IActor
 {
@@ -38,8 +33,6 @@ public class InventoryController : MonoBehaviour, IActor
     {
         inventoryModel = model as InventoryModel;
         instance = this;
-        // Временное решение, пока нету некого подобия GameManager
-        //inventoryModel = new InventoryModel(spells, storageCapacity, spellModsCapacity);
         spellSlots = new Dictionary<GameObject, SpellType>();
         
         var inventoryItemsConfigs = GetConfigsFromNames(inventoryModel.Storage);
@@ -56,8 +49,6 @@ public class InventoryController : MonoBehaviour, IActor
                 inventoryModel.SpellModsCapacity);
         }
         
-        // Кнопка удаления первого модификатора
-        // removeButton.onClick.AddListener(RemoveFirstModificator);
         inventoryModel.OnInventoryChanged += UpdateInventoryView;
     }
     
@@ -118,9 +109,6 @@ public class InventoryController : MonoBehaviour, IActor
             }
         }
     }
-
-    //Test Method
-    private void RemoveFirstModificator() => inventoryModel.RemoveItemFromStorage(0);
     
     private void UpdateInventorySlotsView(List<string> items, GameObject inventoryToAdd, int capacity)
     {

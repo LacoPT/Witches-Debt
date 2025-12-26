@@ -53,11 +53,4 @@ public class PlayerStats : IInstanceModel
         Armor = data.Armor;
         Greed = data.Greed;
     }
-
-    public GameObject CreateInstance()
-    {
-        var player = Object.Instantiate(prefab);
-        player.Initialize(this);
-        return player.gameObject;
-    }
 }
