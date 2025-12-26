@@ -8,17 +8,18 @@ public class SpellLoader : MonoBehaviour
     private List<GameObject> casters = new();
     private DiContainer container;
     private ModLibrary library;
-
-    [Inject]
-    public void Construct(DiContainer container, ModLibrary library)
-    {
-        this.container = container;
-        this.library = library;
-    }
+    //private SpellConfiguration spellConfiguration;
+    //[Inject]
+    //public void Construct(DiContainer container, ModLibrary library)
+    //{
+    //    this.container = container;
+    //    this.library = library;
+    //}
 
     private void Awake()
     {
-        //TestLoadDefault();
+        container = ProjectContext.Instance.Container;
+        library = container.Resolve<ModLibrary>();
     }
 
     public void ClearAllCasters()
@@ -29,17 +30,18 @@ public class SpellLoader : MonoBehaviour
         }
     }
 
-    public void LoadFromSaveData(SpellConfigurationSaveData saveData)
-    {
-        var spellConfiguration = container.Instantiate<SpellConfiguration>();
-        spellConfiguration.FromSaveData(saveData);
-        //var caster = Instantiate(casterPrefab, transform);
-        var caster = container.InstantiatePrefabForComponent<SpellCaster>(casterPrefab, transform);
-        caster.UpdateConfiguration(spellConfiguration);
-    }
+    //public void LoadFromSaveData(SpellConfigurationSaveData saveData)
+    //{
+    //    var spellConfiguration = container.Instantiate<SpellConfiguration>();
+    //    spellConfiguration.FromSaveData(saveData);
+    //    //var caster = Instantiate(casterPrefab, transform);
+    //    var caster = container.InstantiatePrefabForComponent<SpellCaster>(casterPrefab, transform);
+    //    caster.UpdateConfiguration(spellConfiguration);
+    //}
 
     public void LoadFromInventoryModel(InventoryModel inventoryModel)
     {
+        Debug.Log($"Library is null: {library == null}");
         var storages = inventoryModel.SpellsStorages;
         foreach (var storageKv in storages)
         {
@@ -47,13 +49,14 @@ public class SpellLoader : MonoBehaviour
             var storage = storageKv.Value;
             var spellConfiguration = container.Instantiate<SpellConfiguration>();
             var spellPrefab = GetSpellPrefab(spellType);
-            spellConfiguration.Prefab =  spellPrefab;
+            spellConfiguration.Prefab = spellPrefab;
             foreach (var modName in storage)
             {
                 if (modName is null) continue;
                 spellConfiguration.mods.Add(library.GetModByName(modName));
             }
-            var caster = container.InstantiatePrefabForComponent<SpellCaster>(casterPrefab, transform);
+            //var caster = container.InstantiatePrefabForComponent<SpellCaster>(casterPrefab, transform);
+            var caster = Instantiate(casterPrefab, transform);
             caster.UpdateConfiguration(spellConfiguration);
             casters.Add(caster.gameObject);
         }

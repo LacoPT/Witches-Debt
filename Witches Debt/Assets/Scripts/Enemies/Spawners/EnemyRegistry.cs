@@ -20,4 +20,9 @@ public class EnemyRegistry
     {
         enemies.Remove(enemy);
     }
+
+    public void UnregisterAll()
+    {
+        enemies.Clear();
+    }
 }

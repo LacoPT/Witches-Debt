@@ -63,7 +63,7 @@ public class InventoryModel
             for (var i = 0; i < DEAFULT_SPELL_MOD_CAPACITY; i++)
                 spellsStorages[spell].Add(null);
         }
-
+        spellsStorages[SpellType.Shot] = new() { new RocketMod().ToString(), new TripleShot().ToString() };
         Instance = this;
     }
 

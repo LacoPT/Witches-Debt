@@ -45,5 +45,6 @@ public class EnemyPool
     private void OnDestroyEnemy(EnemyModelMB e)
     {
         Object.Destroy(e.gameObject);
+        registry.Unregister(e);
     }
 }

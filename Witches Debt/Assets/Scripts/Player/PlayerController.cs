@@ -11,20 +11,35 @@ public class PlayerController : MonoBehaviour, IActor
     private Vector2 moveInput;
     private EnemyRegistry enemyRegistry;
     private PlayerTargetProvider targetProvider;
+    private PlayerControls playerControls;
     private PlayerStats model;
 
-    [Inject]
-    public void Construct(PlayerTargetProvider targetProvider, PlayerControls playerControls)
+
+    public void Awake()
     {
-        this.targetProvider = targetProvider;
+        targetProvider = ProjectContext.Instance.Container.Resolve<PlayerTargetProvider>();
         targetProvider.SetTarget(transform);
         var input = GetComponent<PlayerInput>();
+        playerControls = ProjectContext.Instance.Container.Resolve<PlayerControls>();
         playerControls.SetPlayerInput(input);
     }
+    //[Inject]
+    //public void Construct(DiContainer container, PlayerTargetProvider targetProvider, PlayerControls playerControls)
+    //{
+    //    this.targetProvider = targetProvider;
+    //    targetProvider.SetTarget(transform);
+    //    var input = GetComponent<PlayerInput>();
+    //    playerControls.SetPlayerInput(input);
+    //    this.container = container;
+    //}
 
     public void Initialize(IInstanceModel model)
     {
         this.model = (PlayerStats)model;
+        var loader = GetComponent<SpellLoader>();
+        loader.ClearAllCasters();
+        //loader.TestLoadDefault();
+        loader.LoadFromInventoryModel(InventoryModel.GetInstance());
     }
 
     public void OnMove(InputAction.CallbackContext context)

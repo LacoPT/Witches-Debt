@@ -29,7 +29,7 @@ public class Portal : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            EntryPoint.Instance.OnLoad(nextSceneIndices[Random.Range(0, nextSceneIndices.Count)]);
+            EntryPoint.Instance.Load(nextSceneIndices[Random.Range(0, nextSceneIndices.Count)]);
         }
     }
 }

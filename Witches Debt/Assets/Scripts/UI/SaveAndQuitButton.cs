@@ -14,7 +14,7 @@ public class SaveAndQuitButton : MonoBehaviour
     private void SaveAndQuit()
     {
         var entryPoint = EntryPoint.Instance;
-        entryPoint.OnSave(nextSceneIndex);
-        entryPoint.OnMenuLoad();
+        entryPoint.Save(nextSceneIndex);
+        entryPoint.LoadMenu();
     }
 }
