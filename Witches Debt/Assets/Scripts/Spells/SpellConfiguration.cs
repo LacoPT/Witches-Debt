@@ -6,9 +6,11 @@ using Zenject;
 
 public class SpellConfiguration
 {
-   public SpellPrefabConfig PrefabConfig;
-   public GameObject Prefab;
-   public List<SpellMod> mods = new();
+   //These are set externally instead of in constructor, because they're initalizing with container and i don't know
+   //how to pass parameters to them
+   public GameObject Prefab { get; set; }
+   public SpellType Type { get; set; }
+   public List<SpellMod> Mods { get; set; } = new();
 
    private ModLibrary library;
 
@@ -17,32 +19,11 @@ public class SpellConfiguration
    {
        this.library = library;
    }
+   
    public Spell ApplyMods(Spell spell)
    {
-      foreach (var mod in mods) mod.Apply(spell);
+      foreach (var mod in Mods) mod.Apply(spell);
       spell.config = this;
       return spell;
    }
-
-   [Obsolete]
-    public SpellConfigurationSaveData ToSaveData()
-    {
-        var data = new SpellConfigurationSaveData();
-        data.PrefabConfig = PrefabConfig;
-        foreach (var mod in mods)
-        {
-            data.ModTypes.Add(mod.GetType().Name);
-        }
-        return data;
-    }
-
-    [Obsolete]
-    public void FromSaveData(SpellConfigurationSaveData data)
-    {
-        PrefabConfig = data.PrefabConfig;
-        foreach (var mod in data.ModTypes)
-        {
-            mods.Add(library.GetModByName(mod));
-        }
-    }
 }
