@@ -990,9 +990,6 @@ MonoBehaviour:
   spellSlotPrefab: {fileID: 2960807616144168654, guid: 03f40923e5ce0cc459f53a9b9fdfe206, type: 3}
   inventoryItemPrefab: {fileID: 2764851161583258010, guid: d81d5bc726578bd4d817f8be6e75db6c, type: 3}
   modsInventoryPrefab: {fileID: 2308970521435473035, guid: 5a892c910ff15264d967cdaab6bc8725, type: 3}
-  removeButton: {fileID: 926903305448000705}
-  configToAdd: {fileID: 11400000, guid: 86c3ba06010328741ac2c29912ec588b, type: 2}
-  configToAdd2: {fileID: 11400000, guid: e8bb8ac210d8f294fba688125733c740, type: 2}
   spells: 0000000000000000
   storageCapacity: 9
   spellModsCapacity: 4
@@ -1395,10 +1392,10 @@ RectTransform:
   - {fileID: 5813399125563106757}
   m_Father: {fileID: 8868959959764590247}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 225, y: 190.57}
-  m_SizeDelta: {x: 370, y: 46.6081}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1673012843869891129
 CanvasRenderer:
