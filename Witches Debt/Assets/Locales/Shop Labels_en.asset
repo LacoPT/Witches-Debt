@@ -61,31 +61,47 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 15165367455764480
-    m_Localized: 'Move up:'
+    m_Localized: Move up
     m_Metadata:
       m_Items: []
   - m_Id: 15165781521649664
-    m_Localized: 'General volume:'
+    m_Localized: General volume
     m_Metadata:
       m_Items: []
   - m_Id: 15165828862758912
-    m_Localized: 'Music:'
+    m_Localized: Music
     m_Metadata:
       m_Items: []
   - m_Id: 15165852669628416
-    m_Localized: 'Effects volume:'
+    m_Localized: Effects volume
     m_Metadata:
       m_Items: []
   - m_Id: 15165899352231936
-    m_Localized: 'Move down:'
+    m_Localized: Move down
     m_Metadata:
       m_Items: []
   - m_Id: 15165945011425280
-    m_Localized: 'Move left:'
+    m_Localized: Move left
     m_Metadata:
       m_Items: []
   - m_Id: 15166124556996608
     m_Localized: Move right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15177994466676736
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15178228651446272
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15187624529940480
+    m_Localized: SETTINGS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15188664788635648
+    m_Localized: Return
     m_Metadata:
       m_Items: []
   references:

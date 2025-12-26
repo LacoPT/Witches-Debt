@@ -83,6 +83,22 @@ MonoBehaviour:
     m_Key: UI_test/OptionsUI/Right/Text (TMP)
     m_Metadata:
       m_Items: []
+  - m_Id: 15177994466676736
+    m_Key: UI_test/OptionsUI/Options/General/Button/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15178228651446272
+    m_Key: UI_test/OptionsUI/Options/General/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15187624529940480
+    m_Key: UI_test/OptionsUI/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15188664788635648
+    m_Key: UI_test/OptionsUI/ReturnButton/Text (TMP)
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
