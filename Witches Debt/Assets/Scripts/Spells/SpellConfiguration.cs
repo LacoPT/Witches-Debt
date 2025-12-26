@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -23,6 +24,7 @@ public class SpellConfiguration
       return spell;
    }
 
+   [Obsolete]
     public SpellConfigurationSaveData ToSaveData()
     {
         var data = new SpellConfigurationSaveData();
@@ -34,6 +36,7 @@ public class SpellConfiguration
         return data;
     }
 
+    [Obsolete]
     public void FromSaveData(SpellConfigurationSaveData data)
     {
         PrefabConfig = data.PrefabConfig;

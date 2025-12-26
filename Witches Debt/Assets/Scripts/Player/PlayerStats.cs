@@ -4,28 +4,15 @@ using Zenject;
 using Object = UnityEngine.Object;
 public class PlayerStats : IInstanceModel
 {
-    
-    public float MaxHP {get; set; }
-    public float MoveSpeed {get; set; }
-    public float CastSpeed {get; set; }
-    public float VampChance {get; set; }
-    public float Regeneration {get; set; }
-    public float HealPercent {get; set; }
-    public float DodgeChance {get; set; }
-    public float Armor {get; set; }
+    public float MaxHP { get; set; }
+    public float MoveSpeed { get; set; }
+    public float CastSpeed { get; set; }
+    public float VampChance { get; set; }
+    public float Regeneration { get; set; }
+    public float HealPercent { get; set; }
+    public float DodgeChance { get; set; }
+    public float Armor { get; set; }
     public float Greed { get; set; }
-
-    private const string PREFAB_NAME = "Player Save Test";
-    private static readonly PlayerController prefab;
-
-    static PlayerStats()
-    {
-        prefab = Resources.Load<PlayerController>(PREFAB_NAME);
-    }
-
-    public PlayerStats()
-    {
-    }
 
     public PlayerSaveData ToSaveData()
     {

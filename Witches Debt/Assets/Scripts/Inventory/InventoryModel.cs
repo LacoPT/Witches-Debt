@@ -41,6 +41,9 @@ public class InventoryModel
         }
         this.storageCapacity = storageCapacity;
         this.spellModsCapacity = spellModsCapacity;
+        
+        //TODO: Make a safer alternative
+        Instance = this;
     }
 
     public bool TryAddNewSpell(SpellType spellType)
