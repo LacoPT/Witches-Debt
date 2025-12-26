@@ -1,22 +1,21 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static UnityEditor.Rendering.FilterWindow;
 
-public class PlayerControls : MonoBehaviour
+public class PlayerControls
 {
     private PlayerInput playerInput;
-    private InputAction moveAction;
-    public UnityEvent<string> BindChanged;
-    private void Awake()
-    {
-        playerInput = GetComponent<PlayerInput>();
-        moveAction = playerInput.actions.FindActionMap("Player").FindAction("Move");
-    }
-
-    public void OnRebindMove(int bindingIndex) => OnRebind(moveAction, bindingIndex);
+    public InputAction MoveAction => playerInput.actions.FindActionMap("Player").FindAction("Move");
+    private string bindingsPath => Application.persistentDataPath + "/bindings.json";
+    public event Action InputSet;
+    public event Action<string> BindChanged;
+    public void OnRebindMove(int bindingIndex) => OnRebind(MoveAction, bindingIndex);
 
     private void OnRebind(InputAction action, int bindingIndex)
     {
@@ -28,8 +27,29 @@ public class PlayerControls : MonoBehaviour
                 action.Enable();
                 operation.Dispose();
                 BindChanged?.Invoke(action.bindings[bindingIndex].effectivePath);
+                SaveBindings();
             })
             .Start();
-        
+    }
+
+    public void SetPlayerInput(PlayerInput input)
+    {
+        playerInput = input;
+        LoadBindings();
+        InputSet?.Invoke();
+    }
+
+    private void SaveBindings()
+    {
+        var json = playerInput.actions.SaveBindingOverridesAsJson();
+        File.WriteAllText(bindingsPath, json);
+    }
+
+    private void LoadBindings()
+    {
+        if (!File.Exists(bindingsPath)) return;
+        var json = File.ReadAllText(bindingsPath);
+        playerInput.actions.LoadBindingOverridesFromJson(json);
+        playerInput.actions.Enable();
     }
 }

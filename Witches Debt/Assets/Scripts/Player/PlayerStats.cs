@@ -1,4 +1,8 @@
-public class PlayerStats
+using Mono.Cecil;
+using UnityEngine;
+using Zenject;
+using Object = UnityEngine.Object;
+public class PlayerStats : IInstanceModel
 {
     public float MaxHP { get; set; }
     public float MoveSpeed { get; set; }
@@ -36,5 +40,12 @@ public class PlayerStats
         DodgeChance = data.DodgeChance;
         Armor = data.Armor;
         Greed = data.Greed;
+    }
+
+    public GameObject CreateInstance()
+    {
+        var player = Object.Instantiate(prefab);
+        player.Initialize(this);
+        return player.gameObject;
     }
 }

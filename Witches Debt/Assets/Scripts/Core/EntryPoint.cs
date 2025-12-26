@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Zenject;
+using Zenject.Asteroids;
 
 /// <summary>
 /// Monobehaviour class, that creates gameplay snene (Main scene)
@@ -13,7 +15,9 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class EntryPoint : MonoBehaviour
 {
-    [SerializeField] private int sceneIndex;
+    [SerializeField] private int menuSceneIndex = 1;
+    [SerializeField] private int firstLevelSceneIndex = 2;
+    private int nextSceneIndex;
     private int lastSceneIndex;
     private GameState gameState;
     /// <summary>
@@ -24,20 +28,28 @@ public class EntryPoint : MonoBehaviour
     private GameSaveLoader saveLoader = new();
 
     public static EntryPoint Instance; // TODO: remove with zenject
+
     public void Awake()
     {
+        lastSceneIndex = 0;
+        nextSceneIndex = menuSceneIndex;
         Instance = this;
         DontDestroyOnLoad(gameObject);
         //You can't reference the Application not in method
         serializer = new XMLGameSerializer(Application.persistentDataPath + "/save.xml");
-        StartCoroutine(LoadScene());
+        OnMenuLoad();
     }
 
     /// <summary>
     /// Called by input, saves the game
     /// </summary>
-    public void OnSave()
+    public void OnSave(int nextSceneIndex = -1)
     {
+        if (nextSceneIndex != -1)
+        {
+            gameState.NextSceneIndex = nextSceneIndex;
+            this.nextSceneIndex = nextSceneIndex;
+        }
         saveLoader.SaveGame(serializer, gameState);
     }
 
@@ -46,50 +58,59 @@ public class EntryPoint : MonoBehaviour
     /// </summary>
     public void OnLoad(int newSceneIndex = -1)
     {
-        if (sceneIndex != -1)
-        {
-            lastSceneIndex = this.sceneIndex;
-            sceneIndex = newSceneIndex;
-        }
+        lastSceneIndex = nextSceneIndex;
         if (!saveLoader.TryLoadGame(serializer, ref gameState))
         {
             Debug.Log("Failed to load game");
             return;
         }
+        nextSceneIndex = (newSceneIndex != -1) ? newSceneIndex : gameState.NextSceneIndex;
+        StartCoroutine(LoadScene(defaultLoad: false));
+    }
 
-        StartCoroutine(UnloadScene());
-        StartCoroutine(LoadScene(false));
+    public void OnDefaultLoad()
+    {
+        lastSceneIndex = this.nextSceneIndex;
+        nextSceneIndex = firstLevelSceneIndex;
+        StartCoroutine(LoadScene());
+    }
+
+    public void OnMenuLoad()
+    {
+        lastSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        nextSceneIndex = menuSceneIndex;
+        StartCoroutine(LoadScene(defaultLoad: false, menuLoad: true));
     }
 
     /// <summary>
-    /// Called by input, reloads the game using default load
+    /// Called by button, reloads the game using default load
     /// </summary>
-    /// <param name="context"></param>
-    public void OnReload(InputAction.CallbackContext context)
+    public void OnReload()
     {
-        if (!context.started) return;
         Reload();
     }
 
     /// <summary>
     /// A general method that loads the gameplay *scene*, using SceneManager
     /// </summary>
-    private IEnumerator LoadScene(bool defaultLoad = true)
+    private IEnumerator LoadScene(bool defaultLoad = true, bool menuLoad = false)
     {
-        var load = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
+
+        var load = SceneManager.LoadSceneAsync(nextSceneIndex, LoadSceneMode.Additive);
         while (!load.isDone)
         {
             yield return null;
         }
-        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneIndex));
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(nextSceneIndex));
         if (defaultLoad)
         {
             DefaultLoad();
         }
-        else
+        else if (!menuLoad)
         {
             RestoreStateLoad();
         }
+        StartCoroutine(UnloadScene());
         BindEvents();
     }
 
@@ -99,10 +120,13 @@ public class EntryPoint : MonoBehaviour
     private void DefaultLoad()
     {
         gameState = new GameState();
-        var itemModel = new TestItemModel();
-        var item = itemModel.CreateInstance().GetComponent<TestItem>();
-        gameState.Create(itemModel);
-        gameState.BindItemDespawned(item.ItemPicked);
+        var playerModel = new PlayerStats();
+        var player = playerModel.CreateInstance().GetComponent<PlayerController>();
+        var playerSaveData = playerModel.ToSaveData();
+        gameState.PlayerStats = playerModel;
+        gameState.PlayerSaveData = playerSaveData;
+        ProjectContext.Instance.Container.Inject(player);
+        OnSave(); // is here for test purposes only TODO: remove
     }
 
     /// <summary>
@@ -117,7 +141,7 @@ public class EntryPoint : MonoBehaviour
     /// SceneManager.UnloadScene() is deprecated, and you can only use Async version, but since
     /// PlayerInput with UnityEvents invocation doesn't support Async methods, you simply create a coroutine
     /// that checks every frame if AsyncOperation is done yet
-    /// There's also nothing wrong (i think) with creating and destroying scene ant the same time
+    /// There's also nothing wrong (i think) with creating and destroying scene at the same time
     /// </summary>
     private IEnumerator UnloadScene()
     {
@@ -129,7 +153,7 @@ public class EntryPoint : MonoBehaviour
     }
 
     /// <summary>
-    /// Classes that require events from model data subsribe to it by itself
+    /// Classes that require events from model data subscribe to it by itself
     /// </summary>
     private void BindEvents()
     {
@@ -141,7 +165,13 @@ public class EntryPoint : MonoBehaviour
     /// </summary>
     private void Reload()
     {
-        StartCoroutine(UnloadScene());
-        StartCoroutine(LoadScene());
+        OnLoad(nextSceneIndex);
+    }
+
+    public bool IsContinueAvailable()
+    {
+        GameState testState = new();
+        if (!saveLoader.TryLoadGame(serializer, ref testState)) return false;
+        return testState.NextSceneIndex != 0;
     }
 }

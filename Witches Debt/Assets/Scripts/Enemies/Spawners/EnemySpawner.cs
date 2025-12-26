@@ -34,11 +34,11 @@ public class EnemySpawner : MonoBehaviour
     private void Awake()
     {
         InitializeBounds();
-        StartCoroutine(WaitForCooldown());
         for (var i = 0; i < EnemyNames.Count; i++)
         {
             enemyPools[EnemyNames[i]] = new EnemyPool(EnemyPrefabs[i], registry).Pool;
         }
+        StartCoroutine(WaitForSpawn());
     }
 
     private void InitializeBounds()
@@ -51,16 +51,16 @@ public class EnemySpawner : MonoBehaviour
 
     public void Update()
     {
-        if (onCooldown) return;
-        Spawn();
-        StartCoroutine(WaitForCooldown());
+        if (onCooldown || targetProvider.Position == null) return;
+        StartCoroutine(WaitForSpawn());
     }
 
-    public IEnumerator WaitForCooldown()
+    public IEnumerator WaitForSpawn()
     {
         onCooldown = true;
         yield return new WaitForSeconds(cooldown);
         onCooldown = false;
+        Spawn();
     }
 
     public void Spawn()
