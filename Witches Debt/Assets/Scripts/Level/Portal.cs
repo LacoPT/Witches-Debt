@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour
 {
-    [SerializeField] private List<int> nextSceneIndices;
     [SerializeField] private float timeToSpawn;
     [SerializeField] private List<Transform> spawnPoints;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Collider2D portalCollider;
+    [SerializeField] private NextSceneIndexSelector sceneIndexSelector;
     private void Awake()
     {
         if (spawnPoints.Count == 0) return;
@@ -29,7 +29,7 @@ public class Portal : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            EntryPoint.Instance.Load(nextSceneIndices[Random.Range(0, nextSceneIndices.Count)]);
+            EntryPoint.Instance.Load(sceneIndexSelector.NextSceneIndex);
         }
     }
 }

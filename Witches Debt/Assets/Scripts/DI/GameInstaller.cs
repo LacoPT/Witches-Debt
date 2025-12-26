@@ -7,5 +7,7 @@ public class GameInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.Bind<DotHelper>().FromNewComponentOnNewGameObject();
+        Container.Bind<PlayerTargetProvider>().AsSingle();
+        Container.Bind<EnemyRegistry>().AsSingle();
     }
 }

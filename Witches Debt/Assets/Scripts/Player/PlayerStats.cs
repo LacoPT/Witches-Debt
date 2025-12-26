@@ -25,6 +25,7 @@ public class PlayerStats : IInstanceModel
     {
     }
 
+
     public PlayerSaveData ToSaveData()
     {
         var data = new PlayerSaveData();
@@ -51,12 +52,5 @@ public class PlayerStats : IInstanceModel
         DodgeChance = data.DodgeChance;
         Armor = data.Armor;
         Greed = data.Greed;
-    }
-
-    public GameObject CreateInstance()
-    {
-        var player = Object.Instantiate(prefab);
-        player.Initialize(this);
-        return player.gameObject;
     }
 }

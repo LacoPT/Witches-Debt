@@ -29,7 +29,7 @@ public class ModLibrary
         RegisterMod(container.Instantiate<PoisonMod>());
     }
 
-    public void RegisterMod(SpellMod mod)
+    private void RegisterMod(SpellMod mod)
     {
         Mods.Add(mod.ToString(), mod);
         rarityPools[mod.Rarity].Add(mod);

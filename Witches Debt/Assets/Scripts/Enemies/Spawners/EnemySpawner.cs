@@ -25,10 +25,9 @@ public class EnemySpawner : MonoBehaviour
     [Inject]
     public void Construct(EnemyRegistry registry, PlayerTargetProvider targetProvider, DiContainer container)
     {
-        Debug.Log("Injection");
         this.registry = registry;
         this.targetProvider = targetProvider;
-        this.container = container; // idk what is this
+        this.container = container;
     }
 
     private void Awake()

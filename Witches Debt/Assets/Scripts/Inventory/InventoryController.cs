@@ -1,13 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.UIElements;
-using Button = UnityEngine.UI.Button;
+using Zenject;
 
 public class InventoryController : MonoBehaviour, IActor
 {
@@ -28,19 +24,23 @@ public class InventoryController : MonoBehaviour, IActor
     [SerializeField] List<SpellType> spells;
     [SerializeField] private int storageCapacity;
     [SerializeField] private int spellModsCapacity;
-    
     private Dictionary<GameObject, SpellType> spellSlots;
     // Contains SpellSlot from item was dragged;
     private SpellSlot spellSlotFrom;
     public Dictionary<GameObject, SpellType> GetSpellSlots() => spellSlots;
-    public void SetSpellFrom(SpellSlot spellSlot) => spellSlotFrom = spellSlot; 
-    
+    public void SetSpellFrom(SpellSlot spellSlot) => spellSlotFrom = spellSlot;
+
+    [Inject]
+    public void Construct(InventoryModel inventoryModel)
+    {
+        this.inventoryModel = inventoryModel;
+        Initialize(inventoryModel);
+    }
+
     public void Initialize(IInstanceModel model)
     {
         inventoryModel = model as InventoryModel;
         instance = this;
-        // Временное решение, пока нету некого подобия GameManager
-        //inventoryModel = new InventoryModel(spells, storageCapacity, spellModsCapacity);
         spellSlots = new Dictionary<GameObject, SpellType>();
         
         var inventoryItemsConfigs = GetConfigsFromNames(inventoryModel.Storage);
@@ -57,9 +57,7 @@ public class InventoryController : MonoBehaviour, IActor
                 inventoryModel.SpellModsCapacity);
         }
         
-        // Кнопка удаления первого модификатора
-        // removeButton.onClick.AddListener(RemoveFirstModificator);
-        // inventoryModel.OnInventoryChanged += UpdateInventoryView;
+        inventoryModel.OnInventoryChanged += UpdateInventoryView;
     }
     
     private List<InventoryItemConfig> GetConfigsFromNames(List<string> names)
@@ -88,6 +86,7 @@ public class InventoryController : MonoBehaviour, IActor
 
     private void CreateInventorySlots(List<InventoryItemConfig> items, GameObject inventoryToAdd, int capacity)
     {
+        capacity = Math.Min(capacity, items.Count);
         for (var i = 0; i < capacity; i++)
         {
             var spellSlot = Instantiate(spellSlotPrefab, inventoryToAdd.transform);
@@ -119,9 +118,6 @@ public class InventoryController : MonoBehaviour, IActor
             }
         }
     }
-
-    //Test Method
-    private void RemoveFirstModificator() => inventoryModel.RemoveItemFromStorage(0);
     
     private void UpdateInventorySlotsView(List<string> items, GameObject inventoryToAdd, int capacity)
     {
