@@ -17,6 +17,7 @@ public class PlayerControlsUI : MonoBehaviour
     {
         this.playerControls = playerControls;
         playerControls.InputSet += Initialize;
+        if (playerControls.InputIsSet) Initialize();
         playerControls.BindChanged += OnBindChanged;
     }
 
@@ -31,16 +32,17 @@ public class PlayerControlsUI : MonoBehaviour
         playerControls.InputSet -= Initialize;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         playerControls.BindChanged -= OnBindChanged;
+        playerControls.OnSceneUnload();
     }
 
     private void OnRebind(TMP_Text text, int bindingIndex)
     {
         text.text = changeBindText;
-        playerControls.OnRebindMove(bindingIndex);
         lastChanged = text;
+        playerControls.OnRebindMove(bindingIndex);
     }
 
     private void OnBindChanged(string newBindText)
