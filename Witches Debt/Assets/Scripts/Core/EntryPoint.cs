@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -77,6 +78,7 @@ public class EntryPoint : MonoBehaviour
         if (newSceneIndex == -1)
         {
             sceneIndex = gameState.NextSceneIndex;
+            if (gameState.NextSceneIndex == -1) throw new Exception("There is no save!");
             RestoreStateFromSave();
             StartCoroutine(LoadScene());
         }
@@ -142,6 +144,13 @@ public class EntryPoint : MonoBehaviour
     {
         var testState = new GameState();
         if (!saveLoader.TryLoadGame(serializer, ref testState)) return false;
-        return testState.NextSceneIndex > 0;
+        return testState.NextSceneIndex > 0 && testState.NextSceneIndex != menuSceneIndex;
+    }
+
+    public void OnPlayerDeath()
+    {
+        gameState.OnSaveDelete();
+        Save(menuSceneIndex);
+        LoadMenu();
     }
 }

@@ -34,4 +34,10 @@ public class GameState
         InventorySaveData = ProjectContext.Instance.Container.Resolve<InventoryModel>().ToSaveData();
     }
 
+    public void OnSaveDelete()
+    {
+        NextSceneIndex = -1;
+        PlayerSaveData = new();
+        InventorySaveData = new();
+    }
 }

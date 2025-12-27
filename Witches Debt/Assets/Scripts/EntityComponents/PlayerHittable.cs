@@ -17,6 +17,7 @@ public class PlayerHittable : MonoBehaviour
     {
         if (hp > 0) return;
         Death.Invoke();
+        EntryPoint.Instance.OnPlayerDeath(); // TODO: rework with zenject
         Destroy(gameObject);
     }
 }
