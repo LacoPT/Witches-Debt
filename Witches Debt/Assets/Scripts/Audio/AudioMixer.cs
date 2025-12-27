@@ -1,46 +1,30 @@
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
+using System;
 
-public class AudioMixer : MonoBehaviour
+public class AudioMixer
 {
-    [SerializeField] private Slider generalSlider;
-    [SerializeField] private Slider musicSlider;
-    [SerializeField] private Slider soundEffectsSlider;
-    // Should those field be saved? idk
-    //[SerializeField, Range(0, 1)] private float GeneralVolume;
-    //[SerializeField, Range(0, 1)] private float MusicVolume;
-    //[SerializeField, Range(0, 1)] private float SoundEffectsVolume;
-    public static AudioMixer Instance { get; private set; }
-    public UnityEvent<float> GeneralVolumeChanged;
-    public UnityEvent<float> MusicVolumeChanged;
-    public UnityEvent<float> SoundEffectsVolumeChanged;
+    public float GeneralVolume { get; private set; } = 1f;
+    public float MusicVolume {get; private set; } = 1f;
+    public float SoundEffectsVolume { get; private set; } = 1f;
 
-    private void Awake()
-    {
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-        generalSlider.onValueChanged.AddListener(OnGeneralVolumeChanged);
-        musicSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
-        soundEffectsSlider.onValueChanged.AddListener(OnSoundEffectsVolumeChanged);
-    }
+    public event Action<float> GeneralVolumeChanged;
+    public event Action<float> MusicVolumeChanged;
+    public event Action<float> SoundEffectsVolumeChanged;
 
-    private void OnGeneralVolumeChanged(float value)
+    public void OnGeneralVolumeChanged(float value)
     {
-        //GeneralVolume = value;
+        GeneralVolume = value;
         GeneralVolumeChanged?.Invoke(value);
     }
-    
-    private void OnMusicVolumeChanged(float value)
+
+    public void OnMusicVolumeChanged(float value)
     {
-        //MusicVolume = value;
+        MusicVolume = value;
         MusicVolumeChanged?.Invoke(value);
     }
-    
-    private void OnSoundEffectsVolumeChanged(float value)
+
+    public void OnSoundEffectsVolumeChanged(float value)
     {
-        //SoundEffectsVolume = value;
+        SoundEffectsVolume = value;
         SoundEffectsVolumeChanged?.Invoke(value);
     }
 }
