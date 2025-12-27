@@ -40,7 +40,7 @@ public class InventoryModel : IInstanceModel
         foreach (var spell in DEFAULT_SPELLS)
         {
             //spellsStorages[spell] = new List<string>();
-            spellsStorages[spell] = new() { new RocketMod().ToString(), new TripleShot().ToString() }; // temporary solution for testing purposes TODO: remove
+            spellsStorages[spell] = new() { nameof(RocketMod), nameof(TripleShot) }; // temporary solution for testing purposes TODO: remove
 
             for (var i = 0; i < spellModsCapacity - spellsStorages.Count; i++)
                 spellsStorages[spell].Add(null);

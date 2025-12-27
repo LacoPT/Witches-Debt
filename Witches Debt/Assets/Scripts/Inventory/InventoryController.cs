@@ -193,4 +193,9 @@ public class InventoryController : MonoBehaviour, IActor
         spellType = spellSlots[parentInventory];
         return GetConfigsFromNames(inventoryModel.SpellsStorages[spellType]);
     }
+
+    private void OnDestroy()
+    {
+        inventoryModel.OnInventoryChanged -= UpdateInventoryView;
+    }
 }

@@ -9,8 +9,8 @@ using Random = UnityEngine.Random;
 
 public class SpellCaster : MonoBehaviour
 {
-    [SerializeField] private float TestCastTime = 1.5f;
-    private AudioSource source; // TODO: move to separate class
+    private const float DefaultCastTime = 1.5f;
+    private AudioSource source;
     [SerializeField] private SpellPrefabConfig testSpellPrefabConfig;
     
     private SpellConfiguration config;
@@ -67,7 +67,7 @@ public class SpellCaster : MonoBehaviour
 
     private IEnumerator WaitForCooldown()
     {
-        yield return new WaitForSeconds(TestCastTime);
+        yield return new WaitForSeconds(DefaultCastTime);
         onCooldown = false;
     }
     
