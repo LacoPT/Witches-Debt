@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a027832cbc066a645b75bfb6999c28fc, type: 3}
-  m_Name: TripleShot
-  m_EditorClassIdentifier: Assembly-CSharp::InventoryItemSO
-  image: {fileID: 8320658711239090079, guid: 6460cda31c9dee54e9f60c9e75ad5fb7, type: 3}
+  m_Name: PoisonMod
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryItemConfig
+  image: {fileID: 4302883096546430443, guid: f52522863e5078b7ea119facf91f20a4, type: 3}
   rarity: 0
   type: 0
   itemName:

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 
 public abstract class Spell : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public abstract class Spell : MonoBehaviour
     public UnityEvent<EnemyHittable> Hit;
     public UnityEvent AfterUpdate;
     public UnityEvent PreDestroy;
+    
+    
 
     protected virtual void Awake()
     {

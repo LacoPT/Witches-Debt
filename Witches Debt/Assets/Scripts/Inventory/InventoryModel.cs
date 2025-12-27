@@ -47,9 +47,11 @@ public class InventoryModel : IInstanceModel
         }
         
         // temporary solution for adding mods into inventory
-        storage[0] = new RocketMod().ToString();
-        storage[1] = new TripleShot().ToString();
-        storage[2] = new SpeedUpMod().ToString();
+        storage[0] = nameof(RocketMod);
+        storage[1] = nameof(TripleShot);
+        storage[2] = nameof(SpeedUpMod);
+        storage[3] = nameof(PoisonMod);
+        
         
         Instance = this;
     }

@@ -12,5 +12,6 @@ public class ProjectInstaller : MonoInstaller
         Container.Bind<PlayerStats>().AsSingle();
         Container.Bind<InventoryModel>().AsSingle();
         Container.Bind<AudioMixer>().AsSingle();
+        Container.Bind<StatusEffectLibrary>().AsSingle();
     }
 }
