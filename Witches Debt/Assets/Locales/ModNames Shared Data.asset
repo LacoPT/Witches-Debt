@@ -15,8 +15,8 @@ MonoBehaviour:
   m_TableCollectionName: ModNames
   m_TableCollectionNameGuidString: 5476e614ac11c5d47bdedd5e370f027f
   m_Entries:
-  - m_Id: 457553924096
-    m_Key: TripleShotName
+  - m_Id: 11210801558790144
+    m_Key: PoisonModName
     m_Metadata:
       m_Items: []
   - m_Id: 243886275874816
@@ -25,6 +25,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 243965288173568
     m_Key: SpeedUpModName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457553924096
+    m_Key: TripleShotName
     m_Metadata:
       m_Items: []
   m_Metadata:
