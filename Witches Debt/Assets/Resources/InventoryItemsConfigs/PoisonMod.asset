@@ -17,9 +17,9 @@ MonoBehaviour:
   type: 0
   itemName:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:5476e614ac11c5d47bdedd5e370f027f
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 11210801558790144
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
