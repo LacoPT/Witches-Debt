@@ -16,6 +16,7 @@ public class AreaSpell : Spell
         if (collision.TryGetComponent<EnemyHittable>(out var hittable))
         {
             hittable.TakeDamage(data.baseDamage);
+            Hit.Invoke(hittable);
         }
     }
 }

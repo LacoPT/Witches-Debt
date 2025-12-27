@@ -5,7 +5,8 @@ using UnityEngine;
 public class DotHelper : MonoBehaviour
 {
     private List<EnemyHittable> hittables = new();
-    private readonly WaitForSeconds dotTimeout = new WaitForSeconds(0.25f);
+    private List<EnemyHittable> hittablesToUnregister = new();
+    private readonly WaitForSeconds dotTimeout = new WaitForSeconds(0.5f);
     private Coroutine dotRoutine;
 
     private void Awake()
@@ -18,6 +19,9 @@ public class DotHelper : MonoBehaviour
         while (true)
         {
             yield return dotTimeout;
+            foreach (var hittable in hittablesToUnregister)
+                hittables.Remove(hittable);
+            hittablesToUnregister.Clear();
             foreach (var hittable in hittables) hittable.DotTick();
         }
     }
@@ -25,11 +29,13 @@ public class DotHelper : MonoBehaviour
     public void RegisterForDot(EnemyHittable hittable)
     {
         hittables.Add(hittable);
+        //Debug.Log($"{hittable} registered for dot");
     }
 
     public void UnregisterForDot(EnemyHittable hittable)
     {
-        hittables.Remove(hittable);
+        if(hittablesToUnregister.Contains(hittable)) return;
+        hittablesToUnregister.Add(hittable);
     }
 
     private void OnDestroy()

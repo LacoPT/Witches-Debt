@@ -19,6 +19,7 @@ public class SpellLoader : MonoBehaviour
         this.inventoryModel = inventoryModel;
         ClearAllCasters();
         LoadFromInventoryModel();
+        //TestLoadDefault();
     }
 
     public void ClearAllCasters()
@@ -55,7 +56,7 @@ public class SpellLoader : MonoBehaviour
         spellConfiguration.Type = SpellType.Area;
         var caster = container.InstantiatePrefabForComponent<SpellCaster>(casterPrefab, transform);
         spellConfiguration.Mods.Add(library.Resolve<RocketMod>());
-        spellConfiguration.Mods.Add(library.Resolve<TripleShot>());
+        //spellConfiguration.Mods.Add(library.Resolve<TripleShot>());
         spellConfiguration.Mods.Add(library.Resolve<PoisonMod>());
         caster.UpdateConfiguration(spellConfiguration);
     }

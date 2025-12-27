@@ -21,13 +21,15 @@ public class EnemySpawner : MonoBehaviour
     private const float cooldown = 2.5f;
     private const float spawnRadius = 10f;
     private Dictionary<Bounds, float> bounds = new();
+    private DotHelper dotHelper;
 
     [Inject]
-    public void Construct(EnemyRegistry registry, PlayerTargetProvider targetProvider, DiContainer container)
+    public void Construct(EnemyRegistry registry, PlayerTargetProvider targetProvider, DiContainer container, DotHelper dotHelper)
     {
         this.registry = registry;
         this.targetProvider = targetProvider;
         this.container = container;
+        this.dotHelper = dotHelper;
     }
 
     private void Awake()
@@ -70,7 +72,7 @@ public class EnemySpawner : MonoBehaviour
         for (var i = 0; i < cnt; i++)
         {
             var enemy = enemyPools[current].Get();
-            enemy.Initialize(targetProvider, scaler, GetSpawnPosition());
+            enemy.Initialize(targetProvider, scaler, GetSpawnPosition(), dotHelper);
             enemy.EnemyDeath.AddListener(() =>
             {
                 enemyPools[enemy.Name].Release(enemy);

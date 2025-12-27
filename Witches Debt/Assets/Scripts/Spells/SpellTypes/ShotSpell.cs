@@ -24,6 +24,7 @@ public class ShotSpell : Spell
         {
             //TODO: Introduce a field with damage, or make a AttackData with effects that are being applied
             hittable.TakeDamage(data.baseDamage);
+            Hit.Invoke(hittable);
         }
         Destroy(gameObject);
     }

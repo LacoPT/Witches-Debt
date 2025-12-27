@@ -8,6 +8,7 @@ public class EnemyModelMB : MonoBehaviour
 
     private float maxHealth;
     private float currentHealth;
+    public DotHelper DotHelper { get; private set; }
 
     public EnemyNames Name => config.EnemyName;
     public int Cost => config.Cost;
@@ -36,11 +37,12 @@ public class EnemyModelMB : MonoBehaviour
         EnemyDeath.RemoveAllListeners();
     }
 
-    public void Initialize(PlayerTargetProvider target, EnemyStatsScaler scaler, Vector2 position)
+    public void Initialize(PlayerTargetProvider target, EnemyStatsScaler scaler, Vector2 position, DotHelper dotHelper)
     {
         SetTarget(target);
         ScaleStats(scaler);
         SetPosition(position);
+        DotHelper = dotHelper;
     }
 
     public void SetTarget(PlayerTargetProvider target)
